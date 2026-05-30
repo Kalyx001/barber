@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kinyozi Elite — Premium Barbershop</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
 :root{
   --ink:#0a0806;--carbon:#111009;--dark:#1a1510;--mid:#2e2518;--surface:#3d3224;
@@ -63,6 +65,2251 @@ nav.scrolled{top:0;background:rgba(10,8,6,0.95);backdrop-filter:blur(20px);borde
 .hamburger.open span:nth-child(3){transform:rotate(-45deg)translate(4.5px,-4.5px)}
 .mobile-menu{display:none;position:fixed;inset:0;background:rgba(10,8,6,0.98);z-index:890;flex-direction:column;justify-content:center;align-items:center;gap:2.5rem}
 .mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--cream);text-decoration:none;letter-spacing:0.1em;transition:color 0.2s}
+.mobile-menu a:hover{color:var(--gold)}
+
+/* ===== HERO ===== */
+#home{height:100vh;position:relative;overflow:hidden;margin-top:28px;display:grid;grid-template-columns:1fr 1fr}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:8% 5% 8% 8%;position:relative;z-index:2}
+.hero-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--brass);margin-bottom:1rem;display:flex;align-items:center;gap:1rem}
+.hero-eyebrow::before{content:'';width:40px;height:1px;background:var(--brass)}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,6.5vw,7.5rem);line-height:0.92;color:var(--cream);letter-spacing:0.03em;margin-bottom:1.5rem}
+.hero-title em{color:var(--gold);font-style:normal}
+.hero-sub{font-size:1rem;line-height:1.7;color:var(--muted);max-width:380px;margin-bottom:2.5rem;font-weight:300}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{background:var(--gold);color:var(--ink);padding:1rem 2.5rem;font-family:'Barlow Condensed',sans-serif;font-size:0.9rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);transition:all 0.25s;display:inline-flex;align-items:center;gap:0.6rem}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-3px);box-shadow:0 10px 30px rgba(232,184,75,0.35)}
+.btn-secondary{background:transparent;color:var(--cream);padding:1rem 2.5rem;font-family:'Barlow Condensed',sans-serif;font-size:0.9rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;border:1px solid var(--dim);cursor:pointer;transition:all 0.25s;display:inline-flex;align-items:center;gap:0.6rem}
+.btn-secondary:hover{border-color:var(--gold);color:var(--gold)}
+.hero-stats{display:flex;gap:2.5rem;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--dim)}
+.h-stat-num{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--gold);line-height:1}
+.h-stat-lbl{font-size:0.7rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-top:0.2rem}
+.hero-right{position:relative;overflow:hidden}
+.hero-bg{width:100%;height:100%;background:linear-gradient(160deg,var(--dark) 0%,var(--ink) 60%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;position:relative}
+.hero-bg::before{content:'✂';font-size:18rem;position:absolute;color:rgba(201,150,42,0.04);right:-2rem;top:50%;transform:translateY(-50%) rotate(15deg);line-height:1}
+.hero-badge-float{position:absolute;bottom:2.5rem;left:-1.5rem;background:var(--carbon);border:1px solid var(--dim);padding:1.2rem 1.6rem;border-left:3px solid var(--gold);animation:floatBadge 3s ease-in-out infinite}
+@keyframes floatBadge{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.badge-num{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--gold);line-height:1}
+.badge-txt{font-size:0.68rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted)}
+.hero-chair{font-size:9rem;filter:drop-shadow(0 20px 60px rgba(0,0,0,0.8));animation:chairIn 1s ease 2.2s both}
+@keyframes chairIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.hero-dots{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;gap:0.5rem;z-index:10}
+.h-dot{width:6px;height:6px;border-radius:50%;background:var(--dim);cursor:pointer;transition:all 0.3s}
+.h-dot.active{background:var(--gold);width:20px;border-radius:3px}
+
+/* STRIP */
+.strip{background:var(--dark);border-top:1px solid var(--dim);border-bottom:1px solid var(--dim);padding:1.3rem 5%;display:flex;justify-content:center;gap:4rem;flex-wrap:wrap}
+.strip-item{display:flex;align-items:center;gap:0.8rem;font-family:'Barlow Condensed',sans-serif;font-size:0.82rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)}
+.strip-item span{font-size:1.3rem}
+.strip-item:hover{color:var(--gold);cursor:default}
+
+/* SECTION BASE */
+.sec{padding:7rem 8%}
+.sec-tag{font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--brass);margin-bottom:0.8rem;display:flex;align-items:center;gap:1rem}
+.sec-tag::before{content:'';width:30px;height:1px;background:var(--brass)}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,4vw,4.5rem);line-height:1;color:var(--cream);letter-spacing:0.03em;margin-bottom:1rem}
+.sec-sub{font-size:0.95rem;color:var(--muted);line-height:1.75;max-width:500px;font-weight:300}
+
+/* ===== SERVICES ===== */
+#services{background:var(--carbon)}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--dim);margin-top:3.5rem;border:1px solid var(--dim)}
+.service-card{background:var(--carbon);padding:2.2rem;transition:all 0.3s;cursor:pointer;position:relative;overflow:hidden}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transition:transform 0.3s;transform-origin:left}
+.service-card:hover::before{transform:scaleX(1)}
+.service-card:hover{background:var(--dark)}
+.svc-icon{font-size:2.2rem;margin-bottom:1.2rem;display:block}
+.svc-name{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--cream);margin-bottom:0.5rem}
+.svc-desc{font-size:0.82rem;color:var(--muted);line-height:1.65;font-weight:300;margin-bottom:1.2rem}
+.svc-price{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--gold);letter-spacing:0.05em}
+.svc-duration{font-size:0.68rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--dim);margin-top:0.2rem}
+.svc-book-btn{margin-top:1rem;background:transparent;border:1px solid var(--dim);color:var(--muted);padding:0.5rem 1.2rem;font-family:'Barlow Condensed',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;transition:all 0.25s;width:100%}
+.svc-book-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(232,184,75,0.06)}
+
+/* ===== MEMBERSHIP ===== */
+#membership{background:var(--ink);position:relative;overflow:hidden}
+#membership::before{content:'MEMBER';font-family:'Bebas Neue',sans-serif;font-size:18rem;position:absolute;right:-2rem;top:50%;transform:translateY(-50%);color:rgba(201,150,42,0.03);letter-spacing:0.1em;pointer-events:none;line-height:1}
+.mem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem}
+.mem-card{background:var(--carbon);border:1px solid var(--dim);padding:2.5rem 2rem;position:relative;transition:all 0.35s;overflow:hidden}
+.mem-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,150,42,0.05),transparent);opacity:0;transition:opacity 0.3s}
+.mem-card:hover{border-color:var(--brass);transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+.mem-card:hover::after{opacity:1}
+.mem-card.featured{border-color:var(--gold);background:linear-gradient(160deg,var(--dark),var(--carbon))}
+.mem-featured-tag{position:absolute;top:0;right:0;background:var(--gold);color:var(--ink);font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;padding:0.3rem 0.9rem;clip-path:polygon(0 0,100% 0,100% 100%,10px 100%)}
+.mem-tier{font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--brass);margin-bottom:0.5rem}
+.mem-name{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--cream);letter-spacing:0.06em;margin-bottom:0.3rem}
+.mem-price{margin-bottom:1.5rem}
+.mem-price .amount{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--gold);line-height:1}
+.mem-price .period{font-size:0.78rem;color:var(--muted);font-weight:300}
+.mem-perks{list-style:none;display:flex;flex-direction:column;gap:0.7rem;margin-bottom:2rem}
+.mem-perks li{display:flex;align-items:flex-start;gap:0.7rem;font-size:0.84rem;color:var(--warm);font-weight:300;line-height:1.5}
+.mem-perks li::before{content:'✦';color:var(--gold);font-size:0.6rem;margin-top:4px;flex-shrink:0}
+.mem-perks li.disabled{color:var(--dim);text-decoration:line-through}
+.mem-perks li.disabled::before{color:var(--dim)}
+.mem-cta{width:100%;background:var(--gold);color:var(--ink);border:none;padding:0.9rem;font-family:'Barlow Condensed',sans-serif;font-size:0.9rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;transition:all 0.25s;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%)}
+.mem-cta:hover{background:var(--gold-light);transform:translateY(-2px)}
+.mem-cta.outline{background:transparent;color:var(--warm);border:1px solid var(--dim);clip-path:none}
+.mem-cta.outline:hover{border-color:var(--gold);color:var(--gold);background:rgba(232,184,75,0.06);transform:translateY(-2px)}
+
+/* MEMBER DASHBOARD */
+#memberDash{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:2000;backdrop-filter:blur(8px);align-items:center;justify-content:center}
+#memberDash.open{display:flex}
+.dash-panel{background:var(--carbon);border:1px solid var(--dim);width:90%;max-width:900px;max-height:88vh;overflow-y:auto;border-top:3px solid var(--gold)}
+.dash-header{padding:1.5rem 2rem;border-bottom:1px solid var(--dim);display:flex;justify-content:space-between;align-items:center;background:var(--dark);position:sticky;top:0;z-index:5}
+.dash-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--gold);letter-spacing:0.08em}
+.dash-close{background:none;border:1px solid var(--dim);color:var(--muted);width:32px;height:32px;cursor:pointer;font-size:1rem;transition:all 0.2s;display:flex;align-items:center;justify-content:center}
+.dash-close:hover{border-color:var(--red);color:var(--red)}
+.dash-body{padding:2rem}
+.dash-member-card{background:linear-gradient(135deg,var(--dark),var(--mid));border:1px solid var(--dim);padding:2rem;margin-bottom:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;border-left:4px solid var(--gold)}
+.dash-member-name{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--cream);letter-spacing:0.05em}
+.dash-member-tier{font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--brass)}
+.dash-member-since{font-size:0.75rem;color:var(--muted)}
+.dash-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
+.dash-stat{background:var(--dark);border:1px solid var(--dim);padding:1.2rem;text-align:center}
+.dash-stat-num{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--gold)}
+.dash-stat-lbl{font-size:0.65rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-top:0.2rem}
+.dash-section-title{font-family:'Barlow Condensed',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--dim)}
+.visits-list{display:flex;flex-direction:column;gap:0.6rem;margin-bottom:2rem}
+.visit-item{display:flex;justify-content:space-between;align-items:center;padding:0.8rem 1rem;background:var(--dark);border:1px solid var(--dim)}
+.visit-svc{font-family:'Barlow Condensed',sans-serif;font-size:0.9rem;font-weight:600;letter-spacing:0.05em;color:var(--cream);text-transform:uppercase}
+.visit-barber{font-size:0.72rem;color:var(--muted)}
+.visit-date{font-size:0.75rem;color:var(--muted)}
+.visit-amt{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:var(--gold)}
+.progress-bar-wrap{background:var(--dark);border:1px solid var(--dim);padding:1.5rem;margin-bottom:2rem}
+.progress-label{font-size:0.78rem;color:var(--warm);margin-bottom:0.8rem}
+.progress-track{height:8px;background:var(--dim);border-radius:4px;overflow:hidden;margin-bottom:0.5rem}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--brass),var(--gold));border-radius:4px;transition:width 1s ease}
+.progress-sub{font-size:0.7rem;color:var(--muted);display:flex;justify-content:space-between}
+.loyalty-pts{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--gold)}
+
+/* ===== BOOKING ===== */
+#booking{background:var(--dark);position:relative;overflow:hidden}
+#booking::before{content:'';position:absolute;top:0;left:0;width:40%;height:100%;background:linear-gradient(180deg,var(--ink),var(--carbon));z-index:0}
+.booking-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1.4fr;gap:4rem;align-items:start}
+.booking-info .sec-sub{margin-bottom:2rem}
+.booking-steps{display:flex;flex-direction:column;gap:1.2rem}
+.bk-step{display:flex;gap:1rem;align-items:flex-start;padding:1rem;border-left:2px solid var(--dim);transition:all 0.25s}
+.bk-step.active-step{border-left-color:var(--gold)}
+.bk-step-num{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--dim);line-height:1;flex-shrink:0;width:32px}
+.bk-step.active-step .bk-step-num{color:var(--gold)}
+.bk-step h4{font-family:'Barlow Condensed',sans-serif;font-size:0.9rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--warm)}
+.bk-step p{font-size:0.78rem;color:var(--muted);margin-top:0.2rem;font-weight:300}
+.booking-form{background:var(--carbon);border:1px solid var(--dim);border-top:3px solid var(--gold);padding:2.5rem}
+.booking-form .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.booking-form .form-group{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1rem}
+.booking-form label{font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted)}
+.booking-form input,.booking-form select,.booking-form textarea{background:var(--dark);border:1px solid var(--dim);padding:0.8rem 1rem;color:var(--cream);font-family:'Barlow',sans-serif;font-size:0.88rem;outline:none;transition:border 0.2s;width:100%}
+.booking-form input:focus,.booking-form select:focus,.booking-form textarea:focus{border-color:var(--gold)}
+.booking-form select option{background:var(--carbon)}
+.svc-selector{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;margin-bottom:1.2rem}
+.svc-pill{padding:0.7rem;border:1px solid var(--dim);background:var(--dark);color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;text-align:center}
+.svc-pill.selected{border-color:var(--gold);color:var(--gold);background:rgba(232,184,75,0.08)}
+.svc-pill:hover{border-color:var(--brass);color:var(--brass)}
+.time-slots{display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;margin-bottom:1.2rem}
+.time-slot{padding:0.5rem;border:1px solid var(--dim);background:var(--dark);color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.08em;cursor:pointer;text-align:center;transition:all 0.2s}
+.time-slot.selected{border-color:var(--gold);color:var(--gold);background:rgba(232,184,75,0.08)}
+.time-slot.booked{opacity:0.3;cursor:not-allowed;text-decoration:line-through}
+.time-slot:not(.booked):hover{border-color:var(--brass)}
+.book-submit{width:100%;background:var(--gold);color:var(--ink);border:none;padding:1rem;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);transition:all 0.25s;margin-top:0.5rem}
+.book-submit:hover{background:var(--gold-light);transform:translateY(-2px)}
+.booking-confirm{display:none;background:rgba(37,211,102,0.07);border:1px solid rgba(37,211,102,0.25);padding:1.5rem;text-align:center}
+.booking-confirm.show{display:block}
+.booking-confirm h3{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--wa);letter-spacing:0.1em;margin-bottom:0.5rem}
+.booking-confirm p{font-size:0.85rem;color:var(--muted)}
+
+/* ===== BARBERS ===== */
+#barbers{background:var(--ink)}
+.barbers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3.5rem}
+.barber-card{background:var(--carbon);border:1px solid var(--dim);overflow:hidden;transition:all 0.3s;cursor:pointer}
+.barber-card:hover{border-color:var(--brass);transform:translateY(-5px);box-shadow:0 20px 50px rgba(0,0,0,0.5)}
+.barber-img{height:260px;background:var(--dark);display:flex;align-items:center;justify-content:center;font-size:6rem;position:relative;overflow:hidden}
+.barber-img::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(10,8,6,0.8) 0%,transparent 50%)}
+.barber-availability{position:absolute;top:1rem;right:1rem;z-index:2;padding:0.3rem 0.7rem;font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase}
+.available{background:rgba(37,211,102,0.2);border:1px solid rgba(37,211,102,0.4);color:var(--wa)}
+.busy{background:rgba(192,57,43,0.2);border:1px solid rgba(192,57,43,0.4);color:#e74c3c}
+.barber-body{padding:1.5rem}
+.barber-name{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--cream);letter-spacing:0.05em;margin-bottom:0.2rem}
+.barber-title{font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--brass);margin-bottom:0.8rem}
+.barber-specialties{display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:1rem}
+.barber-tag{padding:0.25rem 0.6rem;border:1px solid var(--dim);font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
+.barber-rating{display:flex;align-items:center;gap:0.5rem;font-size:0.82rem;color:var(--muted);margin-bottom:1rem}
+.barber-rating span{color:var(--gold);font-size:0.9rem}
+.barber-book-btn{width:100%;background:transparent;border:1px solid var(--dim);color:var(--muted);padding:0.7rem;font-family:'Barlow Condensed',sans-serif;font-size:0.8rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;transition:all 0.25s}
+.barber-book-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(232,184,75,0.06)}
+
+/* ===== GALLERY ===== */
+#gallery{background:var(--carbon);overflow:hidden}
+.gallery-grid{display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:auto auto;gap:4px;margin-top:3rem}
+.gallery-item{background:var(--dark);display:flex;align-items:center;justify-content:center;font-size:3rem;cursor:pointer;overflow:hidden;position:relative;transition:all 0.3s}
+.gallery-item:nth-child(1){grid-column:span 2;grid-row:span 2;aspect-ratio:1/1;font-size:5rem}
+.gallery-item:nth-child(n+2){aspect-ratio:1/1}
+.gallery-item:hover{transform:scale(1.02);z-index:2}
+.gallery-overlay{position:absolute;inset:0;background:rgba(201,150,42,0.7);opacity:0;transition:opacity 0.3s;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink)}
+.gallery-item:hover .gallery-overlay{opacity:1}
+
+/* ===== REVIEWS ===== */
+#reviews{background:var(--ink)}
+.reviews-track-wrap{overflow:hidden;margin-top:3.5rem}
+.reviews-track{display:flex;gap:1.5rem;transition:transform 0.5s cubic-bezier(.4,0,.2,1)}
+.review-card{flex:0 0 380px;background:var(--carbon);border:1px solid var(--dim);padding:2rem;border-left:3px solid var(--gold);transition:all 0.3s}
+.review-card:hover{transform:translateY(-4px);border-left-color:var(--gold);box-shadow:0 12px 40px rgba(0,0,0,0.4)}
+.review-stars{color:var(--gold);font-size:1rem;margin-bottom:1rem;letter-spacing:0.1em}
+.review-text{font-size:0.9rem;color:var(--warm);line-height:1.75;font-weight:300;font-style:italic;margin-bottom:1.5rem}
+.reviewer{display:flex;gap:1rem;align-items:center}
+.reviewer-avatar{width:44px;height:44px;background:var(--mid);border:1px solid var(--dim);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--gold);flex-shrink:0}
+.reviewer-name{font-family:'Barlow Condensed',sans-serif;font-size:0.95rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--cream)}
+.reviewer-tier{font-size:0.68rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--brass)}
+.reviews-nav{display:flex;gap:0.6rem;margin-top:2rem}
+.rev-dot{width:7px;height:7px;background:var(--dim);cursor:pointer;transition:all 0.3s}
+.rev-dot.active{background:var(--gold);width:22px}
+
+/* ===== CONTACT ===== */
+#contact{background:var(--dark);display:grid;grid-template-columns:1fr 1fr;gap:5rem;padding:7rem 8%}
+.contact-items{display:flex;flex-direction:column;gap:1rem;margin-top:2rem}
+.contact-item{display:flex;gap:1.2rem;align-items:flex-start;padding:1.2rem;border:1px solid var(--dim);background:var(--carbon);transition:all 0.25s}
+.contact-item:hover{border-left-color:var(--gold);border-left-width:3px;transform:translateX(4px)}
+.contact-icon{width:44px;height:44px;background:var(--dark);border:1px solid var(--dim);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.contact-item h4{font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.3rem}
+.contact-item p,.contact-item a{font-size:0.92rem;color:var(--warm);text-decoration:none}
+.contact-item a:hover{color:var(--gold)}
+.map-box{border:1px solid var(--dim);height:400px;background:linear-gradient(135deg,var(--carbon),var(--dark));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;border-top:3px solid var(--gold)}
+.map-box p{font-size:0.85rem;color:var(--muted);text-align:center;line-height:1.7;max-width:220px}
+.btn-map{background:var(--gold);color:var(--ink);padding:0.7rem 1.8rem;font-family:'Barlow Condensed',sans-serif;font-size:0.85rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;transition:all 0.2s;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%)}
+.btn-map:hover{background:var(--gold-light)}
+
+/* HOURS TABLE */
+.hours-table{width:100%;border-collapse:collapse;margin-top:1.5rem}
+.hours-table td{padding:0.7rem 0.5rem;border-bottom:1px solid var(--dim);font-size:0.85rem}
+.hours-table td:first-child{color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;font-size:0.8rem}
+.hours-table td:last-child{color:var(--warm);text-align:right}
+.hours-table tr:last-child td{border-bottom:none}
+.open-now{color:var(--wa);font-weight:600}
+
+/* FOOTER */
+footer{background:var(--ink);border-top:1px solid var(--dim);padding:4rem 8% 2rem}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--gold);letter-spacing:0.1em;margin-bottom:0.8rem}
+.footer-brand p{font-size:0.82rem;color:var(--muted);line-height:1.75;font-weight:300;max-width:260px}
+.footer-col h4{font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--brass);margin-bottom:1.2rem}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:0.6rem}
+.footer-col ul li a{color:var(--muted);text-decoration:none;font-size:0.82rem;font-weight:300;transition:color 0.2s}
+.footer-col ul li a:hover{color:var(--gold)}
+.footer-bottom{padding-top:2rem;border-top:1px solid var(--dim);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-bottom p{font-size:0.75rem;color:var(--dim)}
+.social-links{display:flex;gap:0.6rem}
+.social-link{width:36px;height:36px;border:1px solid var(--dim);display:flex;align-items:center;justify-content:center;font-size:0.9rem;color:var(--muted);text-decoration:none;transition:all 0.25s}
+.social-link:hover{border-color:var(--gold);color:var(--gold);background:rgba(232,184,75,0.08)}
+
+/* WA FLOAT */
+.wa-float{position:fixed;bottom:2rem;right:2rem;z-index:500;width:56px;height:56px;background:var(--wa);display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 6px 24px rgba(37,211,102,0.4);text-decoration:none;transition:all 0.25s;animation:waPulse 3s ease-in-out infinite}
+.wa-float:hover{transform:scale(1.1);box-shadow:0 10px 35px rgba(37,211,102,0.6)}
+@keyframes waPulse{0%,100%{box-shadow:0 6px 24px rgba(37,211,102,0.4)}50%{box-shadow:0 6px 32px rgba(37,211,102,0.6),0 0 0 10px rgba(37,211,102,0.06)}}
+
+/* ===== ADMIN OVERLAY ===== */
+#adminOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:2000;backdrop-filter:blur(6px)}
+#adminOverlay.open{display:flex;align-items:stretch;justify-content:flex-end}
+#authScreen{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:10}
+.auth-card{background:var(--carbon);border:1px solid var(--dim);border-top:3px solid var(--gold);padding:2.5rem;width:100%;max-width:420px}
+.auth-logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--gold);text-align:center;letter-spacing:0.12em;margin-bottom:0.3rem}
+.auth-sub{font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:2rem}
+.auth-tabs{display:flex;border:1px solid var(--dim);overflow:hidden;margin-bottom:1.5rem}
+.auth-tab{flex:1;padding:0.7rem;text-align:center;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:0.82rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);background:transparent;border:none;transition:all 0.2s}
+.auth-tab.active{background:var(--gold);color:var(--ink)}
+.auth-form{display:flex;flex-direction:column;gap:1rem}
+.auth-field{display:flex;flex-direction:column;gap:0.4rem}
+.auth-field label{font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted)}
+.auth-field input{background:var(--dark);border:1px solid var(--dim);padding:0.75rem 1rem;color:var(--cream);font-family:'Barlow',sans-serif;font-size:0.88rem;outline:none;transition:border 0.2s}
+.auth-field input:focus{border-color:var(--gold)}
+.auth-btn{background:var(--gold);color:var(--ink);border:none;padding:0.85rem;font-family:'Barlow Condensed',sans-serif;font-size:0.95rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);transition:all 0.2s;margin-top:0.5rem}
+.auth-btn:hover{background:var(--gold-light);transform:translateY(-1px)}
+.auth-error{background:rgba(192,57,43,0.1);border:1px solid rgba(192,57,43,0.3);color:#e74c3c;padding:0.7rem 1rem;font-size:0.82rem;display:none}
+.auth-error.show{display:block}
+.auth-success{background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.2);color:var(--wa);padding:0.7rem 1rem;font-size:0.82rem;display:none}
+.auth-success.show{display:block}
+
+/* ADMIN PANEL */
+#adminPanel{width:100%;max-width:1000px;background:var(--carbon);height:100vh;overflow-y:auto;display:flex;flex-direction:column;animation:slideIn 0.4s ease;position:relative;z-index:5;border-left:1px solid var(--dim)}
+@keyframes slideIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
+.admin-header{padding:1.2rem 2rem;border-bottom:1px solid var(--dim);display:flex;justify-content:space-between;align-items:center;background:var(--dark);position:sticky;top:0;z-index:10}
+.admin-title{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--gold);letter-spacing:0.1em}
+.admin-header-right{display:flex;align-items:center;gap:0.8rem}
+.admin-user-badge{background:rgba(201,150,42,0.12);border:1px solid rgba(201,150,42,0.3);color:var(--gold);padding:0.3rem 0.8rem;font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase}
+.admin-logout{background:none;border:1px solid var(--dim);color:var(--muted);padding:0.4rem 0.9rem;font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.2s}
+.admin-logout:hover{background:rgba(192,57,43,0.15);border-color:#8b3535;color:#e07070}
+.admin-close-btn{background:none;border:1px solid var(--dim);color:var(--muted);width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.admin-close-btn:hover{border-color:var(--red);color:var(--red)}
+.admin-tabs{display:flex;border-bottom:1px solid var(--dim);background:var(--dark);overflow-x:auto}
+.admin-tab{padding:0.85rem 1.2rem;font-family:'Barlow Condensed',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap;background:none;border-left:none;border-right:none;border-top:none}
+.admin-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.admin-tab:hover{color:var(--warm)}
+.admin-body{padding:2rem;flex:1}
+.admin-section{display:none}
+.admin-section.active{display:block}
+.a-stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
+.a-stat{background:var(--dark);border:1px solid var(--dim);border-top:2px solid var(--gold);padding:1.2rem}
+.a-stat-lbl{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem}
+.a-stat-val{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--cream)}
+.a-stat-delta{font-size:0.7rem;color:var(--wa);margin-top:0.2rem}
+.admin-card{background:var(--dark);border:1px solid var(--dim);padding:1.5rem;margin-bottom:1.5rem}
+.admin-card-title{font-family:'Barlow Condensed',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:1.2rem;padding-bottom:0.6rem;border-bottom:1px solid var(--dim)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.form-group{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:0}
+.form-group label{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted)}
+.form-group input,.form-group select,.form-group textarea{background:var(--carbon);border:1px solid var(--dim);padding:0.7rem 0.9rem;color:var(--cream);font-family:'Barlow',sans-serif;font-size:0.86rem;outline:none;transition:border 0.2s;width:100%}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+.form-group select option{background:var(--carbon)}
+.form-group textarea{resize:vertical;min-height:70px}
+.admin-btn{background:var(--gold);color:var(--ink);border:none;padding:0.7rem 1.6rem;font-family:'Barlow Condensed',sans-serif;font-size:0.85rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);transition:all 0.2s}
+.admin-btn:hover{background:var(--gold-light);transform:translateY(-1px)}
+.admin-btn.secondary{background:transparent;border:1px solid var(--dim);color:var(--muted);clip-path:none}
+.admin-btn.secondary:hover{border-color:var(--gold);color:var(--gold)}
+.admin-btn.danger{background:#6b2222;color:#ffd0d0;clip-path:none}
+.admin-btn.danger:hover{background:#8b2e2e}
+.admin-btn.sm{padding:0.4rem 0.9rem;font-size:0.75rem}
+.a-table{width:100%;border-collapse:collapse}
+.a-table th{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);padding:0.6rem 0.8rem;text-align:left;border-bottom:1px solid var(--dim)}
+.a-table td{padding:0.75rem 0.8rem;border-bottom:1px solid rgba(255,255,255,0.03);font-size:0.82rem;color:rgba(240,232,216,0.8);vertical-align:middle}
+.a-table tr:hover td{background:rgba(255,255,255,0.02)}
+.tbl-badge{font-family:'Barlow Condensed',sans-serif;font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.6rem;border:1px solid}
+.tbl-badge.active{border-color:rgba(37,211,102,0.4);color:var(--wa);background:rgba(37,211,102,0.08)}
+.tbl-badge.pending{border-color:rgba(255,165,0,0.4);color:#ffaa30;background:rgba(255,165,0,0.08)}
+.tbl-badge.completed{border-color:rgba(100,150,200,0.4);color:#7eb8e8;background:rgba(100,150,200,0.08)}
+.tbl-badge.cancelled{border-color:rgba(192,57,43,0.4);color:#e74c3c;background:rgba(192,57,43,0.08)}
+.tbl-badge.gold{border-color:rgba(201,150,42,0.4);color:var(--gold);background:rgba(201,150,42,0.08)}
+.tbl-btn{background:rgba(255,255,255,0.05);border:1px solid var(--dim);color:rgba(240,232,216,0.6);padding:0.25rem 0.6rem;font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:all 0.2s}
+.tbl-btn:hover{background:rgba(255,255,255,0.1);color:var(--cream)}
+.tbl-btn.del{color:#c06060;border-color:rgba(192,57,43,0.3)}
+.tbl-btn.del:hover{background:rgba(180,60,60,0.15);color:#ff8888}
+.toggle-row{display:flex;justify-content:space-between;align-items:center;padding:0.9rem 0;border-bottom:1px solid var(--dim)}
+.toggle-row:last-child{border-bottom:none}
+.toggle-label{font-size:0.85rem;color:rgba(240,232,216,0.8)}
+.toggle-sub{font-size:0.72rem;color:var(--muted);margin-top:0.2rem}
+.toggle{width:44px;height:24px;background:var(--dim);border-radius:12px;position:relative;cursor:pointer;transition:background 0.3s;flex-shrink:0}
+.toggle.on{background:var(--brass)}
+.toggle::after{content:'';position:absolute;width:18px;height:18px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform 0.3s;box-shadow:0 1px 4px rgba(0,0,0,0.3)}
+.toggle.on::after{transform:translateX(20px)}
+.admin-msg{padding:0.8rem 1.2rem;font-family:'Barlow Condensed',sans-serif;font-size:0.82rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:1rem;display:none}
+.admin-msg.show{display:block}
+.admin-msg.success{background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.25);color:var(--wa)}
+.admin-msg.error{background:rgba(192,57,43,0.08);border:1px solid rgba(192,57,43,0.25);color:#e74c3c}
+
+/* COLOR PICKER SLOTS */
+.color-slots{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.5rem}
+.c-slot{width:32px;height:32px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:all 0.2s}
+.c-slot.selected{border-color:var(--cream);transform:scale(1.15)}
+
+/* ANIMATIONS */
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+.fade-left{opacity:0;transform:translateX(-28px);transition:opacity 0.7s ease,transform 0.7s ease}
+.fade-left.visible{opacity:1;transform:translateX(0)}
+.fade-right{opacity:0;transform:translateX(28px);transition:opacity 0.7s ease,transform 0.7s ease}
+.fade-right.visible{opacity:1;transform:translateX(0)}
+.stagger-1{transition-delay:0.1s}.stagger-2{transition-delay:0.2s}.stagger-3{transition-delay:0.3s}.stagger-4{transition-delay:0.4s}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .services-grid{grid-template-columns:repeat(2,1fr)}
+  .barbers-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .a-stats-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:900px){
+  nav .nav-links,nav .nav-right .btn-admin-nav{display:none}
+  .hamburger{display:flex}
+  #home{grid-template-columns:1fr;height:auto;padding-top:3rem}
+  .hero-right{height:50vw;min-height:300px}
+  .booking-inner{grid-template-columns:1fr}
+  #contact{grid-template-columns:1fr;gap:3rem;padding:4rem 5%}
+  .mem-grid{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:repeat(3,1fr)}
+  .gallery-item:nth-child(1){grid-column:span 2;grid-row:span 1}
+  .footer-grid{grid-template-columns:1fr;gap:2rem}
+  .sec{padding:4rem 5%}
+  .dash-stats{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  .hero-left{padding:5rem 5% 3rem}
+  .hero-title{font-size:clamp(3rem,13vw,5rem)}
+  .hero-ctas{flex-direction:column}
+  .hero-right{height:60vw;min-height:260px}
+  .barbers-grid{grid-template-columns:1fr 1fr}
+  .reviews-track .review-card{flex:0 0 300px}
+  .a-stats-grid{grid-template-columns:repeat(2,1fr)}
+  .form-row{grid-template-columns:1fr}
+  #adminPanel{max-width:100%;width:100%;height:100svh;border-radius:0}
+  .svc-selector{grid-template-columns:1fr 1fr}
+  .time-slots{grid-template-columns:repeat(3,1fr)}
+  .admin-header{padding:0.75rem 1rem;flex-wrap:nowrap}
+  .admin-title{font-size:1.1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px}
+  .admin-user-badge{display:none}
+  .admin-body{padding:0.75rem}
+  .admin-tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .admin-tabs::-webkit-scrollbar{display:none}
+  .admin-tab{padding:0.65rem 0.8rem;font-size:0.68rem;flex-shrink:0}
+  .admin-card{padding:1rem}
+  .a-stats-grid{gap:0.6rem}
+  .mem-grid{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}
+  .services-grid{grid-template-columns:1fr}
+  .strip{gap:1.5rem;padding:1rem 4%;flex-wrap:wrap}
+  .footer-grid{grid-template-columns:1fr;gap:2rem}
+  nav{padding:0.7rem 4%}
+  #home{grid-template-columns:1fr;height:auto;min-height:100svh}
+  .sec{padding:3.5rem 5%}
+}
+@media(max-width:900px){
+  nav .nav-links,nav .nav-right .btn-admin-nav{display:none}
+  .hamburger{display:flex}
+  #home{grid-template-columns:1fr;height:auto}
+  .hero-right{height:55vw;min-height:300px}
+  .booking-inner{grid-template-columns:1fr}
+  #contact{grid-template-columns:1fr;gap:3rem;padding:4rem 5%}
+  .mem-grid{grid-template-columns:1fr 1fr}
+  .gallery-grid{grid-template-columns:repeat(3,1fr)}
+  .gallery-item:nth-child(1){grid-column:span 2;grid-row:span 1}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+  .sec{padding:4rem 5%}
+  .dash-stats{grid-template-columns:repeat(2,1fr)}
+  #adminPanel{max-width:100%;width:100%}
+  .admin-body{padding:1rem}
+  .admin-tabs{overflow-x:auto;scrollbar-width:none}
+  .admin-tabs::-webkit-scrollbar{display:none}
+}
+@supports(padding:max(0px)){
+  nav{padding-left:max(5%,env(safe-area-inset-left));padding-right:max(5%,env(safe-area-inset-right))}
+  footer{padding-bottom:max(2rem,env(safe-area-inset-bottom))}
+  .wa-float{bottom:max(2rem,calc(env(safe-area-inset-bottom)+1rem))}
+}
+.leaflet-container{font-family:'Barlow',sans-serif}
+.leaflet-popup-content-wrapper{border-radius:4px;background:var(--carbon);border:1px solid var(--dim);color:var(--cream)}
+.leaflet-popup-content{margin:0.8rem 1rem;font-size:0.85rem}
+.leaflet-popup-tip{background:var(--carbon)}
+</style>
+</head>
+<body>
+
+<div id="preloader">
+  <div class="pre-scissors">✂️</div>
+  <div class="pre-logo">KINYOZI ELITE</div>
+  <div class="pre-bar"><div class="pre-fill"></div></div>
+</div>
+
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ANNOUNCE BAR -->
+<div class="announce" id="announceBar">
+  <div class="announce-inner">
+    <span>✂ Walk-ins Welcome Daily</span>
+    <span>⭐ Book Online — Secure Your Slot</span>
+    <span>👑 Members Get 20% Off Every Cut</span>
+    <span>📍 Nairobi CBD · Open 7 Days</span>
+    <span>💈 Hot Towel Shave from KES 500</span>
+    <span>🏆 Best Barbershop — Nairobi 2024</span>
+    <span>✂ Walk-ins Welcome Daily</span>
+    <span>⭐ Book Online — Secure Your Slot</span>
+    <span>👑 Members Get 20% Off Every Cut</span>
+    <span>📍 Nairobi CBD · Open 7 Days</span>
+    <span>💈 Hot Towel Shave from KES 500</span>
+    <span>🏆 Best Barbershop — Nairobi 2024</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo" onclick="scrollTop()">✂ KINYOZI <span>ELITE</span></div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#membership">Membership</a></li>
+    <li><a href="#booking">Book</a></li>
+    <li><a href="#barbers">Barbers</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="btn-admin-nav" onclick="openAdmin()">⚙ Admin</button>
+    <a class="btn-book" href="#booking">Book Now →</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:0.5rem">
+    <button id="mobileAdminBtn" onclick="openAdmin()" style="display:none;background:transparent;border:1px solid var(--dim);color:var(--muted);padding:0.4rem 0.7rem;font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer">⚙ ADMIN</button>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <div style="position:absolute;top:1.5rem;right:1.5rem;color:var(--warm);cursor:pointer;font-size:1.5rem;font-family:'Bebas Neue',sans-serif" onclick="closeMenu()">✕</div>
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#membership" onclick="closeMenu()">Membership</a>
+  <a href="#booking" onclick="closeMenu()">Book Now</a>
+  <a href="#barbers" onclick="closeMenu()">Barbers</a>
+  <a href="#reviews" onclick="closeMenu()">Reviews</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+  <button onclick="closeMenu();openAdmin()" style="background:none;border:none;font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--gold);letter-spacing:0.1em;cursor:pointer;padding:0;text-align:center;width:100%">⚙ ADMIN</button>
+</div>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Nairobi's Finest Barbershop</div>
+    <h1 class="hero-title">LOOK<br><em>SHARP</em><br>FEEL<br>POWERFUL</h1>
+    <p class="hero-sub">Premium haircuts, hot towel shaves & grooming by Nairobi's most skilled barbers. Walk in or book your slot.</p>
+    <div class="hero-ctas">
+      <a class="btn-primary" href="#booking">✂ Book a Cut</a>
+      <a class="btn-secondary" href="#membership">👑 Join Members</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="h-stat-num" data-count="1200">0</div><div class="h-stat-lbl">Happy Clients</div></div>
+      <div><div class="h-stat-num" data-count="6">0</div><div class="h-stat-lbl">Master Barbers</div></div>
+      <div><div class="h-stat-num" data-count="5">0</div><div class="h-stat-lbl">Years Running</div></div>
+    </div>
+  </div>
+  <div class="hero-right" id="heroRight">
+    <div class="hero-bg" id="heroBgDefault">
+      <div class="hero-chair" style="font-size:10rem">💈</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:rgba(240,232,216,0.5);letter-spacing:0.2em">PREMIUM GROOMING</div>
+    </div>
+    <div class="hero-badge-float" id="heroBadgeFloat">
+      <div class="badge-num">500+</div>
+      <div class="badge-txt">Monthly Cuts</div>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-item"><span>💈</span> Hot Towel Shave</div>
+  <div class="strip-item"><span>✂</span> Precision Haircut</div>
+  <div class="strip-item"><span>🧴</span> Hair & Beard Treatments</div>
+  <div class="strip-item"><span>👑</span> VIP Membership</div>
+  <div class="strip-item"><span>📅</span> Online Booking</div>
+  <div class="strip-item"><span>✅</span> Walk-ins Welcome</div>
+</div>
+
+<!-- SERVICES -->
+<section id="services" class="sec">
+  <div class="sec-tag">What We Offer</div>
+  <h2 class="sec-title">OUR SERVICES</h2>
+  <div class="services-grid" id="servicesGrid">
+    <div class="service-card fade-up stagger-1">
+      <span class="svc-icon">✂</span>
+      <div class="svc-name">Classic Haircut</div>
+      <div class="svc-desc">Clean scissor or clipper cut. Includes wash, cut, and style. Our signature finish with a cold towel.</div>
+      <div class="svc-price">KES 300</div>
+      <div class="svc-duration">⏱ 30–45 min</div>
+      <button class="svc-book-btn" onclick="quickBook('Classic Haircut','KES 300')">Book This →</button>
+    </div>
+    <div class="service-card fade-up stagger-2">
+      <span class="svc-icon">🪒</span>
+      <div class="svc-name">Hot Towel Shave</div>
+      <div class="svc-desc">Traditional straight-razor shave. Hot towel prep, premium shave cream, post-shave balm. Luxurious.</div>
+      <div class="svc-price">KES 500</div>
+      <div class="svc-duration">⏱ 45 min</div>
+      <button class="svc-book-btn" onclick="quickBook('Hot Towel Shave','KES 500')">Book This →</button>
+    </div>
+    <div class="service-card fade-up stagger-3">
+      <span class="svc-icon">✂</span>
+      <div class="svc-name">Cut + Shave Combo</div>
+      <div class="svc-desc">Full haircut with hot towel shave. The complete executive grooming package. Best value.</div>
+      <div class="svc-price">KES 700</div>
+      <div class="svc-duration">⏱ 75 min</div>
+      <button class="svc-book-btn" onclick="quickBook('Cut + Shave Combo','KES 700')">Book This →</button>
+    </div>
+    <div class="service-card fade-up stagger-1">
+      <span class="svc-icon">🧔</span>
+      <div class="svc-name">Beard Lineup & Shape</div>
+      <div class="svc-desc">Precision beard shaping, line-up and definition. We craft your beard into a statement.</div>
+      <div class="svc-price">KES 350</div>
+      <div class="svc-duration">⏱ 30 min</div>
+      <button class="svc-book-btn" onclick="quickBook('Beard Lineup','KES 350')">Book This →</button>
+    </div>
+    <div class="service-card fade-up stagger-2">
+      <span class="svc-icon">🎨</span>
+      <div class="svc-name">Hair Design & Fade</div>
+      <div class="svc-desc">Custom fade designs — low, mid, high, skin fade. Includes temple taper and line-up.</div>
+      <div class="svc-price">KES 500</div>
+      <div class="svc-duration">⏱ 60 min</div>
+      <button class="svc-book-btn" onclick="quickBook('Hair Design & Fade','KES 500')">Book This →</button>
+    </div>
+    <div class="service-card fade-up stagger-3">
+      <span class="svc-icon">🧴</span>
+      <div class="svc-name">Hair & Scalp Treatment</div>
+      <div class="svc-desc">Deep conditioning treatment, scalp massage, and moisturising. Leave feeling refreshed.</div>
+      <div class="svc-price">KES 600</div>
+      <div class="svc-duration">⏱ 45 min</div>
+      <button class="svc-book-btn" onclick="quickBook('Hair Treatment','KES 600')">Book This →</button>
+    </div>
+    <div class="service-card fade-up stagger-1">
+      <span class="svc-icon">👶</span>
+      <div class="svc-name">Kids Haircut</div>
+      <div class="svc-desc">Patient, gentle cuts for boys under 12. Clean styles with extra care and fun finish.</div>
+      <div class="svc-price">KES 200</div>
+      <div class="svc-duration">⏱ 25 min</div>
+      <button class="svc-book-btn" onclick="quickBook('Kids Haircut','KES 200')">Book This →</button>
+    </div>
+    <div class="service-card fade-up stagger-2">
+      <span class="svc-icon">👑</span>
+      <div class="svc-name">VIP Executive Package</div>
+      <div class="svc-desc">Full cut, hot shave, beard shape, scalp treatment + complimentary drink. The royal experience.</div>
+      <div class="svc-price">KES 1,500</div>
+      <div class="svc-duration">⏱ 2 hrs</div>
+      <button class="svc-book-btn" onclick="quickBook('VIP Executive Package','KES 1,500')">Book This →</button>
+    </div>
+    <div class="service-card fade-up stagger-3">
+      <span class="svc-icon">🪮</span>
+      <div class="svc-name">Loc / Dreadlock Service</div>
+      <div class="svc-desc">New loc starts, retwisting, tightening, and freeform maintenance by specialist barbers.</div>
+      <div class="svc-price">From KES 800</div>
+      <div class="svc-duration">⏱ 90 min+</div>
+      <button class="svc-book-btn" onclick="quickBook('Loc Service','KES 800+')">Book This →</button>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBERSHIP -->
+<section id="membership" class="sec">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:0">
+    <div>
+      <div class="sec-tag">Exclusive Club</div>
+      <h2 class="sec-title" style="margin-bottom:0.5rem">MEMBERSHIP PLANS</h2>
+      <p class="sec-sub">Join the Kinyozi Elite club. Priority bookings, discounts, free services & more.</p>
+    </div>
+    <button class="btn-secondary" onclick="openMemberDash()">👤 My Member Dashboard</button>
+  </div>
+  <div class="mem-grid">
+    <div class="mem-card fade-up stagger-1">
+      <div class="mem-tier">Basic Tier</div>
+      <div class="mem-name">CLASSIC</div>
+      <div class="mem-price"><span class="amount">KES 1,500</span><span class="period"> / month</span></div>
+      <ul class="mem-perks">
+        <li>4 haircuts per month</li>
+        <li>10% off all additional services</li>
+        <li>Priority same-day booking</li>
+        <li>Monthly loyalty points (×1)</li>
+        <li class="disabled">Free beard lineup</li>
+        <li class="disabled">VIP lounge access</li>
+        <li class="disabled">Free product monthly</li>
+      </ul>
+      <button class="mem-cta outline" onclick="joinMembership('Classic','1,500')">Join Classic →</button>
+    </div>
+    <div class="mem-card featured fade-up stagger-2">
+      <div class="mem-featured-tag">Most Popular</div>
+      <div class="mem-tier">Premium Tier</div>
+      <div class="mem-name">GOLD</div>
+      <div class="mem-price"><span class="amount">KES 3,000</span><span class="period"> / month</span></div>
+      <ul class="mem-perks">
+        <li>Unlimited haircuts</li>
+        <li>20% off all services</li>
+        <li>Priority booking (skip queue)</li>
+        <li>Monthly loyalty points (×2)</li>
+        <li>2 free beard lineups / month</li>
+        <li>VIP lounge access</li>
+        <li class="disabled">Free product monthly</li>
+      </ul>
+      <button class="mem-cta" onclick="joinMembership('Gold','3,000')">Join Gold →</button>
+    </div>
+    <div class="mem-card fade-up stagger-3">
+      <div class="mem-tier">Elite Tier</div>
+      <div class="mem-name">DIAMOND</div>
+      <div class="mem-price"><span class="amount">KES 5,000</span><span class="period"> / month</span></div>
+      <ul class="mem-perks">
+        <li>Unlimited all services</li>
+        <li>30% off retail products</li>
+        <li>Dedicated barber assignment</li>
+        <li>Monthly loyalty points (×3)</li>
+        <li>Unlimited beard services</li>
+        <li>VIP lounge + complimentary drinks</li>
+        <li>1 free grooming product monthly</li>
+      </ul>
+      <button class="mem-cta outline" onclick="joinMembership('Diamond','5,000')">Join Diamond →</button>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBER DASHBOARD MODAL -->
+<div id="memberDash">
+  <div class="dash-panel">
+    <div class="dash-header">
+      <div class="dash-title">✦ MEMBER DASHBOARD</div>
+      <button class="dash-close" onclick="closeMemberDash()">✕</button>
+    </div>
+    <div class="dash-body" id="dashBody">
+      <!-- Filled by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- BOOKING -->
+<section id="booking" class="sec">
+  <div class="booking-inner">
+    <div class="booking-info fade-left">
+      <div class="sec-tag">Reserve Your Chair</div>
+      <h2 class="sec-title">BOOK YOUR<br>APPOINTMENT</h2>
+      <p class="sec-sub">Choose your service, pick a barber, select your time. We confirm via WhatsApp within 5 minutes.</p>
+      <div class="booking-steps">
+        <div class="bk-step active-step" id="bkStep1">
+          <div class="bk-step-num">01</div>
+          <div><h4>Choose Service</h4><p>Select the service(s) you want</p></div>
+        </div>
+        <div class="bk-step" id="bkStep2">
+          <div class="bk-step-num">02</div>
+          <div><h4>Pick a Barber</h4><p>Choose your preferred barber or "Any"</p></div>
+        </div>
+        <div class="bk-step" id="bkStep3">
+          <div class="bk-step-num">03</div>
+          <div><h4>Select Time</h4><p>Pick an available slot</p></div>
+        </div>
+        <div class="bk-step" id="bkStep4">
+          <div class="bk-step-num">04</div>
+          <div><h4>Confirm</h4><p>We'll WhatsApp you within 5 minutes</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="fade-right">
+      <div class="booking-form">
+        <div class="admin-card-title" style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:0.08em;border-bottom:1px solid var(--dim);padding-bottom:0.8rem;margin-bottom:1.5rem;color:var(--gold)">YOUR APPOINTMENT</div>
+        <div class="booking-confirm" id="bookingConfirm">
+          <h3>✅ Booking Confirmed!</h3>
+          <p>We've received your booking. Our barber will confirm on WhatsApp within 5 minutes.<br><strong style="color:var(--gold)" id="confirmDetails"></strong></p>
+          <button class="admin-btn" onclick="resetBookingForm()" style="margin-top:1rem">Book Another →</button>
+        </div>
+        <div id="bookingFormInner">
+          <div style="margin-bottom:1.2rem">
+            <label style="font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:0.5rem">Select Service(s)</label>
+            <div class="svc-selector" id="bookSvcSelector">
+              <div class="svc-pill" onclick="toggleSvcPill(this,'Classic Haircut')">✂ Classic Cut</div>
+              <div class="svc-pill" onclick="toggleSvcPill(this,'Hot Towel Shave')">🪒 Hot Towel Shave</div>
+              <div class="svc-pill" onclick="toggleSvcPill(this,'Beard Lineup')">🧔 Beard Lineup</div>
+              <div class="svc-pill" onclick="toggleSvcPill(this,'Hair Design & Fade')">🎨 Fade Design</div>
+              <div class="svc-pill" onclick="toggleSvcPill(this,'Hair Treatment')">🧴 Hair Treatment</div>
+              <div class="svc-pill" onclick="toggleSvcPill(this,'Kids Haircut')">👶 Kids Cut</div>
+              <div class="svc-pill" onclick="toggleSvcPill(this,'VIP Package')">👑 VIP Package</div>
+              <div class="svc-pill" onclick="toggleSvcPill(this,'Loc Service')">🪮 Loc Service</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Your Name *</label>
+              <input type="text" id="bookName" placeholder="e.g. Brian Mutua">
+            </div>
+            <div class="form-group">
+              <label>Phone Number *</label>
+              <input type="text" id="bookPhone" placeholder="e.g. 0712 345 678">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Preferred Barber</label>
+              <select id="bookBarber">
+                <option value="any">Any Available Barber</option>
+                <option value="mwenda">Mwenda (Senior)</option>
+                <option value="kamau">Kamau (Fade Specialist)</option>
+                <option value="odhiambo">Odhiambo (Classic)</option>
+                <option value="wanjiku">Wanjiku (Loc Specialist)</option>
+                <option value="hassan">Hassan (Shave Expert)</option>
+                <option value="kipchoge">Kipchoge (Junior)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Date *</label>
+              <input type="date" id="bookDate" onchange="refreshTimeSlots()">
+            </div>
+          </div>
+          <div style="margin-bottom:1.2rem">
+            <label style="font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:0.5rem">Select Time Slot</label>
+            <div class="time-slots" id="bookTimeSlots">
+              <!-- Filled by JS -->
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:1.2rem">
+            <label>Member Code (optional)</label>
+            <input type="text" id="bookMemberCode" placeholder="Enter your member code for discount">
+          </div>
+          <div class="form-group" style="margin-bottom:1.2rem">
+            <label>Special Notes</label>
+            <textarea id="bookNotes" rows="2" placeholder="Any specific style, notes or requests…"></textarea>
+          </div>
+          <button class="book-submit" onclick="submitBooking()">✂ CONFIRM BOOKING</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BARBERS -->
+<section id="barbers" class="sec">
+  <div class="sec-tag">Meet the Team</div>
+  <h2 class="sec-title">OUR MASTER BARBERS</h2>
+  <div class="barbers-grid" id="barbersGrid">
+    <div class="barber-card fade-up stagger-1" onclick="quickBookBarber('Mwenda')">
+      <div class="barber-img" style="background:linear-gradient(135deg,#2e2518,#1a1510)">
+        🧔
+        <div class="barber-availability available">✓ Available</div>
+      </div>
+      <div class="barber-body">
+        <div class="barber-name">MWENDA</div>
+        <div class="barber-title">✦ Senior Master Barber</div>
+        <div class="barber-specialties">
+          <span class="barber-tag">Fades</span>
+          <span class="barber-tag">Designs</span>
+          <span class="barber-tag">Classic</span>
+        </div>
+        <div class="barber-rating"><span>★★★★★</span> 4.9 (312 reviews)</div>
+        <button class="barber-book-btn">Book Mwenda →</button>
+      </div>
+    </div>
+    <div class="barber-card fade-up stagger-2" onclick="quickBookBarber('Kamau')">
+      <div class="barber-img" style="background:linear-gradient(135deg,#1a1510,#2e2518)">
+        ✂
+        <div class="barber-availability available">✓ Available</div>
+      </div>
+      <div class="barber-body">
+        <div class="barber-name">KAMAU</div>
+        <div class="barber-title">✦ Fade Specialist</div>
+        <div class="barber-specialties">
+          <span class="barber-tag">Skin Fade</span>
+          <span class="barber-tag">Low Fade</span>
+          <span class="barber-tag">Taper</span>
+        </div>
+        <div class="barber-rating"><span>★★★★★</span> 4.8 (245 reviews)</div>
+        <button class="barber-book-btn">Book Kamau →</button>
+      </div>
+    </div>
+    <div class="barber-card fade-up stagger-3" onclick="quickBookBarber('Hassan')">
+      <div class="barber-img" style="background:linear-gradient(135deg,#2e2518,#3d3224)">
+        🪒
+        <div class="barber-availability busy">● Busy</div>
+      </div>
+      <div class="barber-body">
+        <div class="barber-name">HASSAN</div>
+        <div class="barber-title">✦ Shave & Beard Expert</div>
+        <div class="barber-specialties">
+          <span class="barber-tag">Hot Shave</span>
+          <span class="barber-tag">Beard Art</span>
+          <span class="barber-tag">Classic</span>
+        </div>
+        <div class="barber-rating"><span>★★★★★</span> 5.0 (198 reviews)</div>
+        <button class="barber-book-btn">Book Hassan →</button>
+      </div>
+    </div>
+    <div class="barber-card fade-up stagger-4" onclick="quickBookBarber('Wanjiku')">
+      <div class="barber-img" style="background:linear-gradient(135deg,#1a1510,#3d3224)">
+        🪮
+        <div class="barber-availability available">✓ Available</div>
+      </div>
+      <div class="barber-body">
+        <div class="barber-name">WANJIKU</div>
+        <div class="barber-title">✦ Loc & Natural Hair Specialist</div>
+        <div class="barber-specialties">
+          <span class="barber-tag">Locs</span>
+          <span class="barber-tag">Twists</span>
+          <span class="barber-tag">Natural</span>
+        </div>
+        <div class="barber-rating"><span>★★★★★</span> 4.9 (156 reviews)</div>
+        <button class="barber-book-btn">Book Wanjiku →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" class="sec">
+  <div class="sec-tag">Our Work</div>
+  <h2 class="sec-title">FRESH CUTS GALLERY</h2>
+  <div class="gallery-grid" id="galleryGrid">
+    <div class="gallery-item" style="background:linear-gradient(135deg,var(--mid),var(--dark))"><span class="gallery-icon">✂</span><div class="gallery-overlay">Fade Design</div></div>
+    <div class="gallery-item" style="background:linear-gradient(135deg,var(--dark),var(--surface))"><span class="gallery-icon">💈</span><div class="gallery-overlay">Hot Shave</div></div>
+    <div class="gallery-item" style="background:linear-gradient(135deg,var(--surface),var(--mid))"><span class="gallery-icon">🧔</span><div class="gallery-overlay">Beard Art</div></div>
+    <div class="gallery-item" style="background:linear-gradient(135deg,var(--mid),var(--carbon))"><span class="gallery-icon">✂</span><div class="gallery-overlay">Classic Cut</div></div>
+    <div class="gallery-item" style="background:linear-gradient(135deg,var(--dark),var(--mid))"><span class="gallery-icon">🎨</span><div class="gallery-overlay">Hair Design</div></div>
+    <div class="gallery-item" style="background:linear-gradient(135deg,var(--carbon),var(--surface))"><span class="gallery-icon">🪮</span><div class="gallery-overlay">Loc Style</div></div>
+    <div class="gallery-item" style="background:linear-gradient(135deg,var(--surface),var(--dark))"><span class="gallery-icon">✂</span><div class="gallery-overlay">Skin Fade</div></div>
+    <div class="gallery-item" style="background:linear-gradient(135deg,var(--mid),var(--ink))"><span class="gallery-icon">🪒</span><div class="gallery-overlay">Clean Shave</div></div>
+    <div class="gallery-item" style="background:linear-gradient(135deg,var(--ink),var(--mid))"><span class="gallery-icon">💈</span><div class="gallery-overlay">VIP Session</div></div>
+  </div>
+  <div style="text-align:center;margin-top:2rem">
+    <a class="btn-secondary" href="https://www.instagram.com" target="_blank">View Full Gallery on Instagram ↗</a>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews" class="sec" id="reviewsSec">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:0">
+    <div>
+      <div class="sec-tag">What Clients Say</div>
+      <h2 class="sec-title">REVIEWS</h2>
+    </div>
+    <div style="display:flex;gap:0.7rem">
+      <button class="btn-secondary" style="padding:0.6rem 1rem;font-size:0.8rem" onclick="reviewNav(-1)">←</button>
+      <button class="btn-secondary" style="padding:0.6rem 1rem;font-size:0.8rem" onclick="reviewNav(1)">→</button>
+    </div>
+  </div>
+  <div class="reviews-track-wrap">
+    <div class="reviews-track" id="reviewsTrack">
+      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Best cut in Nairobi, full stop. Mwenda did a perfect skin fade — clean lines, no mistakes. Was in and out in 40 minutes. This is my permanent spot."</p><div class="reviewer"><div class="reviewer-avatar">B</div><div><div class="reviewer-name">BRIAN MUTUA</div><div class="reviewer-tier">Gold Member · Westlands</div></div></div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Hassan's hot towel shave is unreal. Closest, smoothest shave I've ever had. The whole experience feels like a proper barbershop from the movies. Worth every shilling."</p><div class="reviewer"><div class="reviewer-avatar">D</div><div><div class="reviewer-name">DAVID ODHIAMBO</div><div class="reviewer-tier">Diamond Member · CBD</div></div></div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Wanjiku handles my locs with care every time. She knows exactly what she's doing. The Diamond membership pays for itself — I get so much value each month."</p><div class="reviewer"><div class="reviewer-avatar">K</div><div><div class="reviewer-name">KEVIN NJOROGE</div><div class="reviewer-tier">Diamond Member · Kilimani</div></div></div></div>
+      <div class="review-card"><div class="review-stars">★★★★☆</div><p class="review-text">"Love the online booking — picked Kamau, chose my time, got a WhatsApp confirmation instantly. No queue drama. The fade was immaculate. Solid 4.5/5."</p><div class="reviewer"><div class="reviewer-avatar">A</div><div><div class="reviewer-name">ALEX KARIUKI</div><div class="reviewer-tier">Classic Member · Ruaka</div></div></div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Took my son for his first proper cut here. The barber was patient and gentle. Kid walked out smiling. We'll be back every two weeks. Great place for family cuts."</p><div class="reviewer"><div class="reviewer-avatar">J</div><div><div class="reviewer-name">JOHN KAMAU</div><div class="reviewer-tier">Walk-in · South B</div></div></div></div>
+    </div>
+  </div>
+  <div class="reviews-nav" id="reviewsNav"></div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="fade-left">
+    <div class="sec-tag">Find Us</div>
+    <h2 class="sec-title">VISIT US</h2>
+    <p class="sec-sub">Walk in anytime or book in advance. We're open 7 days a week — no excuse to look rough.</p>
+    <div class="contact-items">
+      <div class="contact-item"><div class="contact-icon">💬</div><div><h4>WhatsApp</h4><a href="https://wa.me/254700000000">+254 700 000 000</a></div></div>
+      <div class="contact-item"><div class="contact-icon">📍</div><div><h4>Location</h4><p>Equity Building, Ground Floor<br>Tom Mboya St — Nairobi CBD</p></div></div>
+      <div class="contact-item"><div class="contact-icon">📧</div><div><h4>Email</h4><a href="mailto:book@kinyozielite.co.ke">book@kinyozielite.co.ke</a></div></div>
+    </div>
+    <table class="hours-table">
+      <tr><td>Monday — Friday</td><td class="open-now">7:00am – 9:00pm</td></tr>
+      <tr><td>Saturday</td><td class="open-now">7:00am – 10:00pm</td></tr>
+      <tr><td>Sunday</td><td>9:00am – 7:00pm</td></tr>
+      <tr><td>Public Holidays</td><td>9:00am – 5:00pm</td></tr>
+    </table>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem">
+      <a class="btn-primary" href="https://wa.me/254700000000?text=Hi!+I'd+like+to+book+a+cut." target="_blank">💬 Book via WhatsApp</a>
+      <a class="btn-secondary" href="#booking">📅 Online Booking</a>
+    </div>
+  </div>
+  <div class="map-box fade-right" id="mapBox" style="padding:0;overflow:hidden">
+    <div id="siteMap" style="width:100%;height:100%;min-height:420px"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">✂ KINYOZI ELITE</div>
+      <p>Nairobi's premier barbershop. Precision cuts, hot shaves, membership perks. Serving the city since 2019.</p>
+      <div class="social-links" style="margin-top:1.5rem">
+        <a class="social-link" href="#">f</a>
+        <a class="social-link" href="#">📷</a>
+        <a class="social-link" href="https://wa.me/254700000000">💬</a>
+        <a class="social-link" href="#">♪</a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Navigate</h4><ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#membership">Membership</a></li>
+      <li><a href="#booking">Book Now</a></li>
+      <li><a href="#barbers">Our Barbers</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Services</h4><ul>
+      <li><a href="#booking">Classic Haircut</a></li>
+      <li><a href="#booking">Hot Towel Shave</a></li>
+      <li><a href="#booking">Beard Lineup</a></li>
+      <li><a href="#booking">Fade Designs</a></li>
+      <li><a href="#booking">Loc Services</a></li>
+      <li><a href="#booking">VIP Package</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Contact</h4><ul>
+      <li><a href="https://wa.me/254700000000">💬 WhatsApp</a></li>
+      <li><a href="tel:+254700000000">📞 +254 700 000 000</a></li>
+      <li><a href="mailto:book@kinyozielite.co.ke">📧 Email Us</a></li>
+      <li><a href="#">📍 Tom Mboya St, CBD</a></li>
+      <li><a href="#">🕐 Open 7 Days</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 Kinyozi Elite. All rights reserved.</p>
+    <p>Sharpest cuts in Nairobi ✂</p>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/254700000000?text=Hi!+I'd+like+to+book+a+cut+at+Kinyozi+Elite." target="_blank" id="waFloat">💬</a>
+
+<!-- ADMIN OVERLAY -->
+<div id="adminOverlay">
+  <div id="authScreen">
+    <div class="auth-card">
+      <div class="auth-logo">✂ KINYOZI ELITE</div>
+      <div class="auth-sub">Admin Portal</div>
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="loginTabBtn" onclick="switchAuthTab('login')">Sign In</button>
+        <button class="auth-tab" id="registerTabBtn" onclick="switchAuthTab('register')">Register</button>
+      </div>
+      <div id="loginForm" class="auth-form">
+        <div class="auth-error" id="loginError"></div>
+        <div class="auth-field"><label>Username</label><input type="text" id="loginUser" placeholder="Username" autocomplete="username"></div>
+        <div class="auth-field"><label>Password</label><input type="password" id="loginPass" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()"></div>
+        <button class="auth-btn" onclick="doLogin()">Sign In →</button>
+        <p style="text-align:center;font-size:0.72rem;color:var(--muted);margin-top:0.5rem;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.08em">Default: admin / kinyozi123</p>
+      </div>
+      <div id="registerForm" class="auth-form" style="display:none">
+        <div class="auth-error" id="regError"></div>
+        <div class="auth-success" id="regSuccess"></div>
+        <div class="form-row" style="margin-bottom:0">
+          <div class="auth-field"><label>Full Name</label><input type="text" id="regName" placeholder="Your name"></div>
+          <div class="auth-field"><label>Username</label><input type="text" id="regUser" placeholder="Choose username"></div>
+        </div>
+        <div class="auth-field"><label>Email</label><input type="email" id="regEmail" placeholder="your@email.com"></div>
+        <div class="form-row" style="margin-bottom:0">
+          <div class="auth-field"><label>Password</label><input type="password" id="regPass" placeholder="Min 6 chars"></div>
+          <div class="auth-field"><label>Confirm</label><input type="password" id="regPass2" placeholder="Repeat"></div>
+        </div>
+        <div class="auth-field"><label>Admin Code</label><input type="password" id="regCode" placeholder="Admin access code"></div>
+        <button class="auth-btn" onclick="doRegister()">Create Account →</button>
+        <p style="text-align:center;font-size:0.72rem;color:var(--muted);margin-top:0.5rem;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.08em">Code: <strong style="color:var(--gold)">KINYOZI2024</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <div id="adminPanel" style="display:none">
+    <div class="admin-header">
+      <div style="display:flex;align-items:center;gap:0.6rem;min-width:0">
+        <button id="adminBackBtn" onclick="adminGoBack()" style="display:none;background:rgba(255,255,255,0.05);border:1px solid var(--dim);color:var(--muted);width:32px;height:32px;cursor:pointer;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;transition:all 0.2s">←</button>
+        <div class="admin-title" id="adminPanelTitle">✂ KINYOZI — ADMIN</div>
+      </div>
+      <div class="admin-header-right">
+        <div class="admin-user-badge" id="adminUserBadge">👤 admin</div>
+        <button class="admin-logout" onclick="doLogout()">Sign Out</button>
+        <button class="admin-close-btn" onclick="closeAdmin()">✕</button>
+      </div>
+    </div>
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="switchTab('dashboard',this)">📊 Dashboard</button>
+      <button class="admin-tab" onclick="switchTab('bookings',this)">📅 Bookings</button>
+      <button class="admin-tab" onclick="switchTab('members',this)">👑 Members</button>
+      <button class="admin-tab" onclick="switchTab('barbers',this)">✂ Barbers</button>
+      <button class="admin-tab" onclick="switchTab('services',this)">💈 Services</button>
+      <button class="admin-tab" onclick="switchTab('banners',this)">📢 Banners</button>
+      <button class="admin-tab" onclick="switchTab('settings',this)">⚙ Settings</button>
+    </div>
+    <div class="admin-body">
+
+      <!-- DASHBOARD -->
+      <div class="admin-section active" id="tab-dashboard">
+        <div class="a-stats-grid">
+          <div class="a-stat"><div class="a-stat-lbl">Total Bookings</div><div class="a-stat-val" id="statBookings">0</div><div class="a-stat-delta">This session</div></div>
+          <div class="a-stat"><div class="a-stat-lbl">Members</div><div class="a-stat-val" id="statMembers">0</div><div class="a-stat-delta">Active subscriptions</div></div>
+          <div class="a-stat"><div class="a-stat-lbl">Barbers</div><div class="a-stat-val" id="statBarbers">0</div><div class="a-stat-delta">On roster</div></div>
+          <div class="a-stat"><div class="a-stat-lbl">Services</div><div class="a-stat-val" id="statServices">0</div><div class="a-stat-delta">Active</div></div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">Today's Bookings</div>
+          <div id="todayBookingsList" style="display:flex;flex-direction:column;gap:0.5rem"></div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">Activity Log</div>
+          <div id="activityLog" style="display:flex;flex-direction:column;gap:0.5rem;font-size:0.82rem;color:rgba(240,232,216,0.6)"><div style="color:var(--muted);font-style:italic">No activity yet.</div></div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">Tier Breakdown</div>
+          <div id="tierBreakdown" style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.8rem"></div>
+        </div>
+      </div>
+
+      <!-- BOOKINGS -->
+      <div class="admin-section" id="tab-bookings">
+        <div class="admin-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;flex-wrap:wrap;gap:0.8rem">
+            <div class="admin-card-title" style="margin:0">All Bookings (<span id="bookingCount">0</span>)</div>
+            <div style="display:flex;gap:0.6rem;flex-wrap:wrap">
+              <input style="background:var(--carbon);border:1px solid var(--dim);padding:0.5rem 0.8rem;color:var(--cream);font-family:'Barlow',sans-serif;font-size:0.82rem;outline:none;width:150px" placeholder="Search client…" id="bookSearch" oninput="renderAdminBookings()">
+              <select id="bookStatusFilter" style="background:var(--ink);border:1px solid var(--dim);padding:0.5rem 0.8rem;color:var(--cream);font-family:'Barlow',sans-serif;font-size:0.82rem;outline:none" onchange="renderAdminBookings()">
+                <option value="">All</option>
+                <option value="Pending">Pending</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+            </div>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="a-table">
+              <thead><tr><th>Client</th><th>Service</th><th>Barber</th><th>Date/Time</th><th>Status</th><th>Actions</th></tr></thead>
+              <tbody id="adminBookingsTbody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">Add Manual Booking</div>
+          <div class="form-row">
+            <div class="form-group"><label>Client Name *</label><input type="text" id="mbName" placeholder="e.g. Brian Mutua"></div>
+            <div class="form-group"><label>Phone *</label><input type="text" id="mbPhone" placeholder="e.g. 0712 345 678"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Service *</label>
+              <select id="mbService">
+                <option>Classic Haircut</option><option>Hot Towel Shave</option><option>Beard Lineup</option>
+                <option>Hair Design & Fade</option><option>Hair Treatment</option><option>Kids Haircut</option>
+                <option>VIP Package</option><option>Loc Service</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Barber *</label>
+              <select id="mbBarber">
+                <option>Any Available</option><option>Mwenda</option><option>Kamau</option>
+                <option>Odhiambo</option><option>Wanjiku</option><option>Hassan</option><option>Kipchoge</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Date</label><input type="date" id="mbDate"></div>
+            <div class="form-group"><label>Time</label><input type="time" id="mbTime" value="09:00"></div>
+          </div>
+          <button class="admin-btn" onclick="addManualBooking()">➕ Add Booking</button>
+        </div>
+      </div>
+
+      <!-- MEMBERS -->
+      <div class="admin-section" id="tab-members">
+        <div class="admin-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;flex-wrap:wrap;gap:0.8rem">
+            <div class="admin-card-title" style="margin:0">Members (<span id="memberCount">0</span>)</div>
+            <input style="background:var(--carbon);border:1px solid var(--dim);padding:0.5rem 0.8rem;color:var(--cream);font-family:'Barlow',sans-serif;font-size:0.82rem;outline:none;width:180px" placeholder="Search member…" id="memberSearch" oninput="renderAdminMembers()">
+          </div>
+          <div style="overflow-x:auto">
+            <table class="a-table">
+              <thead><tr><th>Name</th><th>Phone</th><th>Tier</th><th>Member Since</th><th>Points</th><th>Visits</th><th>Actions</th></tr></thead>
+              <tbody id="adminMembersTbody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">Add / Enrol New Member</div>
+          <div class="form-row">
+            <div class="form-group"><label>Full Name *</label><input type="text" id="nmName" placeholder="e.g. David Njoroge"></div>
+            <div class="form-group"><label>Phone *</label><input type="text" id="nmPhone" placeholder="e.g. 0712 345 678"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Email</label><input type="email" id="nmEmail" placeholder="optional"></div>
+            <div class="form-group"><label>Membership Tier *</label>
+              <select id="nmTier">
+                <option value="Classic">Classic — KES 1,500/mo</option>
+                <option value="Gold">Gold — KES 3,000/mo</option>
+                <option value="Diamond">Diamond — KES 5,000/mo</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Member Code</label><input type="text" id="nmCode" placeholder="Auto-generated if blank"></div>
+            <div class="form-group"><label>Starting Points</label><input type="number" id="nmPoints" placeholder="0" value="0"></div>
+          </div>
+          <button class="admin-btn" onclick="addMember()">➕ Enrol Member</button>
+        </div>
+      </div>
+
+      <!-- BARBERS ADMIN -->
+      <div class="admin-section" id="tab-barbers">
+        <div class="admin-card">
+          <div class="admin-card-title">Barber Roster (<span id="barberCount">0</span>)</div>
+          <div style="overflow-x:auto">
+            <table class="a-table">
+              <thead><tr><th>Name</th><th>Title</th><th>Specialties</th><th>Rating</th><th>Status</th><th>Actions</th></tr></thead>
+              <tbody id="adminBarbersTbody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title" id="barberFormTitle">Add New Barber</div>
+          <input type="hidden" id="editBarberId" value="">
+          <div class="form-row">
+            <div class="form-group"><label>Full Name *</label><input type="text" id="baName" placeholder="e.g. Felix Omondi"></div>
+            <div class="form-group"><label>Title / Role *</label><input type="text" id="baTitle" placeholder="e.g. Senior Barber"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Specialties (comma-separated)</label><input type="text" id="baSpec" placeholder="e.g. Fades, Designs, Classic"></div>
+            <div class="form-group"><label>Status</label>
+              <select id="baStatus"><option value="Available">Available</option><option value="Busy">Busy</option><option value="Off Duty">Off Duty</option></select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Rating (1-5)</label><input type="number" id="baRating" min="1" max="5" step="0.1" value="4.5"></div>
+            <div class="form-group"><label>Phone</label><input type="text" id="baPhone" placeholder="e.g. 0712 345 678"></div>
+          </div>
+          <div class="form-group" style="margin-bottom:1rem">
+            <label>Barber Photo</label>
+            <div style="border:1px dashed var(--dim);padding:1rem;text-align:center;cursor:pointer;position:relative;overflow:hidden">
+              <input type="file" accept="image/*" id="baPhotoInput" onchange="handleBarberPhotoUpload(this.files)" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%">
+              <div id="baPhotoPreview" style="font-size:0.82rem;color:var(--muted)">📷 Click to upload barber photo (replaces emoji on card)</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:0.8rem;flex-wrap:wrap">
+            <button class="admin-btn" onclick="saveBarber()" id="saveBarberBtn">➕ Add Barber</button>
+            <button class="admin-btn secondary" id="cancelBarberBtn" onclick="cancelBarberEdit()" style="display:none">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SERVICES ADMIN -->
+      <div class="admin-section" id="tab-services">
+        <div class="admin-card">
+          <div class="admin-card-title">Services Menu (<span id="serviceCount">0</span>)</div>
+          <div style="overflow-x:auto">
+            <table class="a-table">
+              <thead><tr><th>Icon</th><th>Service</th><th>Price</th><th>Duration</th><th>Status</th><th>Actions</th></tr></thead>
+              <tbody id="adminServicesTbody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title" id="svcFormTitle">Add New Service</div>
+          <input type="hidden" id="editSvcId" value="">
+          <div class="form-row">
+            <div class="form-group"><label>Service Name *</label><input type="text" id="svName" placeholder="e.g. Hot Towel Shave"></div>
+            <div class="form-group"><label>Price (KES) *</label><input type="text" id="svPrice" placeholder="e.g. 500"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Duration</label><input type="text" id="svDuration" placeholder="e.g. 45 min"></div>
+            <div class="form-group"><label>Icon (emoji)</label><input type="text" id="svIcon" placeholder="e.g. 🪒"></div>
+          </div>
+          <div class="form-group" style="margin-bottom:1rem"><label>Description *</label><textarea id="svDesc" rows="2" placeholder="Brief description of the service…"></textarea></div>
+          <div style="display:flex;gap:0.8rem;flex-wrap:wrap">
+            <button class="admin-btn" onclick="saveService()" id="saveSvcBtn">➕ Add Service</button>
+            <button class="admin-btn secondary" id="cancelSvcBtn" onclick="cancelSvcEdit()" style="display:none">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- BANNERS -->
+      <div class="admin-section" id="tab-banners">
+        <div class="admin-msg success" id="bannerMsg"></div>
+        <!-- HERO BG IMAGE -->
+        <div class="admin-card">
+          <div class="admin-card-title">🖼 Hero Background Image</div>
+          <p style="font-size:0.78rem;color:var(--muted);margin-bottom:1rem">Replaces the default barber chair emoji on the right side of the hero section. Fills the full panel.</p>
+          <div style="border:1px dashed var(--dim);padding:1.5rem;text-align:center;cursor:pointer;position:relative;overflow:hidden">
+            <input type="file" accept="image/*" onchange="handleHeroBgUpload(this.files)" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%">
+            <div style="font-size:0.85rem;color:var(--muted)">📷 Upload hero background photo</div>
+          </div>
+          <div id="heroBgPreview" style="margin-top:0.8rem"></div>
+        </div>
+        <!-- GALLERY IMAGES -->
+        <div class="admin-card">
+          <div class="admin-card-title">📸 Gallery Images (max 9)</div>
+          <p style="font-size:0.78rem;color:var(--muted);margin-bottom:1rem">Upload photos of your fresh cuts, shop interior, or team. They replace the placeholder tiles in the Gallery section.</p>
+          <div style="border:1px dashed var(--dim);padding:1.5rem;text-align:center;cursor:pointer;position:relative;overflow:hidden">
+            <input type="file" accept="image/*" multiple onchange="handleGalleryUpload(this.files)" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%">
+            <div style="font-size:0.85rem;color:var(--muted)">📷 Click to upload gallery photos (multi-select OK)</div>
+          </div>
+          <div id="galleryPreviews" style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;margin-top:0.8rem"></div>
+        </div>
+        <!-- LOCATION PIN -->
+        <div class="admin-card">
+          <div class="admin-card-title">📍 Store Location Pin</div>
+          <p style="font-size:0.78rem;color:var(--muted);margin-bottom:0.8rem">Search your address or tap on the map to pin your shop. The Contact section map updates live.</p>
+          <div style="display:flex;gap:0.5rem;margin-bottom:0.7rem;flex-wrap:wrap">
+            <input style="flex:1;min-width:180px;background:var(--carbon);border:1px solid var(--dim);padding:0.6rem 0.9rem;color:var(--cream);font-family:'Barlow',sans-serif;font-size:0.82rem;outline:none" type="text" id="locationSearchInput" placeholder="e.g. Tom Mboya Street, Nairobi" onkeydown="if(event.key==='Enter')searchLocation()">
+            <button class="admin-btn" onclick="searchLocation()" style="padding:0.6rem 1rem">🔍 Search</button>
+          </div>
+          <div id="adminMapPicker" style="width:100%;height:280px;border:1px solid var(--dim);overflow:hidden;margin-bottom:0.7rem"></div>
+          <div id="pinnedLocationInfo" style="font-size:0.78rem;color:var(--gold);background:rgba(201,150,42,0.06);border:1px solid var(--dim);padding:0.6rem 0.9rem;margin-bottom:0.7rem;display:none"></div>
+          <div style="display:flex;gap:0.6rem;flex-wrap:wrap">
+            <button class="admin-btn" onclick="savePinnedLocation()" id="savePinBtn" style="opacity:0.5;pointer-events:none">📍 Save Pin to Site</button>
+            <button class="admin-btn secondary" onclick="clearPinnedLocation()">✕ Clear Pin</button>
+          </div>
+        </div>
+        <!-- ANNOUNCEMENT BAR -->
+        <div class="admin-card">
+          <div class="admin-card-title">📢 Announcement Bar</div>
+          <div id="announceList" style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.2rem"></div>
+          <div style="display:flex;gap:0.8rem">
+            <input style="flex:1;background:var(--carbon);border:1px solid var(--dim);padding:0.7rem 0.9rem;color:var(--cream);font-family:'Barlow',sans-serif;font-size:0.84rem;outline:none" type="text" id="newAnnounce" placeholder="e.g. ✂ New barber joining Friday!">
+            <button class="admin-btn" onclick="addAnnouncement()">Add</button>
+          </div>
+        </div>
+        <!-- FEATURE TOGGLES -->
+        <div class="admin-card">
+          <div class="admin-card-title">🔧 Feature Visibility</div>
+          <div class="toggle-row"><div><div class="toggle-label">WhatsApp Float Button</div><div class="toggle-sub">Floating chat button</div></div><div class="toggle on" id="toggleWA" onclick="toggleFeat(this,'wa')"></div></div>
+          <div class="toggle-row"><div><div class="toggle-label">Announcement Bar</div><div class="toggle-sub">Top scrolling bar</div></div><div class="toggle on" id="toggleAnnounce" onclick="toggleFeat(this,'announce')"></div></div>
+          <div class="toggle-row"><div><div class="toggle-label">Gallery Section</div><div class="toggle-sub">Fresh cuts gallery</div></div><div class="toggle on" id="toggleGallery" onclick="toggleFeat(this,'gallery')"></div></div>
+          <div class="toggle-row"><div><div class="toggle-label">Reviews Section</div><div class="toggle-sub">Client testimonials</div></div><div class="toggle on" id="toggleReviews" onclick="toggleFeat(this,'reviews')"></div></div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="admin-section" id="tab-settings">
+        <div class="admin-msg success" id="settingsMsg"></div>
+        <div class="admin-card">
+          <div class="admin-card-title">Business Settings</div>
+          <div class="form-row">
+            <div class="form-group"><label>Shop Name</label><input type="text" id="setBizName" value="Kinyozi Elite"></div>
+            <div class="form-group"><label>WhatsApp Number</label><input type="text" id="setWA" value="+254 700 000 000"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Email</label><input type="text" id="setEmail" value="book@kinyozielite.co.ke"></div>
+            <div class="form-group"><label>Location</label><input type="text" id="setLocation" value="Tom Mboya St, Nairobi CBD"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Weekday Hours</label><input type="text" id="setHrsWD" value="7:00am – 9:00pm"></div>
+            <div class="form-group"><label>Weekend Hours</label><input type="text" id="setHrsWE" value="7:00am – 10:00pm"></div>
+          </div>
+          <button class="admin-btn" onclick="saveSettings()">💾 Save Settings</button>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">Registered Admin Users</div>
+          <div id="adminUsersList"></div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">Change Password</div>
+          <div class="form-row">
+            <div class="form-group"><label>Current Password</label><input type="password" id="setPwdCur" placeholder="Current password"></div>
+            <div class="form-group"><label>New Password</label><input type="password" id="setPwdNew" placeholder="Min 6 characters"></div>
+          </div>
+          <div class="form-group" style="margin-bottom:1rem"><label>Confirm New Password</label><input type="password" id="setPwdConf" placeholder="Repeat new password"></div>
+          <button class="admin-btn secondary" onclick="changePassword()">🔒 Update Password</button>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title" style="color:#e74c3c">Danger Zone</div>
+          <div style="display:flex;gap:0.8rem;flex-wrap:wrap">
+            <button class="admin-btn danger sm" onclick="clearAllBookings()">🗑 Clear All Bookings</button>
+            <button class="admin-btn danger sm" onclick="clearAllMembers()">🗑 Clear All Members</button>
+            <button class="admin-btn danger sm" onclick="resetToDefaults()">↩ Reset to Defaults</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════ STORAGE ═══════════════════════
+const DB={
+  get(k,d=null){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch{return d}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){console.warn('LS full',e)}},
+  del(k){localStorage.removeItem(k)}
+};
+// IndexedDB for images (no 5MB limit)
+const IDB=(()=>{
+  const NAME='ke_images_db',STORE='images';let _db=null;
+  function open(){return new Promise((res,rej)=>{if(_db){res(_db);return}const r=indexedDB.open(NAME,1);r.onupgradeneeded=e=>e.target.result.createObjectStore(STORE);r.onsuccess=e=>{_db=e.target.result;res(_db)};r.onerror=e=>rej(e.target.error)})}
+  return{
+    async get(k,d=null){try{const db=await open();return new Promise(res=>{const r=db.transaction(STORE,'readonly').objectStore(STORE).get(k);r.onsuccess=()=>res(r.result!==undefined?r.result:d);r.onerror=()=>res(d)})}catch{return d}},
+    async set(k,v){try{const db=await open();return new Promise(res=>{const r=db.transaction(STORE,'readwrite').objectStore(STORE).put(v,k);r.onsuccess=()=>res(true);r.onerror=()=>res(false)})}catch{return false}},
+    async del(k){try{const db=await open();return new Promise(res=>{const tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).delete(k);tx.oncomplete=()=>res(true);tx.onerror=()=>res(false)})}catch{return false}}
+  };
+})();
+
+// ═══════════════════════ DEFAULTS ═══════════════════════
+const DEFAULT_BARBERS=[
+  {id:1,name:'Mwenda',title:'Senior Master Barber',specialties:'Fades, Designs, Classic',rating:'4.9',status:'Available',phone:'0712000001',reviews:312},
+  {id:2,name:'Kamau',title:'Fade Specialist',specialties:'Skin Fade, Low Fade, Taper',rating:'4.8',status:'Available',phone:'0712000002',reviews:245},
+  {id:3,name:'Hassan',title:'Shave & Beard Expert',specialties:'Hot Shave, Beard Art, Classic',rating:'5.0',status:'Busy',phone:'0712000003',reviews:198},
+  {id:4,name:'Wanjiku',title:'Loc & Natural Hair Specialist',specialties:'Locs, Twists, Natural',rating:'4.9',status:'Available',phone:'0712000004',reviews:156},
+  {id:5,name:'Odhiambo',title:'Classic Barber',specialties:'Classic Cut, Low Fade, Kids',rating:'4.7',status:'Available',phone:'0712000005',reviews:203},
+  {id:6,name:'Kipchoge',title:'Junior Barber',specialties:'Classic, Beard Trim',rating:'4.5',status:'Available',phone:'0712000006',reviews:89},
+];
+const DEFAULT_SERVICES=[
+  {id:1,name:'Classic Haircut',price:'300',duration:'30–45 min',icon:'✂',desc:'Clean scissor or clipper cut. Includes wash, cut, and style.'},
+  {id:2,name:'Hot Towel Shave',price:'500',duration:'45 min',icon:'🪒',desc:'Traditional straight-razor shave. Hot towel prep and post-shave balm.'},
+  {id:3,name:'Cut + Shave Combo',price:'700',duration:'75 min',icon:'✂',desc:'Full haircut with hot towel shave. The complete executive package.'},
+  {id:4,name:'Beard Lineup & Shape',price:'350',duration:'30 min',icon:'🧔',desc:'Precision beard shaping, line-up and definition.'},
+  {id:5,name:'Hair Design & Fade',price:'500',duration:'60 min',icon:'🎨',desc:'Custom fade designs — low, mid, high, skin fade.'},
+  {id:6,name:'Hair & Scalp Treatment',price:'600',duration:'45 min',icon:'🧴',desc:'Deep conditioning treatment and scalp massage.'},
+  {id:7,name:'Kids Haircut',price:'200',duration:'25 min',icon:'👶',desc:'Patient, gentle cuts for boys under 12.'},
+  {id:8,name:'VIP Executive Package',price:'1500',duration:'2 hrs',icon:'👑',desc:'Full cut, hot shave, beard shape, scalp treatment + drink.'},
+  {id:9,name:'Loc Service',price:'800',duration:'90 min+',icon:'🪮',desc:'New loc starts, retwisting, tightening, freeform maintenance.'},
+];
+
+let allBookings=DB.get('ke_bookings',[
+  {id:1,client:'Brian Mutua',phone:'0712345678',service:'Classic Haircut',barber:'Mwenda',date:'2024-01-15',time:'09:00',status:'Completed',memberCode:'GOLD001'},
+  {id:2,client:'David Odhiambo',phone:'0722876543',service:'VIP Package',barber:'Hassan',date:new Date().toISOString().slice(0,10),time:'10:30',status:'Confirmed',memberCode:''},
+  {id:3,client:'Kevin Njoroge',phone:'0733111222',service:'Loc Service',barber:'Wanjiku',date:new Date().toISOString().slice(0,10),time:'14:00',status:'Pending',memberCode:'DIA001'},
+]);
+let allMembers=DB.get('ke_members',[
+  {id:1,name:'Brian Mutua',phone:'0712345678',email:'brian@email.com',tier:'Gold',code:'GOLD001',since:'Jan 2024',points:240,visits:12},
+  {id:2,name:'David Odhiambo',phone:'0722876543',email:'david@email.com',tier:'Diamond',code:'DIA001',since:'Nov 2023',points:680,visits:28},
+  {id:3,name:'Faith Wambua',phone:'0733111222',email:'faith@email.com',tier:'Classic',code:'CLS001',since:'Mar 2024',points:60,visits:5},
+]);
+let allBarbers=DB.get('ke_barbers',DEFAULT_BARBERS);
+let allServices=DB.get('ke_services',DEFAULT_SERVICES);
+let adminUsers=DB.get('ke_admins',[{username:'admin',password:'kinyozi123',name:'Administrator',email:'admin@kinyozielite.co.ke'}]);
+let bizSettings=DB.get('ke_settings',{bizName:'Kinyozi Elite',wa:'+254 700 000 000',email:'book@kinyozielite.co.ke',location:'Tom Mboya St, Nairobi CBD',hrsWD:'7:00am – 9:00pm',hrsWE:'7:00am – 10:00pm'});
+let currentUser=null;
+let activityLog=[];
+// Image state (loaded from IDB on startup)
+let heroBgImage=null;      // Hero right-side background
+let barberImages={};       // {barberId: base64}
+let galleryImages=[];      // [base64, ...] up to 9
+let announcements=DB.get('ke_announcements',['✂ Walk-ins Welcome Daily','⭐ Book Online — Secure Your Slot','👑 Members Get 20% Off Every Cut','📍 Nairobi CBD · Open 7 Days','💈 Hot Towel Shave from KES 500','🏆 Best Barbershop — Nairobi 2024']);
+let selectedServices=[];
+let selectedTime='';
+
+function saveAll(){
+  DB.set('ke_bookings',allBookings);DB.set('ke_members',allMembers);
+  DB.set('ke_barbers',allBarbers);DB.set('ke_services',allServices);
+  DB.set('ke_admins',adminUsers);DB.set('ke_settings',bizSettings);
+}
+async function loadImagesFromIDB(){
+  const[hero,bImgs,gImgs]=await Promise.all([
+    IDB.get('ke_hero_bg',null),
+    IDB.get('ke_barber_images',null),
+    IDB.get('ke_gallery_images',null)
+  ]);
+  if(hero) heroBgImage=hero;
+  if(bImgs) barberImages=bImgs;
+  if(gImgs) galleryImages=gImgs;
+  renderHeroBg();
+  updateLiveBarbers();
+  renderGalleryPreviews();
+  updateLiveGallery();
+}
+
+// ═══════════════════════ PRELOADER & CURSOR ═══════════════════════
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('preloader').classList.add('hide'),2200));
+const dot=document.getElementById('cursorDot'),ring=document.getElementById('cursorRing');
+document.addEventListener('mousemove',e=>{dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px';ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px'});
+document.querySelectorAll('a,button,.barber-card,.service-card,.mem-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.width='55px';ring.style.height='55px'});
+  el.addEventListener('mouseleave',()=>{ring.style.width='32px';ring.style.height='32px'});
+});
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>50));
+function scrollTop(){window.scrollTo({top:0,behavior:'smooth'})}
+
+// ═══════════════════════ MOBILE MENU ═══════════════════════
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');document.getElementById('hamburger').classList.toggle('open')}
+function closeMenu(){document.getElementById('mobileMenu').classList.remove('open');document.getElementById('hamburger').classList.remove('open')}
+
+// ═══════════════════════ COUNTER ANIMATION ═══════════════════════
+function animateCounters(){
+  document.querySelectorAll('[data-count]').forEach(el=>{
+    const t=+el.dataset.count;let c=0;const step=Math.ceil(t/60);
+    const intv=setInterval(()=>{c=Math.min(c+step,t);el.textContent=c;if(c>=t)clearInterval(intv)},30);
+  });
+}
+setTimeout(animateCounters,2400);
+
+// ═══════════════════════ SCROLL ANIMATIONS ═══════════════════════
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:0.1});
+document.querySelectorAll('.fade-up,.fade-left,.fade-right').forEach(el=>observer.observe(el));
+
+// ═══════════════════════ BOOKING FORM ═══════════════════════
+// Set min date to today
+document.getElementById('bookDate').min=new Date().toISOString().slice(0,10);
+document.getElementById('bookDate').value=new Date().toISOString().slice(0,10);
+
+function toggleSvcPill(el,svc){
+  el.classList.toggle('selected');
+  if(el.classList.contains('selected')){if(!selectedServices.includes(svc))selectedServices.push(svc)}
+  else{selectedServices=selectedServices.filter(s=>s!==svc)}
+  updateBookingSteps();
+}
+
+const ALL_SLOTS=['08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30'];
+const BOOKED_DEMO=['09:00','11:30','14:00','16:00'];
+
+function refreshTimeSlots(){
+  const container=document.getElementById('bookTimeSlots');
+  container.innerHTML=ALL_SLOTS.map(t=>{
+    const booked=BOOKED_DEMO.includes(t);
+    return `<div class="time-slot${booked?' booked':''}" onclick="${booked?'':'selectTime(this,\''+t+'\')'}${booked?'return':''}">${t}</div>`;
+  }).join('');
+  selectedTime='';
+}
+refreshTimeSlots();
+
+function selectTime(el,t){
+  document.querySelectorAll('.time-slot').forEach(s=>s.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedTime=t;
+  updateBookingSteps();
+}
+
+function updateBookingSteps(){
+  ['bkStep1','bkStep2','bkStep3','bkStep4'].forEach((id,i)=>{
+    document.getElementById(id).classList.remove('active-step');
+  });
+  if(selectedServices.length>0) document.getElementById('bkStep2').classList.add('active-step');
+  if(selectedTime) document.getElementById('bkStep3').classList.add('active-step');
+  const name=document.getElementById('bookName').value.trim();
+  if(name&&selectedTime) document.getElementById('bkStep4').classList.add('active-step');
+}
+document.getElementById('bookName').addEventListener('input',updateBookingSteps);
+
+function submitBooking(){
+  const name=document.getElementById('bookName').value.trim();
+  const phone=document.getElementById('bookPhone').value.trim();
+  const barber=document.getElementById('bookBarber').value;
+  const date=document.getElementById('bookDate').value;
+  const notes=document.getElementById('bookNotes').value;
+  const memberCode=document.getElementById('bookMemberCode').value.trim();
+  if(!name){alert('Please enter your name.');return}
+  if(!phone){alert('Please enter your phone number.');return}
+  if(!selectedServices.length){alert('Please select at least one service.');return}
+  if(!selectedTime){alert('Please select a time slot.');return}
+  const booking={id:Date.now(),client:name,phone,service:selectedServices.join(' + '),barber:barber==='any'?'Any Available':barber.charAt(0).toUpperCase()+barber.slice(1),date,time:selectedTime,status:'Pending',notes,memberCode};
+  allBookings.push(booking);
+  saveAll();
+  logActivity(`📅 New booking: ${name} — ${selectedServices.join('+')} @ ${selectedTime}`);
+  // Show confirm
+  document.getElementById('bookingFormInner').style.display='none';
+  const conf=document.getElementById('bookingConfirm');
+  conf.classList.add('show');
+  document.getElementById('confirmDetails').textContent=`${selectedServices.join(' + ')} on ${date} at ${selectedTime} with ${booking.barber}`;
+  // WhatsApp confirm message
+  const msg=encodeURIComponent(`Hi! Booking confirmed for ${name}. Service: ${selectedServices.join(' + ')}. Date: ${date} at ${selectedTime}. Barber: ${booking.barber}. We'll see you soon! ✂`);
+  setTimeout(()=>window.open(`https://wa.me/${phone.replace(/\D/g,'')}?text=${msg}`,'_blank'),1500);
+}
+
+function resetBookingForm(){
+  document.getElementById('bookingFormInner').style.display='';
+  document.getElementById('bookingConfirm').classList.remove('show');
+  document.getElementById('bookName').value='';
+  document.getElementById('bookPhone').value='';
+  document.getElementById('bookNotes').value='';
+  document.getElementById('bookMemberCode').value='';
+  selectedServices=[];
+  selectedTime='';
+  document.querySelectorAll('.svc-pill').forEach(p=>p.classList.remove('selected'));
+  document.querySelectorAll('.time-slot').forEach(t=>t.classList.remove('selected'));
+  updateBookingSteps();
+}
+
+function quickBook(svc,price){
+  window.location.hash='#booking';
+  document.getElementById('booking').scrollIntoView({behavior:'smooth'});
+  setTimeout(()=>{
+    const pill=Array.from(document.querySelectorAll('.svc-pill')).find(p=>p.textContent.toLowerCase().includes(svc.toLowerCase().substring(0,6)));
+    if(pill&&!pill.classList.contains('selected')){toggleSvcPill(pill,svc)}
+  },600);
+}
+function quickBookBarber(name){
+  document.getElementById('booking').scrollIntoView({behavior:'smooth'});
+  setTimeout(()=>{
+    const sel=document.getElementById('bookBarber');
+    for(let o of sel.options){if(o.text.toLowerCase().includes(name.toLowerCase())){sel.value=o.value;break}}
+  },600);
+}
+
+// ═══════════════════════ REVIEWS SLIDER ═══════════════════════
+let revIdx=0;
+const revTrack=document.getElementById('reviewsTrack');
+const revDots=document.getElementById('reviewsNav');
+const revCards=revTrack.children.length;
+for(let i=0;i<revCards;i++){
+  const d=document.createElement('div');d.className='rev-dot'+(i===0?' active':'');
+  d.onclick=()=>{revIdx=i;updateRevTrack();};revDots.appendChild(d);
+}
+function updateRevTrack(){
+  const w=(revTrack.children[0]?.offsetWidth||380)+24;
+  revTrack.style.transform=`translateX(-${revIdx*w}px)`;
+  document.querySelectorAll('.rev-dot').forEach((d,i)=>d.classList.toggle('active',i===revIdx));
+}
+function reviewNav(dir){revIdx=Math.max(0,Math.min(revIdx+dir,revCards-1));updateRevTrack()}
+
+// ═══════════════════════ MEMBERSHIP ═══════════════════════
+function joinMembership(tier,price){
+  const msg=encodeURIComponent(`Hi! I'd like to join the Kinyozi Elite ${tier} Membership (KES ${price}/month). Please help me sign up!`);
+  window.open(`https://wa.me/254700000000?text=${msg}`,'_blank');
+}
+
+// MEMBER DASHBOARD
+function openMemberDash(){
+  document.getElementById('memberDash').classList.add('open');
+  document.body.style.overflow='hidden';
+  renderMemberDash();
+}
+function closeMemberDash(){
+  document.getElementById('memberDash').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('memberDash').addEventListener('click',e=>{if(e.target===document.getElementById('memberDash'))closeMemberDash()});
+
+function renderMemberDash(){
+  // For demo, show first member or login prompt
+  const m=allMembers[0];
+  if(!m){document.getElementById('dashBody').innerHTML='<p style="color:var(--muted);text-align:center;padding:2rem">No members yet. Join a membership plan to get started!</p>';return}
+  const visits=allBookings.filter(b=>b.client===m.name||b.memberCode===m.code);
+  const nextReward=m.tier==='Classic'?200:m.tier==='Gold'?500:1000;
+  const pts=m.points||0;
+  const tierColor=m.tier==='Diamond'?'#7eb8e8':m.tier==='Gold'?'var(--gold)':'#aaa';
+  document.getElementById('dashBody').innerHTML=`
+    <div class="dash-member-card">
+      <div>
+        <div class="dash-member-tier" style="color:${tierColor}">✦ ${m.tier.toUpperCase()} MEMBER</div>
+        <div class="dash-member-name">${m.name.toUpperCase()}</div>
+        <div class="dash-member-since">Member since ${m.since} · Code: <strong style="color:var(--gold)">${m.code}</strong></div>
+      </div>
+      <div style="text-align:right">
+        <div class="loyalty-pts">${pts}</div>
+        <div style="font-size:0.7rem;color:var(--muted);font-family:'Barlow Condensed',sans-serif;letter-spacing:0.12em;text-transform:uppercase">Loyalty Points</div>
+      </div>
+    </div>
+    <div class="dash-stats">
+      <div class="dash-stat"><div class="dash-stat-num">${m.visits}</div><div class="dash-stat-lbl">Total Visits</div></div>
+      <div class="dash-stat"><div class="dash-stat-num">${m.tier==='Classic'?'10':m.tier==='Gold'?'20':'30'}%</div><div class="dash-stat-lbl">Discount</div></div>
+      <div class="dash-stat"><div class="dash-stat-num">${pts}</div><div class="dash-stat-lbl">Points</div></div>
+      <div class="dash-stat"><div class="dash-stat-num">${m.tier==='Classic'?'4':m.tier==='Gold'?'∞':'∞'}</div><div class="dash-stat-lbl">Cuts / Month</div></div>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-label">Loyalty Progress — <strong style="color:var(--gold)">${pts} / ${nextReward} points</strong> to next reward</div>
+      <div class="progress-track"><div class="progress-fill" style="width:${Math.min(100,Math.round(pts/nextReward*100))}%"></div></div>
+      <div class="progress-sub"><span>${pts} pts earned</span><span>${nextReward-pts} pts to reward</span></div>
+    </div>
+    <div class="dash-section-title">Visit History</div>
+    <div class="visits-list">
+      ${visits.length?visits.slice(-5).reverse().map(b=>`
+        <div class="visit-item">
+          <div><div class="visit-svc">${b.service}</div><div class="visit-barber">with ${b.barber}</div></div>
+          <div class="visit-date">${b.date} ${b.time}</div>
+          <div class="visit-amt">✓</div>
+        </div>`).join(''):`<div style="color:var(--muted);font-size:0.85rem;padding:1rem;text-align:center">No visits recorded yet.</div>`}
+    </div>
+    <div style="margin-top:1rem">
+      <div class="dash-section-title">Other Members (demo)</div>
+      <div style="display:flex;gap:0.8rem;flex-wrap:wrap">
+        ${allMembers.map(mm=>`<button class="admin-btn secondary" onclick="switchDemoMember(${mm.id})" style="font-size:0.75rem;padding:0.4rem 0.9rem">${mm.name} (${mm.tier})</button>`).join('')}
+      </div>
+    </div>
+    <div style="margin-top:1.5rem;display:flex;gap:1rem;flex-wrap:wrap">
+      <a class="btn-primary" href="#booking" onclick="closeMemberDash()" style="font-size:0.85rem;padding:0.8rem 1.5rem">✂ Book Now</a>
+      <a class="btn-secondary" href="https://wa.me/254700000000?text=Hi!+I+want+to+redeem+my+loyalty+points.+Member+code:+${m.code}" target="_blank" style="font-size:0.85rem;padding:0.8rem 1.5rem">🎁 Redeem Points</a>
+    </div>`;
+}
+
+let dashMemberIdx=0;
+function switchDemoMember(id){
+  const m=allMembers.find(x=>x.id===id);
+  if(!m)return;
+  allMembers[0]=m;
+  renderMemberDash();
+}
+
+// ═══════════════════════ ANNOUNCEMENT BAR ═══════════════════════
+function updateAnnouncementBar(){
+  const inner=document.querySelector('.announce-inner');
+  inner.innerHTML=[...announcements,...announcements].map(a=>`<span>${a}</span>`).join('');
+}
+
+// ═══════════════════════ ADMIN AUTH ═══════════════════════
+function openAdmin(){
+  document.getElementById('adminOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  const s=DB.get('ke_session');
+  if(s&&adminUsers.find(u=>u.username===s)){
+    currentUser=adminUsers.find(u=>u.username===s);
+    showAdminPanel();
+  } else {
+    document.getElementById('authScreen').style.display='flex';
+    document.getElementById('adminPanel').style.display='none';
+  }
+}
+function closeAdmin(){document.getElementById('adminOverlay').classList.remove('open');document.body.style.overflow=''}
+document.getElementById('adminOverlay').addEventListener('click',e=>{if(e.target===document.getElementById('adminOverlay'))closeAdmin()});
+
+function switchAuthTab(tab){
+  document.getElementById('loginForm').style.display=tab==='login'?'flex':'none';
+  document.getElementById('registerForm').style.display=tab==='register'?'flex':'none';
+  document.getElementById('loginTabBtn').classList.toggle('active',tab==='login');
+  document.getElementById('registerTabBtn').classList.toggle('active',tab==='register');
+}
+function doLogin(){
+  const u=document.getElementById('loginUser').value.trim();
+  const p=document.getElementById('loginPass').value;
+  const err=document.getElementById('loginError');
+  if(!u||!p){showAuthErr(err,'Enter username and password.');return}
+  const user=adminUsers.find(x=>x.username===u&&x.password===p);
+  if(!user){showAuthErr(err,'Invalid credentials.');return}
+  currentUser=user;DB.set('ke_session',u);
+  logActivity(`🔐 ${user.name||user.username} signed in`);
+  showAdminPanel();
+}
+function doRegister(){
+  const name=document.getElementById('regName').value.trim(),user=document.getElementById('regUser').value.trim();
+  const email=document.getElementById('regEmail').value.trim(),pass=document.getElementById('regPass').value;
+  const pass2=document.getElementById('regPass2').value,code=document.getElementById('regCode').value;
+  const err=document.getElementById('regError'),suc=document.getElementById('regSuccess');
+  err.classList.remove('show');suc.classList.remove('show');
+  if(!name||!user||!pass){showAuthErr(err,'Fill all required fields.');return}
+  if(pass.length<6){showAuthErr(err,'Password min 6 chars.');return}
+  if(pass!==pass2){showAuthErr(err,'Passwords do not match.');return}
+  if(code!=='KINYOZI2024'){showAuthErr(err,'Invalid admin code.');return}
+  if(adminUsers.find(x=>x.username===user)){showAuthErr(err,'Username taken.');return}
+  adminUsers.push({username:user,password:pass,name,email});
+  DB.set('ke_admins',adminUsers);
+  suc.textContent='✅ Account created! Sign in now.';suc.classList.add('show');
+  setTimeout(()=>switchAuthTab('login'),2000);
+}
+function doLogout(){currentUser=null;DB.del('ke_session');document.getElementById('adminPanel').style.display='none';document.getElementById('authScreen').style.display='flex'}
+function showAuthErr(el,msg){el.textContent=msg;el.classList.add('show')}
+function showAdminPanel(){
+  document.getElementById('authScreen').style.display='none';
+  document.getElementById('adminPanel').style.display='flex';
+  document.getElementById('adminPanel').style.flexDirection='column';
+  document.getElementById('adminUserBadge').textContent='✂ '+(currentUser.name||currentUser.username);
+  refreshDash();renderAdminBookings();renderAdminMembers();renderAdminBarbers();renderAdminServices();renderAnnounceList();renderAdminUsers();loadSettings();
+  // Apply biz name in case it was updated
+  applyBizName();
+}
+
+// ═══════════════════════ ADMIN TABS ═══════════════════════
+const TAB_LABELS={dashboard:'📊 Dashboard',bookings:'📅 Bookings',members:'👑 Members',barbers:'✂ Barbers',services:'💈 Services',banners:'🖼 Banners',settings:'⚙ Settings'};
+function switchTab(id,el){
+  document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.admin-section').forEach(s=>s.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-'+id).classList.add('active');
+  if(id==='banners'){renderAnnounceList();setTimeout(initAdminMapPicker,250);}
+  // Mobile back button
+  const isMobile=window.innerWidth<=900;
+  const back=document.getElementById('adminBackBtn');
+  const title=document.getElementById('adminPanelTitle');
+  if(back)back.style.display=(isMobile&&id!=='dashboard')?'flex':'none';
+  if(title){const biz=(bizSettings.bizName||'Kinyozi Elite').toUpperCase();title.textContent=isMobile&&id!=='dashboard'?(TAB_LABELS[id]||id):`✂ ${biz} — ADMIN`;}
+}
+function adminGoBack(){
+  const dashBtn=document.querySelector('.admin-tab');
+  switchTab('dashboard',dashBtn);
+  const tabs=document.querySelector('.admin-tabs');
+  if(tabs)tabs.scrollLeft=0;
+}
+
+// ═══════════════════════ DASHBOARD ═══════════════════════
+function refreshDash(){
+  document.getElementById('statBookings').textContent=allBookings.length;
+  document.getElementById('statMembers').textContent=allMembers.length;
+  document.getElementById('statBarbers').textContent=allBarbers.length;
+  document.getElementById('statServices').textContent=allServices.length;
+  // Today's bookings
+  const today=new Date().toISOString().slice(0,10);
+  const todayBks=allBookings.filter(b=>b.date===today);
+  const el=document.getElementById('todayBookingsList');
+  el.innerHTML=todayBks.length?todayBks.map(b=>`
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:0.7rem 0.8rem;background:rgba(255,255,255,0.02);border:1px solid var(--dim);margin-bottom:0.3rem">
+      <div><strong style="color:rgba(240,232,216,0.9);font-size:0.85rem">${b.client}</strong><br><span style="font-size:0.72rem;color:var(--muted)">${b.service} · ${b.barber} · ${b.time}</span></div>
+      <span class="tbl-badge ${b.status.toLowerCase()}">${b.status}</span>
+    </div>`).join(''):'<div style="color:var(--muted);font-size:0.82rem;text-align:center;padding:1rem">No bookings today.</div>';
+  // Tier breakdown
+  const tiers={Classic:0,Gold:0,Diamond:0};
+  allMembers.forEach(m=>{if(tiers[m.tier]!==undefined)tiers[m.tier]++});
+  document.getElementById('tierBreakdown').innerHTML=Object.entries(tiers).map(([k,v])=>`
+    <div style="background:rgba(255,255,255,0.02);border:1px solid var(--dim);padding:1rem;text-align:center">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--gold)">${v}</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-top:0.2rem">${k}</div>
+    </div>`).join('');
+  // Activity
+  const logEl=document.getElementById('activityLog');
+  logEl.innerHTML=activityLog.length?activityLog.slice(-8).reverse().map(a=>`<div style="padding:0.4rem;background:rgba(255,255,255,0.02)">${a}</div>`).join(''):'<div style="color:var(--muted);font-style:italic">No activity yet.</div>';
+}
+function logActivity(msg){const t=new Date().toLocaleTimeString();activityLog.push(`<span style="color:var(--muted);font-size:0.7rem;margin-right:0.5rem">${t}</span>${msg}`);if(activityLog.length>20)activityLog.shift()}
+
+// ═══════════════════════ BOOKINGS ADMIN ═══════════════════════
+function renderAdminBookings(){
+  const tbody=document.getElementById('adminBookingsTbody');
+  const search=(document.getElementById('bookSearch')?.value||'').toLowerCase();
+  const sf=document.getElementById('bookStatusFilter')?.value||'';
+  const filtered=allBookings.filter(b=>(!sf||b.status===sf)&&(!search||b.client.toLowerCase().includes(search)));
+  document.getElementById('bookingCount').textContent=allBookings.length;
+  tbody.innerHTML=filtered.map(b=>`<tr>
+    <td><strong>${b.client}</strong><br><span style="font-size:0.72rem;color:var(--muted)">${b.phone}</span></td>
+    <td>${b.service}</td><td>${b.barber}</td>
+    <td>${b.date}<br><span style="font-size:0.72rem;color:var(--muted)">${b.time}</span></td>
+    <td><span class="tbl-badge ${b.status.toLowerCase()}">${b.status}</span></td>
+    <td><div style="display:flex;gap:0.3rem;flex-wrap:wrap">
+      ${b.status==='Pending'?`<button class="tbl-btn" onclick="updBooking(${b.id},'Confirmed')">Confirm</button>`:''}
+      ${b.status==='Confirmed'?`<button class="tbl-btn" onclick="updBooking(${b.id},'Completed')">Complete</button>`:''}
+      <a class="tbl-btn" href="https://wa.me/${b.phone.replace(/\D/g,'')}?text=Hi+${encodeURIComponent(b.client)}!+Your+Kinyozi+booking+for+${encodeURIComponent(b.service)}+on+${b.date}+at+${b.time}+is+confirmed." target="_blank">💬</a>
+      <button class="tbl-btn del" onclick="delBooking(${b.id})">✕</button>
+    </div></td>
+  </tr>`).join('');
+}
+function updBooking(id,status){const b=allBookings.find(x=>x.id===id);if(!b)return;b.status=status;saveAll();renderAdminBookings();logActivity(`📅 Booking "${b.client}" → ${status}`);refreshDash()}
+function delBooking(id){if(!confirm('Delete booking?'))return;allBookings=allBookings.filter(x=>x.id!==id);saveAll();renderAdminBookings();refreshDash()}
+function addManualBooking(){
+  const name=document.getElementById('mbName').value.trim();
+  const phone=document.getElementById('mbPhone').value.trim();
+  const svc=document.getElementById('mbService').value;
+  const barber=document.getElementById('mbBarber').value;
+  const date=document.getElementById('mbDate').value||new Date().toISOString().slice(0,10);
+  const time=document.getElementById('mbTime').value||'09:00';
+  if(!name||!phone){alert('Name and phone required.');return}
+  allBookings.push({id:Date.now(),client:name,phone,service:svc,barber,date,time,status:'Pending',notes:''});
+  saveAll();renderAdminBookings();logActivity(`📅 Manual booking: ${name} — ${svc}`);refreshDash();
+  ['mbName','mbPhone'].forEach(id=>document.getElementById(id).value='');
+}
+
+// ═══════════════════════ MEMBERS ADMIN ═══════════════════════
+function renderAdminMembers(){
+  const tbody=document.getElementById('adminMembersTbody');
+  const search=(document.getElementById('memberSearch')?.value||'').toLowerCase();
+  const filtered=allMembers.filter(m=>!search||m.name.toLowerCase().includes(search)||m.code.toLowerCase().includes(search));
+  document.getElementById('memberCount').textContent=allMembers.length;
+  const tierCol={Classic:'#aaa',Gold:'var(--gold)',Diamond:'#7eb8e8'};
+  tbody.innerHTML=filtered.map(m=>`<tr>
+    <td><strong>${m.name}</strong></td><td>${m.phone}</td>
+    <td><span class="tbl-badge gold" style="border-color:${tierCol[m.tier]||'var(--gold)'};color:${tierCol[m.tier]||'var(--gold)'}">${m.tier}</span></td>
+    <td>${m.since}</td><td>${m.points}</td><td>${m.visits}</td>
+    <td><div style="display:flex;gap:0.3rem">
+      <button class="tbl-btn" onclick="addPoints(${m.id})">+pts</button>
+      <a class="tbl-btn" href="https://wa.me/${m.phone.replace(/\D/g,'')}?text=Hi+${encodeURIComponent(m.name)}!+Your+Kinyozi+Elite+member+code+is+${m.code}.+Enjoy+your+${m.tier}+membership+perks!" target="_blank">💬</a>
+      <button class="tbl-btn del" onclick="delMember(${m.id})">✕</button>
+    </div></td>
+  </tr>`).join('');
+}
+function addPoints(id){const m=allMembers.find(x=>x.id===id);if(!m)return;const pts=parseInt(prompt(`Add points to ${m.name} (current: ${m.points}):`,50));if(!isNaN(pts)){m.points+=pts;saveAll();renderAdminMembers();logActivity(`⭐ Added ${pts} pts to ${m.name}`)}}
+function delMember(id){if(!confirm('Remove member?'))return;allMembers=allMembers.filter(x=>x.id!==id);saveAll();renderAdminMembers();refreshDash()}
+function addMember(){
+  const name=document.getElementById('nmName').value.trim(),phone=document.getElementById('nmPhone').value.trim();
+  const email=document.getElementById('nmEmail').value.trim(),tier=document.getElementById('nmTier').value;
+  const code=document.getElementById('nmCode').value.trim()||tier.substring(0,3).toUpperCase()+(Date.now()%10000);
+  const pts=parseInt(document.getElementById('nmPoints').value)||0;
+  if(!name||!phone){alert('Name and phone required.');return}
+  allMembers.push({id:Date.now(),name,phone,email,tier,code,since:new Date().toLocaleDateString('en-GB',{month:'short',year:'numeric'}),points:pts,visits:0});
+  saveAll();renderAdminMembers();logActivity(`👑 New member: ${name} (${tier})`);refreshDash();
+  ['nmName','nmPhone','nmEmail','nmCode'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('nmPoints').value='0';
+  showMsg('settingsMsg','✅ Member enrolled!','success');
+}
+
+// ═══════════════════════ BARBERS ADMIN ═══════════════════════
+function renderAdminBarbers(){
+  const tbody=document.getElementById('adminBarbersTbody');
+  document.getElementById('barberCount').textContent=allBarbers.length;
+  tbody.innerHTML=allBarbers.map(b=>`<tr>
+    <td><strong>${b.name}</strong></td><td>${b.title}</td><td style="font-size:0.78rem">${b.specialties}</td>
+    <td>⭐ ${b.rating}</td>
+    <td><span class="tbl-badge ${b.status==='Available'?'active':b.status==='Busy'?'pending':'completed'}">${b.status}</span></td>
+    <td><div style="display:flex;gap:0.3rem">
+      <button class="tbl-btn" onclick="editBarber(${b.id})">✏ Edit</button>
+      <button class="tbl-btn" onclick="toggleBarberStatus(${b.id})">⟳</button>
+      <button class="tbl-btn del" onclick="delBarber(${b.id})">✕</button>
+    </div></td>
+  </tr>`).join('');
+  // Update live barbers section
+  updateLiveBarbers();
+}
+function editBarber(id){
+  const b=allBarbers.find(x=>x.id===id);if(!b)return;
+  document.getElementById('editBarberId').value=id;
+  document.getElementById('baName').value=b.name;document.getElementById('baTitle').value=b.title;
+  document.getElementById('baSpec').value=b.specialties;document.getElementById('baStatus').value=b.status;
+  document.getElementById('baRating').value=b.rating;document.getElementById('baPhone').value=b.phone||'';
+  document.getElementById('barberFormTitle').textContent='Edit Barber';
+  document.getElementById('saveBarberBtn').textContent='💾 Save Changes';
+  document.getElementById('cancelBarberBtn').style.display='';
+}
+function cancelBarberEdit(){
+  document.getElementById('editBarberId').value='';
+  document.getElementById('barberFormTitle').textContent='Add New Barber';
+  document.getElementById('saveBarberBtn').textContent='➕ Add Barber';
+  document.getElementById('cancelBarberBtn').style.display='none';
+  ['baName','baTitle','baSpec','baPhone'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('baRating').value='4.5';document.getElementById('baStatus').value='Available';
+}
+function saveBarber(){
+  const eid=document.getElementById('editBarberId').value;
+  const obj={name:document.getElementById('baName').value.trim(),title:document.getElementById('baTitle').value.trim(),specialties:document.getElementById('baSpec').value.trim(),status:document.getElementById('baStatus').value,rating:document.getElementById('baRating').value,phone:document.getElementById('baPhone').value.trim()};
+  if(!obj.name||!obj.title){alert('Name and title required.');return}
+  if(eid){const idx=allBarbers.findIndex(x=>x.id===parseInt(eid));if(idx>-1){allBarbers[idx]={...allBarbers[idx],...obj};logActivity(`✏ Updated barber: ${obj.name}`)}cancelBarberEdit()}
+  else{allBarbers.push({id:Date.now(),...obj,reviews:0});logActivity(`✂ Added barber: ${obj.name}`);cancelBarberEdit()}
+  saveAll();renderAdminBarbers();
+}
+function delBarber(id){const b=allBarbers.find(x=>x.id===id);if(!b||!confirm(`Remove ${b.name}?`))return;allBarbers=allBarbers.filter(x=>x.id!==id);saveAll();renderAdminBarbers();logActivity(`🗑 Removed barber: ${b.name}`)}
+function toggleBarberStatus(id){
+  const b=allBarbers.find(x=>x.id===id);if(!b)return;
+  const cycle=['Available','Busy','Off Duty'];const idx=(cycle.indexOf(b.status)+1)%cycle.length;
+  b.status=cycle[idx];saveAll();renderAdminBarbers();logActivity(`✂ ${b.name} → ${b.status}`)
+}
+function updateLiveBarbers(){
+  const grid=document.getElementById('barbersGrid');
+  if(!grid)return;
+  grid.innerHTML=allBarbers.slice(0,4).map((b,i)=>{
+    const specs=b.specialties.split(',').slice(0,3).map(s=>`<span class="barber-tag">${s.trim()}</span>`).join('');
+    const avail=b.status==='Available';
+    const imgSrc=barberImages&&barberImages[b.id]?barberImages[b.id]:null;
+    const imgHtml=imgSrc
+      ?`<img src="${imgSrc}" style="width:100%;height:100%;object-fit:cover;display:block">`
+      :`<div style="font-size:5rem;display:flex;align-items:center;justify-content:center;height:100%">${['🧔','✂','🪒','🪮'][i%4]}</div>`;
+    return `<div class="barber-card fade-up stagger-${(i%4)+1}" onclick="quickBookBarber('${b.name}')">
+      <div class="barber-img" style="background:linear-gradient(135deg,var(--${i%2===0?'mid':'dark'}),var(--ink));overflow:hidden;position:relative">
+        ${imgHtml}
+        <div class="barber-availability ${avail?'available':'busy'}" style="position:absolute;top:0.6rem;right:0.6rem">${avail?'✓ Available':'● Busy'}</div>
+      </div>
+      <div class="barber-body">
+        <div class="barber-name">${b.name.toUpperCase()}</div>
+        <div class="barber-title">✦ ${b.title}</div>
+        <div class="barber-specialties">${specs}</div>
+        <div class="barber-rating"><span>${'★'.repeat(Math.round(+b.rating))}</span> ${b.rating} (${b.reviews} reviews)</div>
+        <button class="barber-book-btn">Book ${b.name} →</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════ SERVICES ADMIN ═══════════════════════
+function renderAdminServices(){
+  const tbody=document.getElementById('adminServicesTbody');
+  document.getElementById('serviceCount').textContent=allServices.length;
+  tbody.innerHTML=allServices.map(s=>`<tr>
+    <td style="font-size:1.4rem">${s.icon}</td>
+    <td><strong>${s.name}</strong><br><span style="font-size:0.72rem;color:var(--muted)">${s.desc.substring(0,50)}…</span></td>
+    <td>KES ${s.price}</td><td>${s.duration}</td>
+    <td><span class="tbl-badge active">Active</span></td>
+    <td><div style="display:flex;gap:0.3rem">
+      <button class="tbl-btn" onclick="editSvc(${s.id})">✏ Edit</button>
+      <button class="tbl-btn del" onclick="delSvc(${s.id})">✕</button>
+    </div></td>
+  </tr>`).join('');
+  updateLiveServices();
+}
+function editSvc(id){
+  const s=allServices.find(x=>x.id===id);if(!s)return;
+  document.getElementById('editSvcId').value=id;
+  document.getElementById('svName').value=s.name;document.getElementById('svPrice').value=s.price;
+  document.getElementById('svDuration').value=s.duration;document.getElementById('svIcon').value=s.icon;
+  document.getElementById('svDesc').value=s.desc;
+  document.getElementById('svcFormTitle').textContent='Edit Service';
+  document.getElementById('saveSvcBtn').textContent='💾 Save Changes';
+  document.getElementById('cancelSvcBtn').style.display='';
+}
+function cancelSvcEdit(){
+  document.getElementById('editSvcId').value='';
+  document.getElementById('svcFormTitle').textContent='Add New Service';
+  document.getElementById('saveSvcBtn').textContent='➕ Add Service';
+  document.getElementById('cancelSvcBtn').style.display='none';
+  ['svName','svPrice','svDuration','svIcon','svDesc'].forEach(id=>document.getElementById(id).value='');
+}
+function saveService(){
+  const eid=document.getElementById('editSvcId').value;
+  const obj={name:document.getElementById('svName').value.trim(),price:document.getElementById('svPrice').value.trim(),duration:document.getElementById('svDuration').value.trim(),icon:document.getElementById('svIcon').value.trim()||'✂',desc:document.getElementById('svDesc').value.trim()};
+  if(!obj.name||!obj.price||!obj.desc){alert('Name, price and description required.');return}
+  if(eid){const idx=allServices.findIndex(x=>x.id===parseInt(eid));if(idx>-1){allServices[idx]={...allServices[idx],...obj};logActivity(`✏ Updated service: ${obj.name}`);}cancelSvcEdit()}
+  else{allServices.push({id:Date.now(),...obj});logActivity(`💈 Added service: ${obj.name}`);cancelSvcEdit()}
+  saveAll();renderAdminServices();
+}
+function delSvc(id){const s=allServices.find(x=>x.id===id);if(!s||!confirm(`Delete "${s.name}"?`))return;allServices=allServices.filter(x=>x.id!==id);saveAll();renderAdminServices()}
+function updateLiveServices(){
+  const grid=document.getElementById('servicesGrid');
+  if(!grid)return;
+  grid.innerHTML=allServices.map((s,i)=>`
+    <div class="service-card fade-up stagger-${(i%3)+1}">
+      <span class="svc-icon">${s.icon}</span>
+      <div class="svc-name">${s.name}</div>
+      <div class="svc-desc">${s.desc}</div>
+      <div class="svc-price">KES ${parseInt(s.price).toLocaleString()}</div>
+      <div class="svc-duration">⏱ ${s.duration}</div>
+      <button class="svc-book-btn" onclick="quickBook('${s.name.replace(/'/g,'')}','KES ${s.price}')">Book This →</button>
+    </div>`).join('');
+}
+
+// ═══════════════════════ ANNOUNCEMENTS ═══════════════════════
+function renderAnnounceList(){
+  const el=document.getElementById('announceList');
+  el.innerHTML=announcements.map((a,i)=>`
+    <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.03);border:1px solid var(--dim);padding:0.6rem 0.9rem">
+      <span style="font-size:0.82rem;color:rgba(240,232,216,0.8)">${a}</span>
+      <button class="tbl-btn del" onclick="removeAnnounce(${i})">✕</button>
+    </div>`).join('');
+}
+function addAnnouncement(){
+  const val=document.getElementById('newAnnounce').value.trim();
+  if(!val)return;
+  announcements.push(val);DB.set('ke_announcements',announcements);
+  updateAnnouncementBar();renderAnnounceList();
+  document.getElementById('newAnnounce').value='';
+  logActivity(`📢 Added announcement`);
+}
+function removeAnnounce(i){announcements.splice(i,1);DB.set('ke_announcements',announcements);updateAnnouncementBar();renderAnnounceList()}
+
+// ═══════════════════════ TOGGLES ═══════════════════════
+function toggleFeat(el,f){
+  el.classList.toggle('on');const on=el.classList.contains('on');
+  if(f==='wa') document.getElementById('waFloat').style.display=on?'':'none';
+  if(f==='announce') document.querySelector('.announce').style.display=on?'':'none';
+  if(f==='gallery') document.getElementById('gallery').style.display=on?'':'none';
+  if(f==='reviews') document.getElementById('reviews').style.display=on?'':'none';
+  logActivity(`🔧 Feature "${f}" ${on?'ON':'OFF'}`);
+}
+
+// ═══════════════════════ SETTINGS ═══════════════════════
+function loadSettings(){
+  document.getElementById('setBizName').value=bizSettings.bizName||'';
+  document.getElementById('setWA').value=bizSettings.wa||'';
+  document.getElementById('setEmail').value=bizSettings.email||'';
+  document.getElementById('setLocation').value=bizSettings.location||'';
+  document.getElementById('setHrsWD').value=bizSettings.hrsWD||'';
+  document.getElementById('setHrsWE').value=bizSettings.hrsWE||'';
+}
+function saveSettings(){
+  bizSettings={bizName:document.getElementById('setBizName').value,wa:document.getElementById('setWA').value,email:document.getElementById('setEmail').value,location:document.getElementById('setLocation').value,hrsWD:document.getElementById('setHrsWD').value,hrsWE:document.getElementById('setHrsWE').value};
+  DB.set('ke_settings',bizSettings);
+  applyBizName();
+  renderMapPlaceholder();
+  showMsg('settingsMsg','✅ Settings saved!','success');
+  logActivity('⚙ Settings updated');
+}
+function applyBizName(){
+  const name=bizSettings.bizName||'Kinyozi Elite';
+  const parts=name.trim().split(/\s+/);
+  const last=parts.pop();const first=parts.join(' ');
+  const logoHtml=first?`✂ ${first} <span>${last}</span>`:`✂ <span>${name}</span>`;
+  // Nav logo
+  const nl=document.querySelector('.nav-logo');if(nl)nl.innerHTML=logoHtml;
+  // Footer logo
+  const fl=document.querySelector('.footer-logo');if(fl)fl.innerHTML=logoHtml;
+  // Admin title
+  const at=document.getElementById('adminPanelTitle');if(at)at.innerHTML=`✂ ${name.toUpperCase()} — ADMIN`;
+  // Auth logo
+  const al=document.querySelector('.auth-logo');if(al)al.textContent=`✂ ${name.toUpperCase()}`;
+  // Preloader
+  const pl=document.querySelector('.pre-logo');if(pl)pl.textContent=name.toUpperCase();
+  // Page title
+  document.title=`${name} — Premium Barbershop`;
+  // Footer brand text
+  const fb=document.querySelector('.footer-brand p');
+  if(fb)fb.innerHTML=fb.innerHTML.replace(/Kinyozi Elite/g,name).replace(/kinyozi elite/gi,name);
+  // WA float link
+  const wa=document.getElementById('waFloat');
+  if(wa&&bizSettings.wa){const n=bizSettings.wa.replace(/\D/g,'');wa.href=`https://wa.me/${n}?text=Hi!+I'd+like+to+book+a+cut+at+${encodeURIComponent(name)}.`}
+}
+function renderAdminUsers(){
+  const el=document.getElementById('adminUsersList');
+  el.innerHTML=adminUsers.map((u,i)=>`
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:0.8rem;background:rgba(255,255,255,0.02);border:1px solid var(--dim);margin-bottom:0.4rem">
+      <div><div style="font-size:0.88rem;color:rgba(240,232,216,0.9)">✂ ${u.name||u.username}</div><div style="font-size:0.7rem;color:var(--muted)">@${u.username}</div></div>
+      ${i===0?'<span class="tbl-badge active">Owner</span>':`<button class="tbl-btn del" onclick="removeAdmin('${u.username}')">Remove</button>`}
+    </div>`).join('');
+}
+function removeAdmin(username){
+  if(username==='admin'){alert('Cannot remove default admin.');return}
+  if(!confirm(`Remove @${username}?`))return;
+  adminUsers=adminUsers.filter(u=>u.username!==username);
+  DB.set('ke_admins',adminUsers);
+  if(currentUser?.username===username)doLogout();else renderAdminUsers();
+}
+function changePassword(){
+  const cur=document.getElementById('setPwdCur').value,np=document.getElementById('setPwdNew').value,conf=document.getElementById('setPwdConf').value;
+  const user=adminUsers.find(u=>u.username===currentUser?.username);
+  if(!user||user.password!==cur){showMsg('settingsMsg','❌ Current password wrong.','error');return}
+  if(np.length<6){showMsg('settingsMsg','❌ Min 6 characters.','error');return}
+  if(np!==conf){showMsg('settingsMsg','❌ Passwords do not match.','error');return}
+  user.password=np;DB.set('ke_admins',adminUsers);
+  ['setPwdCur','setPwdNew','setPwdConf'].forEach(id=>document.getElementById(id).value='');
+  showMsg('settingsMsg','✅ Password updated!','success');logActivity('🔒 Password changed');
+}
+function clearAllBookings(){if(!confirm('Clear ALL bookings?'))return;allBookings=[];saveAll();renderAdminBookings();refreshDash();showMsg('settingsMsg','All bookings cleared.','success')}
+function clearAllMembers(){if(!confirm('Clear ALL members?'))return;allMembers=[];saveAll();renderAdminMembers();refreshDash();showMsg('settingsMsg','All members cleared.','success')}
+function resetToDefaults(){if(!confirm('Reset EVERYTHING to defaults?'))return;allBarbers=[...DEFAULT_BARBERS];allServices=[...DEFAULT_SERVICES];allBookings=[];allMembers=[];saveAll();showAdminPanel();showMsg('settingsMsg','✅ Reset complete.','success');logActivity('↩ Reset to defaults')}
+function showMsg(id,msg,type){const el=document.getElementById(id);if(!el)return;el.textContent=msg;el.className=`admin-msg ${type} show`;clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),4000)}
+
+// ═══════════════════════ HERO BG IMAGE ═══════════════════════
+function renderHeroBg(){
+  const right=document.getElementById('heroRight');
+  const def=document.getElementById('heroBgDefault');
+  const badge=document.getElementById('heroBadgeFloat');
+  if(!right)return;
+  if(heroBgImage){
+    right.style.backgroundImage=`url('${heroBgImage}')`;
+    right.style.backgroundSize='cover';
+    right.style.backgroundPosition='center';
+    if(def)def.style.display='none';
+    if(badge)badge.style.display='none';
+  } else {
+    right.style.backgroundImage='';
+    if(def)def.style.display='';
+    if(badge)badge.style.display='';
+  }
+  const prev=document.getElementById('heroBgPreview');
+  if(prev)prev.innerHTML=heroBgImage
+    ?`<div style="display:flex;gap:0.6rem;align-items:center"><img src="${heroBgImage}" style="width:120px;height:72px;object-fit:cover;border:1px solid var(--dim)"><button class="admin-btn secondary" onclick="removeHeroBg()">Remove</button></div>`
+    :'<div style="font-size:0.78rem;color:var(--muted)">No image — showing default</div>';
+}
+function handleHeroBgUpload(files){
+  if(!files||!files[0])return;
+  const f=files[0];if(!f.type.startsWith('image/'))return;
+  const r=new FileReader();
+  r.onload=async e=>{
+    heroBgImage=e.target.result;
+    renderHeroBg();
+    const ok=await IDB.set('ke_hero_bg',heroBgImage);
+    showMsg('bannerMsg',ok?'✅ Hero image saved!':'⚠️ Could not save image.','success');
+    logActivity('🖼 Uploaded hero background');
+  };r.readAsDataURL(f);
+}
+async function removeHeroBg(){
+  heroBgImage=null;renderHeroBg();
+  await IDB.set('ke_hero_bg',null);
+  showMsg('bannerMsg','✅ Hero image removed.','success');
+}
+
+// ═══════════════════════ BARBER PHOTOS ═══════════════════════
+let _pendingBarberPhoto=null;
+function handleBarberPhotoUpload(files){
+  if(!files||!files[0])return;
+  const f=files[0];if(!f.type.startsWith('image/'))return;
+  const r=new FileReader();
+  r.onload=e=>{
+    _pendingBarberPhoto=e.target.result;
+    const prev=document.getElementById('baPhotoPreview');
+    if(prev)prev.innerHTML=`<img src="${_pendingBarberPhoto}" style="width:100px;height:80px;object-fit:cover;border:1px solid var(--dim)"> <span style="font-size:0.75rem;color:var(--gold)">Ready to save with barber</span>`;
+  };r.readAsDataURL(f);
+}
+// Patch saveBarber to also save photo
+const _origSaveBarber=saveBarber;
+function saveBarber(){
+  const eid=document.getElementById('editBarberId').value;
+  const obj={name:document.getElementById('baName').value.trim(),title:document.getElementById('baTitle').value.trim(),specialties:document.getElementById('baSpec').value.trim(),status:document.getElementById('baStatus').value,rating:document.getElementById('baRating').value,phone:document.getElementById('baPhone').value.trim()};
+  if(!obj.name||!obj.title){alert('Name and title required.');return}
+  let barberId;
+  if(eid){const idx=allBarbers.findIndex(x=>x.id===parseInt(eid));if(idx>-1){allBarbers[idx]={...allBarbers[idx],...obj};barberId=allBarbers[idx].id;logActivity(`✏ Updated barber: ${obj.name}`)}cancelBarberEdit()}
+  else{barberId=Date.now();allBarbers.push({id:barberId,...obj,reviews:0});logActivity(`✂ Added barber: ${obj.name}`);cancelBarberEdit()}
+  if(_pendingBarberPhoto&&barberId){
+    barberImages[barberId]=_pendingBarberPhoto;
+    IDB.set('ke_barber_images',barberImages);
+    _pendingBarberPhoto=null;
+    const prev=document.getElementById('baPhotoPreview');
+    if(prev)prev.innerHTML='📷 Click to upload barber photo';
+  }
+  saveAll();renderAdminBarbers();
+}
+
+// ═══════════════════════ GALLERY IMAGES ═══════════════════════
+function handleGalleryUpload(files){
+  if(!files||!files.length)return;
+  const remaining=9-(galleryImages.length||0);
+  Array.from(files).slice(0,remaining).forEach(f=>{
+    if(!f.type.startsWith('image/'))return;
+    const r=new FileReader();
+    r.onload=async e=>{
+      galleryImages.push(e.target.result);
+      renderGalleryPreviews();
+      updateLiveGallery();
+      await IDB.set('ke_gallery_images',galleryImages);
+      showMsg('bannerMsg','✅ Gallery image saved!','success');
+      logActivity('📸 Added gallery image');
+    };r.readAsDataURL(f);
+  });
+}
+function removeGalleryImage(i){
+  galleryImages.splice(i,1);
+  renderGalleryPreviews();updateLiveGallery();
+  IDB.set('ke_gallery_images',galleryImages);
+  showMsg('bannerMsg','✅ Gallery image removed.','success');
+}
+function renderGalleryPreviews(){
+  const el=document.getElementById('galleryPreviews');
+  if(!el)return;
+  el.innerHTML=galleryImages.map((src,i)=>`
+    <div style="position:relative;aspect-ratio:1;overflow:hidden;border:1px solid var(--dim)">
+      <img src="${src}" style="width:100%;height:100%;object-fit:cover">
+      <button onclick="removeGalleryImage(${i})" style="position:absolute;top:4px;right:4px;background:rgba(0,0,0,0.7);border:none;color:#fff;width:22px;height:22px;cursor:pointer;font-size:0.75rem;border-radius:50%">✕</button>
+    </div>`).join('');
+}
+function updateLiveGallery(){
+  const grid=document.getElementById('galleryGrid');
+  if(!grid)return;
+  if(!galleryImages.length)return;
+  const items=grid.querySelectorAll('.gallery-item');
+  items.forEach((item,i)=>{
+    if(galleryImages[i]){
+      item.style.backgroundImage=`url('${galleryImages[i]}')`;
+      item.style.backgroundSize='cover';
+      item.style.backgroundPosition='center';
+      const emoji=item.querySelector('.gallery-icon');
+      if(emoji)emoji.style.display='none';
+    }
+  });
+}
+
+// ═══════════════════════ REAL MAP (Leaflet) ═══════════════════════
+let siteMapInstance=null,siteMapMarker=null;
+function renderMapPlaceholder(){
+  const mapEl=document.getElementById('siteMap');
+  if(!mapEl||typeof L==='undefined')return;
+  const pin=DB.get('ke_pinned_location',null);
+  const lat=pin?pin.lat:-1.2841,lng=pin?pin.lng:36.8272; // CBD default
+  const label=pin?(pin.label||(bizSettings.location||'')):(bizSettings.location||'Tom Mboya St, Nairobi CBD');
+  if(!siteMapInstance){
+    siteMapInstance=L.map(mapEl,{zoomControl:true,scrollWheelZoom:false,tap:false});
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:19}).addTo(siteMapInstance);
+  }
+  siteMapInstance.setView([lat,lng],16);
+  if(siteMapMarker)siteMapInstance.removeLayer(siteMapMarker);
+  const icon=L.divIcon({html:`<div style="background:var(--gold,#c9962a);width:16px;height:16px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.4)"></div>`,className:'',iconSize:[16,16],iconAnchor:[8,16],popupAnchor:[0,-18]});
+  siteMapMarker=L.marker([lat,lng],{icon}).addTo(siteMapInstance);
+  siteMapMarker.bindPopup(`<strong style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.06em">${label}</strong><br><a href="https://maps.google.com/?q=${lat},${lng}" target="_blank" style="color:var(--gold,#c9962a);font-size:0.78rem">Open in Google Maps ↗</a>`,{maxWidth:220}).openPopup();
+  setTimeout(()=>siteMapInstance.invalidateSize(),200);
+}
+
+let adminMapInstance=null,adminPickedMarker=null,adminPickedLatLng=null;
+function initAdminMapPicker(){
+  const el=document.getElementById('adminMapPicker');
+  if(!el||adminMapInstance||typeof L==='undefined')return;
+  const pin=DB.get('ke_pinned_location',null);
+  const lat=pin?pin.lat:-1.2841,lng=pin?pin.lng:36.8272;
+  adminMapInstance=L.map(el,{zoomControl:true,scrollWheelZoom:true});
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:19}).addTo(adminMapInstance);
+  adminMapInstance.setView([lat,lng],15);
+  if(pin){adminPickedLatLng={lat:pin.lat,lng:pin.lng};adminPickedMarker=L.marker([pin.lat,pin.lng]).addTo(adminMapInstance);showPinInfo(pin.lat,pin.lng,pin.label);}
+  adminMapInstance.on('click',function(e){
+    adminPickedLatLng={lat:e.latlng.lat,lng:e.latlng.lng};
+    if(adminPickedMarker)adminMapInstance.removeLayer(adminPickedMarker);
+    adminPickedMarker=L.marker([e.latlng.lat,e.latlng.lng]).addTo(adminMapInstance);
+    fetch(`https://nominatim.openstreetmap.org/reverse?lat=${e.latlng.lat}&lon=${e.latlng.lng}&format=json`)
+      .then(r=>r.json()).then(d=>showPinInfo(e.latlng.lat,e.latlng.lng,d.display_name||''))
+      .catch(()=>showPinInfo(e.latlng.lat,e.latlng.lng,`${e.latlng.lat.toFixed(5)}, ${e.latlng.lng.toFixed(5)}`));
+  });
+  setTimeout(()=>adminMapInstance.invalidateSize(),300);
+}
+function showPinInfo(lat,lng,label){
+  const el=document.getElementById('pinnedLocationInfo');
+  const btn=document.getElementById('savePinBtn');
+  if(el){el.style.display='block';el.innerHTML=`📍 <strong>${label}</strong><br><span style="opacity:0.6;font-size:0.72rem">${lat.toFixed(5)}, ${lng.toFixed(5)}</span>`;}
+  if(btn){btn.style.opacity='1';btn.style.pointerEvents='auto';}
+}
+function searchLocation(){
+  const q=document.getElementById('locationSearchInput')?.value?.trim();
+  if(!q||!adminMapInstance)return;
+  fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&limit=1`)
+    .then(r=>r.json()).then(data=>{
+      if(!data.length){showMsg('bannerMsg','⚠️ Location not found.','error');return}
+      const lat=parseFloat(data[0].lat),lng=parseFloat(data[0].lon);
+      adminMapInstance.setView([lat,lng],16);
+      adminPickedLatLng={lat,lng};
+      if(adminPickedMarker)adminMapInstance.removeLayer(adminPickedMarker);
+      adminPickedMarker=L.marker([lat,lng]).addTo(adminMapInstance);
+      showPinInfo(lat,lng,data[0].display_name);
+    }).catch(()=>showMsg('bannerMsg','⚠️ Search failed.','error'));
+}
+function savePinnedLocation(){
+  if(!adminPickedLatLng){showMsg('bannerMsg','⚠️ Click map to drop a pin first.','error');return}
+  const label=document.getElementById('locationSearchInput')?.value?.trim()||bizSettings.location||'';
+  DB.set('ke_pinned_location',{lat:adminPickedLatLng.lat,lng:adminPickedLatLng.lng,label});
+  renderMapPlaceholder();
+  showMsg('bannerMsg','✅ Location pinned and live on site!','success');
+  logActivity('📍 Pinned store location');
+}
+function clearPinnedLocation(){
+  if(!confirm('Clear pinned location?'))return;
+  DB.del('ke_pinned_location');
+  if(adminPickedMarker&&adminMapInstance){adminMapInstance.removeLayer(adminPickedMarker);adminPickedMarker=null;}
+  adminPickedLatLng=null;
+  const el=document.getElementById('pinnedLocationInfo');const btn=document.getElementById('savePinBtn');
+  if(el)el.style.display='none';if(btn){btn.style.opacity='0.5';btn.style.pointerEvents='none';}
+  renderMapPlaceholder();
+  showMsg('bannerMsg','✅ Location pin cleared.','success');
+}
+
+// Mobile admin button visibility
+function updateMobileAdminBtn(){
+  const btn=document.getElementById('mobileAdminBtn');
+  if(btn)btn.style.display=window.innerWidth<=900?'block':'none';
+}
+updateMobileAdminBtn();window.addEventListener('resize',updateMobileAdminBtn);
+
+// ═══════════════════════ INIT ═══════════════════════
+applyBizName();
+updateAnnouncementBar();
+loadImagesFromIDB();
+setTimeout(renderMapPlaceholder,500);
+</script>
+</body>
+</html>.mobile-menu.open{display:flex}
 .mobile-menu a{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--cream);text-decoration:none;letter-spacing:0.1em;transition:color 0.2s}
 .mobile-menu a:hover{color:var(--gold)}
 

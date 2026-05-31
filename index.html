@@ -16,11 +16,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:16px}
 body{font-family:'Barlow',sans-serif;background:var(--ink);color:var(--cream);overflow-x:hidden}
-
-/* NOISE TEXTURE OVERLAY */
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.4}
-
-/* PRELOADER */
 #preloader{position:fixed;inset:0;background:var(--ink);z-index:9998;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2rem;transition:opacity 0.7s,visibility 0.7s}
 #preloader.hide{opacity:0;visibility:hidden}
 .pre-scissors{font-size:3rem;animation:snip 1s ease-in-out infinite alternate}
@@ -29,19 +25,13 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .pre-bar{width:180px;height:2px;background:var(--dim)}
 .pre-fill{height:100%;background:linear-gradient(90deg,var(--brass),var(--gold));animation:load 2s ease forwards}
 @keyframes load{from{width:0}to{width:100%}}
-
-/* CUSTOM CURSOR */
 .cursor-dot{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);mix-blend-mode:difference}
 .cursor-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(232,184,75,0.5);border-radius:50%;pointer-events:none;z-index:9996;transform:translate(-50%,-50%);transition:left 0.1s ease,top 0.1s ease,width 0.3s,height 0.3s}
 @media(max-width:800px){.cursor-dot,.cursor-ring{display:none}}
-
-/* ANNOUNCE BAR */
 .announce{background:var(--brass);padding:0.42rem 0;overflow:hidden}
 .announce-inner{display:flex;gap:3rem;width:max-content;animation:marquee 20s linear infinite}
 .announce-inner span{font-family:'Barlow Condensed',sans-serif;font-size:0.8rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-/* NAV */
 nav{position:fixed;top:28px;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:1rem 5%;transition:all 0.4s}
 nav.scrolled{top:0;background:rgba(10,8,6,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--dim);box-shadow:0 4px 30px rgba(0,0,0,0.5)}
 .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--gold);letter-spacing:0.1em;cursor:pointer;display:flex;align-items:center;gap:0.5rem}
@@ -65,8 +55,6 @@ nav.scrolled{top:0;background:rgba(10,8,6,0.95);backdrop-filter:blur(20px);borde
 .mobile-menu.open{display:flex}
 .mobile-menu a{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--cream);text-decoration:none;letter-spacing:0.1em;transition:color 0.2s}
 .mobile-menu a:hover{color:var(--gold)}
-
-/* ===== HERO ===== */
 #home{height:100vh;position:relative;overflow:hidden;margin-top:28px;display:grid;grid-template-columns:1fr 1fr}
 .hero-left{display:flex;flex-direction:column;justify-content:center;padding:8% 5% 8% 8%;position:relative;z-index:2}
 .hero-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--brass);margin-bottom:1rem;display:flex;align-items:center;gap:1rem}
@@ -91,24 +79,15 @@ nav.scrolled{top:0;background:rgba(10,8,6,0.95);backdrop-filter:blur(20px);borde
 .badge-txt{font-size:0.68rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted)}
 .hero-chair{font-size:9rem;filter:drop-shadow(0 20px 60px rgba(0,0,0,0.8));animation:chairIn 1s ease 2.2s both}
 @keyframes chairIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-.hero-dots{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;gap:0.5rem;z-index:10}
-.h-dot{width:6px;height:6px;border-radius:50%;background:var(--dim);cursor:pointer;transition:all 0.3s}
-.h-dot.active{background:var(--gold);width:20px;border-radius:3px}
-
-/* STRIP */
 .strip{background:var(--dark);border-top:1px solid var(--dim);border-bottom:1px solid var(--dim);padding:1.3rem 5%;display:flex;justify-content:center;gap:4rem;flex-wrap:wrap}
 .strip-item{display:flex;align-items:center;gap:0.8rem;font-family:'Barlow Condensed',sans-serif;font-size:0.82rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)}
 .strip-item span{font-size:1.3rem}
 .strip-item:hover{color:var(--gold);cursor:default}
-
-/* SECTION BASE */
 .sec{padding:7rem 8%}
 .sec-tag{font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--brass);margin-bottom:0.8rem;display:flex;align-items:center;gap:1rem}
 .sec-tag::before{content:'';width:30px;height:1px;background:var(--brass)}
 .sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,4vw,4.5rem);line-height:1;color:var(--cream);letter-spacing:0.03em;margin-bottom:1rem}
 .sec-sub{font-size:0.95rem;color:var(--muted);line-height:1.75;max-width:500px;font-weight:300}
-
-/* ===== SERVICES ===== */
 #services{background:var(--carbon)}
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--dim);margin-top:3.5rem;border:1px solid var(--dim)}
 .service-card{background:var(--carbon);padding:2.2rem;transition:all 0.3s;cursor:pointer;position:relative;overflow:hidden}
@@ -122,8 +101,6 @@ nav.scrolled{top:0;background:rgba(10,8,6,0.95);backdrop-filter:blur(20px);borde
 .svc-duration{font-size:0.68rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--dim);margin-top:0.2rem}
 .svc-book-btn{margin-top:1rem;background:transparent;border:1px solid var(--dim);color:var(--muted);padding:0.5rem 1.2rem;font-family:'Barlow Condensed',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;transition:all 0.25s;width:100%}
 .svc-book-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(232,184,75,0.06)}
-
-/* ===== MEMBERSHIP ===== */
 #membership{background:var(--ink);position:relative;overflow:hidden}
 #membership::before{content:'MEMBER';font-family:'Bebas Neue',sans-serif;font-size:18rem;position:absolute;right:-2rem;top:50%;transform:translateY(-50%);color:rgba(201,150,42,0.03);letter-spacing:0.1em;pointer-events:none;line-height:1}
 .mem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem}
@@ -148,14 +125,40 @@ nav.scrolled{top:0;background:rgba(10,8,6,0.95);backdrop-filter:blur(20px);borde
 .mem-cta.outline{background:transparent;color:var(--warm);border:1px solid var(--dim);clip-path:none}
 .mem-cta.outline:hover{border-color:var(--gold);color:var(--gold);background:rgba(232,184,75,0.06);transform:translateY(-2px)}
 
-/* MEMBER DASHBOARD */
+/* ── MEMBER AUTH MODAL ── */
+#memberAuthModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:3000;backdrop-filter:blur(10px);align-items:center;justify-content:center}
+#memberAuthModal.open{display:flex}
+.mauth-card{background:var(--carbon);border:1px solid var(--dim);border-top:3px solid var(--gold);width:100%;max-width:460px;padding:2.5rem;position:relative}
+.mauth-logo{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--gold);text-align:center;letter-spacing:0.12em;margin-bottom:0.2rem}
+.mauth-sub{font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:1.8rem}
+.mauth-tabs{display:flex;border:1px solid var(--dim);overflow:hidden;margin-bottom:1.5rem}
+.mauth-tab{flex:1;padding:0.7rem;text-align:center;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:0.82rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);background:transparent;border:none;transition:all 0.2s}
+.mauth-tab.active{background:var(--gold);color:var(--ink)}
+.mauth-form{display:flex;flex-direction:column;gap:1rem}
+.mauth-field{display:flex;flex-direction:column;gap:0.4rem}
+.mauth-field label{font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted)}
+.mauth-field input{background:var(--dark);border:1px solid var(--dim);padding:0.75rem 1rem;color:var(--cream);font-family:'Barlow',sans-serif;font-size:0.88rem;outline:none;transition:border 0.2s;width:100%}
+.mauth-field input:focus{border-color:var(--gold)}
+.mauth-btn{background:var(--gold);color:var(--ink);border:none;padding:0.9rem;font-family:'Barlow Condensed',sans-serif;font-size:0.95rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);transition:all 0.2s;margin-top:0.3rem}
+.mauth-btn:hover{background:var(--gold-light);transform:translateY(-1px)}
+.mauth-err{background:rgba(192,57,43,0.1);border:1px solid rgba(192,57,43,0.3);color:#e74c3c;padding:0.7rem 1rem;font-size:0.82rem;display:none;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.05em}
+.mauth-err.show{display:block}
+.mauth-suc{background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.2);color:var(--wa);padding:0.7rem 1rem;font-size:0.82rem;display:none;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.05em}
+.mauth-suc.show{display:block}
+.mauth-close{position:absolute;top:1rem;right:1rem;background:none;border:1px solid var(--dim);color:var(--muted);width:28px;height:28px;cursor:pointer;font-size:0.85rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.mauth-close:hover{border-color:var(--red);color:var(--red)}
+
+/* ── MEMBER DASHBOARD MODAL ── */
 #memberDash{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:2000;backdrop-filter:blur(8px);align-items:center;justify-content:center}
 #memberDash.open{display:flex}
 .dash-panel{background:var(--carbon);border:1px solid var(--dim);width:90%;max-width:900px;max-height:88vh;overflow-y:auto;border-top:3px solid var(--gold)}
 .dash-header{padding:1.5rem 2rem;border-bottom:1px solid var(--dim);display:flex;justify-content:space-between;align-items:center;background:var(--dark);position:sticky;top:0;z-index:5}
 .dash-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--gold);letter-spacing:0.08em}
+.dash-header-right{display:flex;gap:0.6rem;align-items:center}
 .dash-close{background:none;border:1px solid var(--dim);color:var(--muted);width:32px;height:32px;cursor:pointer;font-size:1rem;transition:all 0.2s;display:flex;align-items:center;justify-content:center}
 .dash-close:hover{border-color:var(--red);color:var(--red)}
+.dash-logout{background:none;border:1px solid var(--dim);color:var(--muted);padding:0.35rem 0.8rem;font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.2s}
+.dash-logout:hover{background:rgba(192,57,43,0.15);border-color:#8b3535;color:#e07070}
 .dash-body{padding:2rem}
 .dash-member-card{background:linear-gradient(135deg,var(--dark),var(--mid));border:1px solid var(--dim);padding:2rem;margin-bottom:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;border-left:4px solid var(--gold)}
 .dash-member-name{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--cream);letter-spacing:0.05em}
@@ -178,8 +181,6 @@ nav.scrolled{top:0;background:rgba(10,8,6,0.95);backdrop-filter:blur(20px);borde
 .progress-fill{height:100%;background:linear-gradient(90deg,var(--brass),var(--gold));border-radius:4px;transition:width 1s ease}
 .progress-sub{font-size:0.7rem;color:var(--muted);display:flex;justify-content:space-between}
 .loyalty-pts{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--gold)}
-
-/* ===== BOOKING ===== */
 #booking{background:var(--dark);position:relative;overflow:hidden}
 #booking::before{content:'';position:absolute;top:0;left:0;width:40%;height:100%;background:linear-gradient(180deg,var(--ink),var(--carbon));z-index:0}
 .booking-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1.4fr;gap:4rem;align-items:start}
@@ -213,8 +214,6 @@ nav.scrolled{top:0;background:rgba(10,8,6,0.95);backdrop-filter:blur(20px);borde
 .booking-confirm.show{display:block}
 .booking-confirm h3{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--wa);letter-spacing:0.1em;margin-bottom:0.5rem}
 .booking-confirm p{font-size:0.85rem;color:var(--muted)}
-
-/* ===== BARBERS ===== */
 #barbers{background:var(--ink)}
 .barbers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3.5rem}
 .barber-card{background:var(--carbon);border:1px solid var(--dim);overflow:hidden;transition:all 0.3s;cursor:pointer}
@@ -233,8 +232,6 @@ nav.scrolled{top:0;background:rgba(10,8,6,0.95);backdrop-filter:blur(20px);borde
 .barber-rating span{color:var(--gold);font-size:0.9rem}
 .barber-book-btn{width:100%;background:transparent;border:1px solid var(--dim);color:var(--muted);padding:0.7rem;font-family:'Barlow Condensed',sans-serif;font-size:0.8rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;transition:all 0.25s}
 .barber-book-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(232,184,75,0.06)}
-
-/* ===== GALLERY ===== */
 #gallery{background:var(--carbon);overflow:hidden}
 .gallery-grid{display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:auto auto;gap:4px;margin-top:3rem}
 .gallery-item{background:var(--dark);display:flex;align-items:center;justify-content:center;font-size:3rem;cursor:pointer;overflow:hidden;position:relative;transition:all 0.3s}
@@ -243,13 +240,11 @@ nav.scrolled{top:0;background:rgba(10,8,6,0.95);backdrop-filter:blur(20px);borde
 .gallery-item:hover{transform:scale(1.02);z-index:2}
 .gallery-overlay{position:absolute;inset:0;background:rgba(201,150,42,0.7);opacity:0;transition:opacity 0.3s;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink)}
 .gallery-item:hover .gallery-overlay{opacity:1}
-
-/* ===== REVIEWS ===== */
 #reviews{background:var(--ink)}
 .reviews-track-wrap{overflow:hidden;margin-top:3.5rem}
 .reviews-track{display:flex;gap:1.5rem;transition:transform 0.5s cubic-bezier(.4,0,.2,1)}
 .review-card{flex:0 0 380px;background:var(--carbon);border:1px solid var(--dim);padding:2rem;border-left:3px solid var(--gold);transition:all 0.3s}
-.review-card:hover{transform:translateY(-4px);border-left-color:var(--gold);box-shadow:0 12px 40px rgba(0,0,0,0.4)}
+.review-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.4)}
 .review-stars{color:var(--gold);font-size:1rem;margin-bottom:1rem;letter-spacing:0.1em}
 .review-text{font-size:0.9rem;color:var(--warm);line-height:1.75;font-weight:300;font-style:italic;margin-bottom:1.5rem}
 .reviewer{display:flex;gap:1rem;align-items:center}
@@ -259,8 +254,6 @@ nav.scrolled{top:0;background:rgba(10,8,6,0.95);backdrop-filter:blur(20px);borde
 .reviews-nav{display:flex;gap:0.6rem;margin-top:2rem}
 .rev-dot{width:7px;height:7px;background:var(--dim);cursor:pointer;transition:all 0.3s}
 .rev-dot.active{background:var(--gold);width:22px}
-
-/* ===== CONTACT ===== */
 #contact{background:var(--dark);display:grid;grid-template-columns:1fr 1fr;gap:5rem;padding:7rem 8%}
 .contact-items{display:flex;flex-direction:column;gap:1rem;margin-top:2rem}
 .contact-item{display:flex;gap:1.2rem;align-items:flex-start;padding:1.2rem;border:1px solid var(--dim);background:var(--carbon);transition:all 0.25s}
@@ -270,19 +263,12 @@ nav.scrolled{top:0;background:rgba(10,8,6,0.95);backdrop-filter:blur(20px);borde
 .contact-item p,.contact-item a{font-size:0.92rem;color:var(--warm);text-decoration:none}
 .contact-item a:hover{color:var(--gold)}
 .map-box{border:1px solid var(--dim);height:400px;background:linear-gradient(135deg,var(--carbon),var(--dark));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;border-top:3px solid var(--gold)}
-.map-box p{font-size:0.85rem;color:var(--muted);text-align:center;line-height:1.7;max-width:220px}
-.btn-map{background:var(--gold);color:var(--ink);padding:0.7rem 1.8rem;font-family:'Barlow Condensed',sans-serif;font-size:0.85rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;transition:all 0.2s;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%)}
-.btn-map:hover{background:var(--gold-light)}
-
-/* HOURS TABLE */
 .hours-table{width:100%;border-collapse:collapse;margin-top:1.5rem}
 .hours-table td{padding:0.7rem 0.5rem;border-bottom:1px solid var(--dim);font-size:0.85rem}
 .hours-table td:first-child{color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;font-size:0.8rem}
 .hours-table td:last-child{color:var(--warm);text-align:right}
 .hours-table tr:last-child td{border-bottom:none}
 .open-now{color:var(--wa);font-weight:600}
-
-/* FOOTER */
 footer{background:var(--ink);border-top:1px solid var(--dim);padding:4rem 8% 2rem}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
 .footer-logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--gold);letter-spacing:0.1em;margin-bottom:0.8rem}
@@ -296,13 +282,9 @@ footer{background:var(--ink);border-top:1px solid var(--dim);padding:4rem 8% 2re
 .social-links{display:flex;gap:0.6rem}
 .social-link{width:36px;height:36px;border:1px solid var(--dim);display:flex;align-items:center;justify-content:center;font-size:0.9rem;color:var(--muted);text-decoration:none;transition:all 0.25s}
 .social-link:hover{border-color:var(--gold);color:var(--gold);background:rgba(232,184,75,0.08)}
-
-/* WA FLOAT */
 .wa-float{position:fixed;bottom:2rem;right:2rem;z-index:500;width:56px;height:56px;background:var(--wa);display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 6px 24px rgba(37,211,102,0.4);text-decoration:none;transition:all 0.25s;animation:waPulse 3s ease-in-out infinite}
 .wa-float:hover{transform:scale(1.1);box-shadow:0 10px 35px rgba(37,211,102,0.6)}
 @keyframes waPulse{0%,100%{box-shadow:0 6px 24px rgba(37,211,102,0.4)}50%{box-shadow:0 6px 32px rgba(37,211,102,0.6),0 0 0 10px rgba(37,211,102,0.06)}}
-
-/* ===== ADMIN OVERLAY ===== */
 #adminOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:2000;backdrop-filter:blur(6px)}
 #adminOverlay.open{display:flex;align-items:stretch;justify-content:flex-end}
 #authScreen{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:10}
@@ -323,8 +305,6 @@ footer{background:var(--ink);border-top:1px solid var(--dim);padding:4rem 8% 2re
 .auth-error.show{display:block}
 .auth-success{background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.2);color:var(--wa);padding:0.7rem 1rem;font-size:0.82rem;display:none}
 .auth-success.show{display:block}
-
-/* ADMIN PANEL */
 #adminPanel{width:100%;max-width:1000px;background:var(--carbon);height:100vh;overflow-y:auto;display:flex;flex-direction:column;animation:slideIn 0.4s ease;position:relative;z-index:5;border-left:1px solid var(--dim)}
 @keyframes slideIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
 .admin-header{padding:1.2rem 2rem;border-bottom:1px solid var(--dim);display:flex;justify-content:space-between;align-items:center;background:var(--dark);position:sticky;top:0;z-index:10}
@@ -389,13 +369,6 @@ footer{background:var(--ink);border-top:1px solid var(--dim);padding:4rem 8% 2re
 .admin-msg.show{display:block}
 .admin-msg.success{background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.25);color:var(--wa)}
 .admin-msg.error{background:rgba(192,57,43,0.08);border:1px solid rgba(192,57,43,0.25);color:#e74c3c}
-
-/* COLOR PICKER SLOTS */
-.color-slots{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.5rem}
-.c-slot{width:32px;height:32px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:all 0.2s}
-.c-slot.selected{border-color:var(--cream);transform:scale(1.15)}
-
-/* ANIMATIONS */
 .fade-up{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease}
 .fade-up.visible{opacity:1;transform:translateY(0)}
 .fade-left{opacity:0;transform:translateX(-28px);transition:opacity 0.7s ease,transform 0.7s ease}
@@ -403,127 +376,22 @@ footer{background:var(--ink);border-top:1px solid var(--dim);padding:4rem 8% 2re
 .fade-right{opacity:0;transform:translateX(28px);transition:opacity 0.7s ease,transform 0.7s ease}
 .fade-right.visible{opacity:1;transform:translateX(0)}
 .stagger-1{transition-delay:0.1s}.stagger-2{transition-delay:0.2s}.stagger-3{transition-delay:0.3s}.stagger-4{transition-delay:0.4s}
-
-/* RESPONSIVE */
-@media(max-width:1100px){
-  .services-grid{grid-template-columns:repeat(2,1fr)}
-  .barbers-grid{grid-template-columns:repeat(2,1fr)}
-  .footer-grid{grid-template-columns:1fr 1fr}
-  .a-stats-grid{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:900px){
-  nav .nav-links,nav .nav-right .btn-admin-nav{display:none}
-  .hamburger{display:flex}
-  #home{grid-template-columns:1fr;height:auto;padding-top:3rem}
-  .hero-right{height:50vw;min-height:300px}
-  .booking-inner{grid-template-columns:1fr}
-  #contact{grid-template-columns:1fr;gap:3rem;padding:4rem 5%}
-  .mem-grid{grid-template-columns:1fr}
-  .gallery-grid{grid-template-columns:repeat(3,1fr)}
-  .gallery-item:nth-child(1){grid-column:span 2;grid-row:span 1}
-  .footer-grid{grid-template-columns:1fr;gap:2rem}
-  .sec{padding:4rem 5%}
-  .dash-stats{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:600px){
-  .hero-left{padding:5rem 5% 3rem}
-  .hero-title{font-size:clamp(3rem,13vw,5rem)}
-  .hero-ctas{flex-direction:column}
-  .hero-right{height:60vw;min-height:260px}
-  .barbers-grid{grid-template-columns:1fr 1fr}
-  .reviews-track .review-card{flex:0 0 300px}
-  .a-stats-grid{grid-template-columns:repeat(2,1fr)}
-  .form-row{grid-template-columns:1fr}
-  #adminPanel{max-width:100%;width:100%;height:100svh;border-radius:0}
-  .svc-selector{grid-template-columns:1fr 1fr}
-  .time-slots{grid-template-columns:repeat(3,1fr)}
-  .admin-header{padding:0.75rem 1rem;flex-wrap:nowrap}
-  .admin-title{font-size:1.1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px}
-  .admin-user-badge{display:none}
-  .admin-body{padding:0.75rem}
-  .admin-tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-  .admin-tabs::-webkit-scrollbar{display:none}
-  .admin-tab{padding:0.65rem 0.8rem;font-size:0.68rem;flex-shrink:0}
-  .admin-card{padding:1rem}
-  .a-stats-grid{gap:0.6rem}
-  .mem-grid{grid-template-columns:1fr}
-  .gallery-grid{grid-template-columns:repeat(2,1fr)}
-  .services-grid{grid-template-columns:1fr}
-  .strip{gap:1.5rem;padding:1rem 4%;flex-wrap:wrap}
-  .footer-grid{grid-template-columns:1fr;gap:2rem}
-  nav{padding:0.7rem 4%}
-  #home{grid-template-columns:1fr;height:auto;min-height:100svh}
-  .sec{padding:3.5rem 5%}
-}
-@media(max-width:900px){
-  nav .nav-links,nav .nav-right .btn-admin-nav{display:none}
-  .hamburger{display:flex}
-  #home{grid-template-columns:1fr;height:auto}
-  .hero-right{height:55vw;min-height:300px}
-  .booking-inner{grid-template-columns:1fr}
-  #contact{grid-template-columns:1fr;gap:3rem;padding:4rem 5%}
-  .mem-grid{grid-template-columns:1fr 1fr}
-  .gallery-grid{grid-template-columns:repeat(3,1fr)}
-  .gallery-item:nth-child(1){grid-column:span 2;grid-row:span 1}
-  .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
-  .sec{padding:4rem 5%}
-  .dash-stats{grid-template-columns:repeat(2,1fr)}
-  #adminPanel{max-width:100%;width:100%}
-  .admin-body{padding:1rem}
-  .admin-tabs{overflow-x:auto;scrollbar-width:none}
-  .admin-tabs::-webkit-scrollbar{display:none}
-}
-@supports(padding:max(0px)){
-  nav{padding-left:max(5%,env(safe-area-inset-left));padding-right:max(5%,env(safe-area-inset-right))}
-  footer{padding-bottom:max(2rem,env(safe-area-inset-bottom))}
-  .wa-float{bottom:max(2rem,calc(env(safe-area-inset-bottom)+1rem))}
-}
-.leaflet-container{font-family:'Barlow',sans-serif}
-.leaflet-popup-content-wrapper{border-radius:4px;background:var(--carbon);border:1px solid var(--dim);color:var(--cream)}
-.leaflet-popup-content{margin:0.8rem 1rem;font-size:0.85rem}
-.leaflet-popup-tip{background:var(--carbon)}
+@media(max-width:1100px){.services-grid{grid-template-columns:repeat(2,1fr)}.barbers-grid{grid-template-columns:repeat(2,1fr)}.footer-grid{grid-template-columns:1fr 1fr}.a-stats-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){nav .nav-links,nav .nav-right .btn-admin-nav{display:none}.hamburger{display:flex}#home{grid-template-columns:1fr;height:auto;padding-top:3rem}.hero-right{height:50vw;min-height:300px}.booking-inner{grid-template-columns:1fr}#contact{grid-template-columns:1fr;gap:3rem;padding:4rem 5%}.mem-grid{grid-template-columns:1fr 1fr}.gallery-grid{grid-template-columns:repeat(3,1fr)}.gallery-item:nth-child(1){grid-column:span 2;grid-row:span 1}.footer-grid{grid-template-columns:1fr 1fr;gap:2rem}.sec{padding:4rem 5%}.dash-stats{grid-template-columns:repeat(2,1fr)}#adminPanel{max-width:100%;width:100%}.admin-body{padding:1rem}.admin-tabs{overflow-x:auto;scrollbar-width:none}.admin-tabs::-webkit-scrollbar{display:none}}
+@media(max-width:600px){.hero-left{padding:5rem 5% 3rem}.hero-title{font-size:clamp(3rem,13vw,5rem)}.hero-ctas{flex-direction:column}.hero-right{height:60vw;min-height:260px}.barbers-grid{grid-template-columns:1fr 1fr}.reviews-track .review-card{flex:0 0 300px}.a-stats-grid{grid-template-columns:repeat(2,1fr)}.form-row{grid-template-columns:1fr}#adminPanel{max-width:100%;width:100%;height:100svh;border-radius:0}.svc-selector{grid-template-columns:1fr 1fr}.time-slots{grid-template-columns:repeat(3,1fr)}.admin-header{padding:0.75rem 1rem}.admin-title{font-size:1.1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px}.admin-user-badge{display:none}.admin-body{padding:0.75rem}.admin-tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}.admin-tabs::-webkit-scrollbar{display:none}.admin-tab{padding:0.65rem 0.8rem;font-size:0.68rem;flex-shrink:0}.admin-card{padding:1rem}.a-stats-grid{gap:0.6rem}.mem-grid{grid-template-columns:1fr}.gallery-grid{grid-template-columns:repeat(2,1fr)}.services-grid{grid-template-columns:1fr}.strip{gap:1.5rem;padding:1rem 4%;flex-wrap:wrap}.footer-grid{grid-template-columns:1fr;gap:2rem}nav{padding:0.7rem 4%}#home{grid-template-columns:1fr;height:auto;min-height:100svh}.sec{padding:3.5rem 5%}}
+@supports(padding:max(0px)){nav{padding-left:max(5%,env(safe-area-inset-left));padding-right:max(5%,env(safe-area-inset-right))}footer{padding-bottom:max(2rem,env(safe-area-inset-bottom))}.wa-float{bottom:max(2rem,calc(env(safe-area-inset-bottom)+1rem))}}
+.leaflet-popup-content-wrapper{border-radius:4px;background:var(--carbon);border:1px solid var(--dim);color:var(--cream)}.leaflet-popup-content{margin:0.8rem 1rem;font-size:0.85rem}.leaflet-popup-tip{background:var(--carbon)}
 </style>
 </head>
 <body>
-
-<div id="preloader">
-  <div class="pre-scissors">✂️</div>
-  <div class="pre-logo">KINYOZI ELITE</div>
-  <div class="pre-bar"><div class="pre-fill"></div></div>
-</div>
-
+<div id="preloader"><div class="pre-scissors">✂️</div><div class="pre-logo">KINYOZI ELITE</div><div class="pre-bar"><div class="pre-fill"></div></div></div>
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-ring" id="cursorRing"></div>
-
-<!-- ANNOUNCE BAR -->
-<div class="announce" id="announceBar">
-  <div class="announce-inner">
-    <span>✂ Walk-ins Welcome Daily</span>
-    <span>⭐ Book Online — Secure Your Slot</span>
-    <span>👑 Members Get 20% Off Every Cut</span>
-    <span>📍 Nairobi CBD · Open 7 Days</span>
-    <span>💈 Hot Towel Shave from KES 500</span>
-    <span>🏆 Best Barbershop — Nairobi 2024</span>
-    <span>✂ Walk-ins Welcome Daily</span>
-    <span>⭐ Book Online — Secure Your Slot</span>
-    <span>👑 Members Get 20% Off Every Cut</span>
-    <span>📍 Nairobi CBD · Open 7 Days</span>
-    <span>💈 Hot Towel Shave from KES 500</span>
-    <span>🏆 Best Barbershop — Nairobi 2024</span>
-  </div>
-</div>
-
-<!-- NAV -->
+<div class="announce" id="announceBar"><div class="announce-inner"><span>✂ Walk-ins Welcome Daily</span><span>⭐ Book Online — Secure Your Slot</span><span>👑 Members Get 20% Off Every Cut</span><span>📍 Nairobi CBD · Open 7 Days</span><span>💈 Hot Towel Shave from KES 500</span><span>🏆 Best Barbershop — Nairobi 2024</span><span>✂ Walk-ins Welcome Daily</span><span>⭐ Book Online — Secure Your Slot</span><span>👑 Members Get 20% Off Every Cut</span><span>📍 Nairobi CBD · Open 7 Days</span><span>💈 Hot Towel Shave from KES 500</span><span>🏆 Best Barbershop — Nairobi 2024</span></div></div>
 <nav id="navbar">
   <div class="nav-logo" onclick="scrollTop()">✂ KINYOZI <span>ELITE</span></div>
   <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#membership">Membership</a></li>
-    <li><a href="#booking">Book</a></li>
-    <li><a href="#barbers">Barbers</a></li>
-    <li><a href="#gallery">Gallery</a></li>
-    <li><a href="#reviews">Reviews</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#services">Services</a></li><li><a href="#membership">Membership</a></li><li><a href="#booking">Book</a></li><li><a href="#barbers">Barbers</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#reviews">Reviews</a></li><li><a href="#contact">Contact</a></li>
   </ul>
   <div class="nav-right">
     <button class="btn-admin-nav" onclick="openAdmin()">⚙ Admin</button>
@@ -531,34 +399,20 @@ footer{background:var(--ink);border-top:1px solid var(--dim);padding:4rem 8% 2re
   </div>
   <div style="display:flex;align-items:center;gap:0.5rem">
     <button id="mobileAdminBtn" onclick="openAdmin()" style="display:none;background:transparent;border:1px solid var(--dim);color:var(--muted);padding:0.4rem 0.7rem;font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer">⚙ ADMIN</button>
-    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-      <span></span><span></span><span></span>
-    </div>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
   </div>
 </nav>
-
-<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <div style="position:absolute;top:1.5rem;right:1.5rem;color:var(--warm);cursor:pointer;font-size:1.5rem;font-family:'Bebas Neue',sans-serif" onclick="closeMenu()">✕</div>
-  <a href="#services" onclick="closeMenu()">Services</a>
-  <a href="#membership" onclick="closeMenu()">Membership</a>
-  <a href="#booking" onclick="closeMenu()">Book Now</a>
-  <a href="#barbers" onclick="closeMenu()">Barbers</a>
-  <a href="#reviews" onclick="closeMenu()">Reviews</a>
-  <a href="#contact" onclick="closeMenu()">Contact</a>
+  <a href="#services" onclick="closeMenu()">Services</a><a href="#membership" onclick="closeMenu()">Membership</a><a href="#booking" onclick="closeMenu()">Book Now</a><a href="#barbers" onclick="closeMenu()">Barbers</a><a href="#reviews" onclick="closeMenu()">Reviews</a><a href="#contact" onclick="closeMenu()">Contact</a>
   <button onclick="closeMenu();openAdmin()" style="background:none;border:none;font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--gold);letter-spacing:0.1em;cursor:pointer;padding:0;text-align:center;width:100%">⚙ ADMIN</button>
 </div>
-
-<!-- HERO -->
 <section id="home">
   <div class="hero-left">
     <div class="hero-eyebrow">Nairobi's Finest Barbershop</div>
     <h1 class="hero-title">LOOK<br><em>SHARP</em><br>FEEL<br>POWERFUL</h1>
     <p class="hero-sub">Premium haircuts, hot towel shaves & grooming by Nairobi's most skilled barbers. Walk in or book your slot.</p>
-    <div class="hero-ctas">
-      <a class="btn-primary" href="#booking">✂ Book a Cut</a>
-      <a class="btn-secondary" href="#membership">👑 Join Members</a>
-    </div>
+    <div class="hero-ctas"><a class="btn-primary" href="#booking">✂ Book a Cut</a><a class="btn-secondary" href="#membership">👑 Join Members</a></div>
     <div class="hero-stats">
       <div><div class="h-stat-num" data-count="1200">0</div><div class="h-stat-lbl">Happy Clients</div></div>
       <div><div class="h-stat-num" data-count="6">0</div><div class="h-stat-lbl">Master Barbers</div></div>
@@ -566,181 +420,85 @@ footer{background:var(--ink);border-top:1px solid var(--dim);padding:4rem 8% 2re
     </div>
   </div>
   <div class="hero-right" id="heroRight">
-    <div class="hero-bg" id="heroBgDefault">
-      <div class="hero-chair" style="font-size:10rem">💈</div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:rgba(240,232,216,0.5);letter-spacing:0.2em">PREMIUM GROOMING</div>
-    </div>
-    <div class="hero-badge-float" id="heroBadgeFloat">
-      <div class="badge-num">500+</div>
-      <div class="badge-txt">Monthly Cuts</div>
-    </div>
+    <div class="hero-bg" id="heroBgDefault"><div class="hero-chair" style="font-size:10rem">💈</div><div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:rgba(240,232,216,0.5);letter-spacing:0.2em">PREMIUM GROOMING</div></div>
+    <div class="hero-badge-float" id="heroBadgeFloat"><div class="badge-num">500+</div><div class="badge-txt">Monthly Cuts</div></div>
   </div>
 </section>
-
-<!-- STRIP -->
 <div class="strip">
-  <div class="strip-item"><span>💈</span> Hot Towel Shave</div>
-  <div class="strip-item"><span>✂</span> Precision Haircut</div>
-  <div class="strip-item"><span>🧴</span> Hair & Beard Treatments</div>
-  <div class="strip-item"><span>👑</span> VIP Membership</div>
-  <div class="strip-item"><span>📅</span> Online Booking</div>
-  <div class="strip-item"><span>✅</span> Walk-ins Welcome</div>
+  <div class="strip-item"><span>💈</span> Hot Towel Shave</div><div class="strip-item"><span>✂</span> Precision Haircut</div><div class="strip-item"><span>🧴</span> Hair & Beard Treatments</div><div class="strip-item"><span>👑</span> VIP Membership</div><div class="strip-item"><span>📅</span> Online Booking</div><div class="strip-item"><span>✅</span> Walk-ins Welcome</div>
 </div>
-
-<!-- SERVICES -->
 <section id="services" class="sec">
   <div class="sec-tag">What We Offer</div>
   <h2 class="sec-title">OUR SERVICES</h2>
-  <div class="services-grid" id="servicesGrid">
-    <div class="service-card fade-up stagger-1">
-      <span class="svc-icon">✂</span>
-      <div class="svc-name">Classic Haircut</div>
-      <div class="svc-desc">Clean scissor or clipper cut. Includes wash, cut, and style. Our signature finish with a cold towel.</div>
-      <div class="svc-price">KES 300</div>
-      <div class="svc-duration">⏱ 30–45 min</div>
-      <button class="svc-book-btn" onclick="quickBook('Classic Haircut','KES 300')">Book This →</button>
-    </div>
-    <div class="service-card fade-up stagger-2">
-      <span class="svc-icon">🪒</span>
-      <div class="svc-name">Hot Towel Shave</div>
-      <div class="svc-desc">Traditional straight-razor shave. Hot towel prep, premium shave cream, post-shave balm. Luxurious.</div>
-      <div class="svc-price">KES 500</div>
-      <div class="svc-duration">⏱ 45 min</div>
-      <button class="svc-book-btn" onclick="quickBook('Hot Towel Shave','KES 500')">Book This →</button>
-    </div>
-    <div class="service-card fade-up stagger-3">
-      <span class="svc-icon">✂</span>
-      <div class="svc-name">Cut + Shave Combo</div>
-      <div class="svc-desc">Full haircut with hot towel shave. The complete executive grooming package. Best value.</div>
-      <div class="svc-price">KES 700</div>
-      <div class="svc-duration">⏱ 75 min</div>
-      <button class="svc-book-btn" onclick="quickBook('Cut + Shave Combo','KES 700')">Book This →</button>
-    </div>
-    <div class="service-card fade-up stagger-1">
-      <span class="svc-icon">🧔</span>
-      <div class="svc-name">Beard Lineup & Shape</div>
-      <div class="svc-desc">Precision beard shaping, line-up and definition. We craft your beard into a statement.</div>
-      <div class="svc-price">KES 350</div>
-      <div class="svc-duration">⏱ 30 min</div>
-      <button class="svc-book-btn" onclick="quickBook('Beard Lineup','KES 350')">Book This →</button>
-    </div>
-    <div class="service-card fade-up stagger-2">
-      <span class="svc-icon">🎨</span>
-      <div class="svc-name">Hair Design & Fade</div>
-      <div class="svc-desc">Custom fade designs — low, mid, high, skin fade. Includes temple taper and line-up.</div>
-      <div class="svc-price">KES 500</div>
-      <div class="svc-duration">⏱ 60 min</div>
-      <button class="svc-book-btn" onclick="quickBook('Hair Design & Fade','KES 500')">Book This →</button>
-    </div>
-    <div class="service-card fade-up stagger-3">
-      <span class="svc-icon">🧴</span>
-      <div class="svc-name">Hair & Scalp Treatment</div>
-      <div class="svc-desc">Deep conditioning treatment, scalp massage, and moisturising. Leave feeling refreshed.</div>
-      <div class="svc-price">KES 600</div>
-      <div class="svc-duration">⏱ 45 min</div>
-      <button class="svc-book-btn" onclick="quickBook('Hair Treatment','KES 600')">Book This →</button>
-    </div>
-    <div class="service-card fade-up stagger-1">
-      <span class="svc-icon">👶</span>
-      <div class="svc-name">Kids Haircut</div>
-      <div class="svc-desc">Patient, gentle cuts for boys under 12. Clean styles with extra care and fun finish.</div>
-      <div class="svc-price">KES 200</div>
-      <div class="svc-duration">⏱ 25 min</div>
-      <button class="svc-book-btn" onclick="quickBook('Kids Haircut','KES 200')">Book This →</button>
-    </div>
-    <div class="service-card fade-up stagger-2">
-      <span class="svc-icon">👑</span>
-      <div class="svc-name">VIP Executive Package</div>
-      <div class="svc-desc">Full cut, hot shave, beard shape, scalp treatment + complimentary drink. The royal experience.</div>
-      <div class="svc-price">KES 1,500</div>
-      <div class="svc-duration">⏱ 2 hrs</div>
-      <button class="svc-book-btn" onclick="quickBook('VIP Executive Package','KES 1,500')">Book This →</button>
-    </div>
-    <div class="service-card fade-up stagger-3">
-      <span class="svc-icon">🪮</span>
-      <div class="svc-name">Loc / Dreadlock Service</div>
-      <div class="svc-desc">New loc starts, retwisting, tightening, and freeform maintenance by specialist barbers.</div>
-      <div class="svc-price">From KES 800</div>
-      <div class="svc-duration">⏱ 90 min+</div>
-      <button class="svc-book-btn" onclick="quickBook('Loc Service','KES 800+')">Book This →</button>
-    </div>
+  <div class="services-grid" id="servicesGrid"></div>
+</section>
+<section id="membership" class="sec">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:0">
+    <div><div class="sec-tag">Exclusive Club</div><h2 class="sec-title" style="margin-bottom:0.5rem">MEMBERSHIP PLANS</h2><p class="sec-sub">Join the Kinyozi Elite club. Priority bookings, discounts, free services & more.</p></div>
+    <button class="btn-secondary" onclick="openMemberPortal()">👤 My Member Dashboard</button>
+  </div>
+  <div class="mem-grid">
+    <div class="mem-card fade-up stagger-1"><div class="mem-tier">Basic Tier</div><div class="mem-name">CLASSIC</div><div class="mem-price"><span class="amount">KES 1,500</span><span class="period"> / month</span></div><ul class="mem-perks"><li>4 haircuts per month</li><li>10% off all additional services</li><li>Priority same-day booking</li><li>Monthly loyalty points (×1)</li><li class="disabled">Free beard lineup</li><li class="disabled">VIP lounge access</li><li class="disabled">Free product monthly</li></ul><button class="mem-cta outline" onclick="joinMembership('Classic','1,500')">Join Classic →</button></div>
+    <div class="mem-card featured fade-up stagger-2"><div class="mem-featured-tag">Most Popular</div><div class="mem-tier">Premium Tier</div><div class="mem-name">GOLD</div><div class="mem-price"><span class="amount">KES 3,000</span><span class="period"> / month</span></div><ul class="mem-perks"><li>Unlimited haircuts</li><li>20% off all services</li><li>Priority booking (skip queue)</li><li>Monthly loyalty points (×2)</li><li>2 free beard lineups / month</li><li>VIP lounge access</li><li class="disabled">Free product monthly</li></ul><button class="mem-cta" onclick="joinMembership('Gold','3,000')">Join Gold →</button></div>
+    <div class="mem-card fade-up stagger-3"><div class="mem-tier">Elite Tier</div><div class="mem-name">DIAMOND</div><div class="mem-price"><span class="amount">KES 5,000</span><span class="period"> / month</span></div><ul class="mem-perks"><li>Unlimited all services</li><li>30% off retail products</li><li>Dedicated barber assignment</li><li>Monthly loyalty points (×3)</li><li>Unlimited beard services</li><li>VIP lounge + complimentary drinks</li><li>1 free grooming product monthly</li></ul><button class="mem-cta outline" onclick="joinMembership('Diamond','5,000')">Join Diamond →</button></div>
   </div>
 </section>
 
-<!-- MEMBERSHIP -->
-<section id="membership" class="sec">
-  <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:0">
-    <div>
-      <div class="sec-tag">Exclusive Club</div>
-      <h2 class="sec-title" style="margin-bottom:0.5rem">MEMBERSHIP PLANS</h2>
-      <p class="sec-sub">Join the Kinyozi Elite club. Priority bookings, discounts, free services & more.</p>
+<!-- MEMBER AUTH MODAL -->
+<div id="memberAuthModal">
+  <div class="mauth-card">
+    <button class="mauth-close" onclick="closeMemberPortal()">✕</button>
+    <div class="mauth-logo">✂ KINYOZI ELITE</div>
+    <div class="mauth-sub">Member Portal</div>
+    <div class="mauth-tabs">
+      <button class="mauth-tab active" id="mauthLoginBtn" onclick="switchMauthTab('login')">Sign In</button>
+      <button class="mauth-tab" id="mauthRegBtn" onclick="switchMauthTab('register')">Create Account</button>
     </div>
-    <button class="btn-secondary" onclick="openMemberDash()">👤 My Member Dashboard</button>
-  </div>
-  <div class="mem-grid">
-    <div class="mem-card fade-up stagger-1">
-      <div class="mem-tier">Basic Tier</div>
-      <div class="mem-name">CLASSIC</div>
-      <div class="mem-price"><span class="amount">KES 1,500</span><span class="period"> / month</span></div>
-      <ul class="mem-perks">
-        <li>4 haircuts per month</li>
-        <li>10% off all additional services</li>
-        <li>Priority same-day booking</li>
-        <li>Monthly loyalty points (×1)</li>
-        <li class="disabled">Free beard lineup</li>
-        <li class="disabled">VIP lounge access</li>
-        <li class="disabled">Free product monthly</li>
-      </ul>
-      <button class="mem-cta outline" onclick="joinMembership('Classic','1,500')">Join Classic →</button>
+    <!-- LOGIN -->
+    <div id="mauthLoginForm" class="mauth-form">
+      <div class="mauth-err" id="mauthLoginErr"></div>
+      <div class="mauth-field"><label>Phone Number</label><input type="tel" id="mlPhone" placeholder="e.g. 0712 345 678" autocomplete="tel"></div>
+      <div class="mauth-field"><label>Password</label><input type="password" id="mlPass" placeholder="Your password" onkeydown="if(event.key==='Enter')doMemberLogin()"></div>
+      <button class="mauth-btn" onclick="doMemberLogin()">Sign In →</button>
+      <p style="text-align:center;font-size:0.72rem;color:var(--muted);font-family:'Barlow Condensed',sans-serif;letter-spacing:0.08em;margin-top:0.3rem">Don't have an account? <span style="color:var(--gold);cursor:pointer" onclick="switchMauthTab('register')">Register free →</span></p>
     </div>
-    <div class="mem-card featured fade-up stagger-2">
-      <div class="mem-featured-tag">Most Popular</div>
-      <div class="mem-tier">Premium Tier</div>
-      <div class="mem-name">GOLD</div>
-      <div class="mem-price"><span class="amount">KES 3,000</span><span class="period"> / month</span></div>
-      <ul class="mem-perks">
-        <li>Unlimited haircuts</li>
-        <li>20% off all services</li>
-        <li>Priority booking (skip queue)</li>
-        <li>Monthly loyalty points (×2)</li>
-        <li>2 free beard lineups / month</li>
-        <li>VIP lounge access</li>
-        <li class="disabled">Free product monthly</li>
-      </ul>
-      <button class="mem-cta" onclick="joinMembership('Gold','3,000')">Join Gold →</button>
-    </div>
-    <div class="mem-card fade-up stagger-3">
-      <div class="mem-tier">Elite Tier</div>
-      <div class="mem-name">DIAMOND</div>
-      <div class="mem-price"><span class="amount">KES 5,000</span><span class="period"> / month</span></div>
-      <ul class="mem-perks">
-        <li>Unlimited all services</li>
-        <li>30% off retail products</li>
-        <li>Dedicated barber assignment</li>
-        <li>Monthly loyalty points (×3)</li>
-        <li>Unlimited beard services</li>
-        <li>VIP lounge + complimentary drinks</li>
-        <li>1 free grooming product monthly</li>
-      </ul>
-      <button class="mem-cta outline" onclick="joinMembership('Diamond','5,000')">Join Diamond →</button>
+    <!-- REGISTER -->
+    <div id="mauthRegForm" class="mauth-form" style="display:none">
+      <div class="mauth-err" id="mauthRegErr"></div>
+      <div class="mauth-suc" id="mauthRegSuc"></div>
+      <div class="mauth-field"><label>Full Name *</label><input type="text" id="mrName" placeholder="e.g. Brian Mutua"></div>
+      <div class="mauth-field"><label>Phone Number * (used to sign in)</label><input type="tel" id="mrPhone" placeholder="e.g. 0712 345 678"></div>
+      <div class="mauth-field"><label>Email (optional)</label><input type="email" id="mrEmail" placeholder="your@email.com"></div>
+      <div class="mauth-field"><label>Password *</label><input type="password" id="mrPass" placeholder="Min 6 characters"></div>
+      <div class="mauth-field"><label>Confirm Password *</label><input type="password" id="mrPass2" placeholder="Repeat password"></div>
+      <div class="mauth-field"><label>Membership Tier</label>
+        <select id="mrTier" style="background:var(--dark);border:1px solid var(--dim);padding:0.75rem 1rem;color:var(--cream);font-family:'Barlow',sans-serif;font-size:0.88rem;outline:none;transition:border 0.2s;width:100%">
+          <option value="Classic">Classic — KES 1,500/mo</option>
+          <option value="Gold">Gold — KES 3,000/mo</option>
+          <option value="Diamond">Diamond — KES 5,000/mo</option>
+        </select>
+      </div>
+      <div class="mauth-field"><label>Member Code (if you have one)</label><input type="text" id="mrCode" placeholder="Leave blank if new member"></div>
+      <button class="mauth-btn" onclick="doMemberRegister()">Create Account →</button>
+      <p style="text-align:center;font-size:0.72rem;color:var(--muted);font-family:'Barlow Condensed',sans-serif;letter-spacing:0.08em;margin-top:0.3rem">Already have an account? <span style="color:var(--gold);cursor:pointer" onclick="switchMauthTab('login')">Sign in →</span></p>
     </div>
   </div>
-</section>
+</div>
 
 <!-- MEMBER DASHBOARD MODAL -->
 <div id="memberDash">
   <div class="dash-panel">
     <div class="dash-header">
       <div class="dash-title">✦ MEMBER DASHBOARD</div>
-      <button class="dash-close" onclick="closeMemberDash()">✕</button>
+      <div class="dash-header-right">
+        <button class="dash-logout" onclick="memberLogout()">Sign Out</button>
+        <button class="dash-close" onclick="closeMemberDash()">✕</button>
+      </div>
     </div>
-    <div class="dash-body" id="dashBody">
-      <!-- Filled by JS -->
-    </div>
+    <div class="dash-body" id="dashBody"></div>
   </div>
 </div>
 
-<!-- BOOKING -->
 <section id="booking" class="sec">
   <div class="booking-inner">
     <div class="booking-info fade-left">
@@ -748,27 +506,15 @@ footer{background:var(--ink);border-top:1px solid var(--dim);padding:4rem 8% 2re
       <h2 class="sec-title">BOOK YOUR<br>APPOINTMENT</h2>
       <p class="sec-sub">Choose your service, pick a barber, select your time. We confirm via WhatsApp within 5 minutes.</p>
       <div class="booking-steps">
-        <div class="bk-step active-step" id="bkStep1">
-          <div class="bk-step-num">01</div>
-          <div><h4>Choose Service</h4><p>Select the service(s) you want</p></div>
-        </div>
-        <div class="bk-step" id="bkStep2">
-          <div class="bk-step-num">02</div>
-          <div><h4>Pick a Barber</h4><p>Choose your preferred barber or "Any"</p></div>
-        </div>
-        <div class="bk-step" id="bkStep3">
-          <div class="bk-step-num">03</div>
-          <div><h4>Select Time</h4><p>Pick an available slot</p></div>
-        </div>
-        <div class="bk-step" id="bkStep4">
-          <div class="bk-step-num">04</div>
-          <div><h4>Confirm</h4><p>We'll WhatsApp you within 5 minutes</p></div>
-        </div>
+        <div class="bk-step active-step" id="bkStep1"><div class="bk-step-num">01</div><div><h4>Choose Service</h4><p>Select the service(s) you want</p></div></div>
+        <div class="bk-step" id="bkStep2"><div class="bk-step-num">02</div><div><h4>Pick a Barber</h4><p>Choose your preferred barber or "Any"</p></div></div>
+        <div class="bk-step" id="bkStep3"><div class="bk-step-num">03</div><div><h4>Select Time</h4><p>Pick an available slot</p></div></div>
+        <div class="bk-step" id="bkStep4"><div class="bk-step-num">04</div><div><h4>Confirm</h4><p>We'll WhatsApp you within 5 minutes</p></div></div>
       </div>
     </div>
     <div class="fade-right">
       <div class="booking-form">
-        <div class="admin-card-title" style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:0.08em;border-bottom:1px solid var(--dim);padding-bottom:0.8rem;margin-bottom:1.5rem;color:var(--gold)">YOUR APPOINTMENT</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:0.08em;border-bottom:1px solid var(--dim);padding-bottom:0.8rem;margin-bottom:1.5rem;color:var(--gold)">YOUR APPOINTMENT</div>
         <div class="booking-confirm" id="bookingConfirm">
           <h3>✅ Booking Confirmed!</h3>
           <p>We've received your booking. Our barber will confirm on WhatsApp within 5 minutes.<br><strong style="color:var(--gold)" id="confirmDetails"></strong></p>
@@ -789,47 +535,24 @@ footer{background:var(--ink);border-top:1px solid var(--dim);padding:4rem 8% 2re
             </div>
           </div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Your Name *</label>
-              <input type="text" id="bookName" placeholder="e.g. Brian Mutua">
-            </div>
-            <div class="form-group">
-              <label>Phone Number *</label>
-              <input type="text" id="bookPhone" placeholder="e.g. 0712 345 678">
-            </div>
+            <div class="form-group"><label>Your Name *</label><input type="text" id="bookName" placeholder="e.g. Brian Mutua"></div>
+            <div class="form-group"><label>Phone Number *</label><input type="text" id="bookPhone" placeholder="e.g. 0712 345 678"></div>
           </div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Preferred Barber</label>
+            <div class="form-group"><label>Preferred Barber</label>
               <select id="bookBarber">
                 <option value="any">Any Available Barber</option>
-                <option value="mwenda">Mwenda (Senior)</option>
-                <option value="kamau">Kamau (Fade Specialist)</option>
-                <option value="odhiambo">Odhiambo (Classic)</option>
-                <option value="wanjiku">Wanjiku (Loc Specialist)</option>
-                <option value="hassan">Hassan (Shave Expert)</option>
-                <option value="kipchoge">Kipchoge (Junior)</option>
+                <option value="mwenda">Mwenda (Senior)</option><option value="kamau">Kamau (Fade Specialist)</option><option value="odhiambo">Odhiambo (Classic)</option><option value="wanjiku">Wanjiku (Loc Specialist)</option><option value="hassan">Hassan (Shave Expert)</option><option value="kipchoge">Kipchoge (Junior)</option>
               </select>
             </div>
-            <div class="form-group">
-              <label>Date *</label>
-              <input type="date" id="bookDate" onchange="refreshTimeSlots()">
-            </div>
+            <div class="form-group"><label>Date *</label><input type="date" id="bookDate" onchange="refreshTimeSlots()"></div>
           </div>
           <div style="margin-bottom:1.2rem">
             <label style="font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:0.5rem">Select Time Slot</label>
-            <div class="time-slots" id="bookTimeSlots">
-              <!-- Filled by JS -->
-            </div>
+            <div class="time-slots" id="bookTimeSlots"></div>
           </div>
-          <div class="form-group" style="margin-bottom:1.2rem">
-            <label>Member Code (optional)</label>
-            <input type="text" id="bookMemberCode" placeholder="Enter your member code for discount">
-          </div>
-          <div class="form-group" style="margin-bottom:1.2rem">
-            <label>Special Notes</label>
-            <textarea id="bookNotes" rows="2" placeholder="Any specific style, notes or requests…"></textarea>
-          </div>
+          <div class="form-group" style="margin-bottom:1.2rem"><label>Member Code (optional)</label><input type="text" id="bookMemberCode" placeholder="Enter your member code for discount"></div>
+          <div class="form-group" style="margin-bottom:1.2rem"><label>Special Notes</label><textarea id="bookNotes" rows="2" placeholder="Any specific style, notes or requests…"></textarea></div>
           <button class="book-submit" onclick="submitBooking()">✂ CONFIRM BOOKING</button>
         </div>
       </div>
@@ -837,83 +560,12 @@ footer{background:var(--ink);border-top:1px solid var(--dim);padding:4rem 8% 2re
   </div>
 </section>
 
-<!-- BARBERS -->
 <section id="barbers" class="sec">
   <div class="sec-tag">Meet the Team</div>
   <h2 class="sec-title">OUR MASTER BARBERS</h2>
-  <div class="barbers-grid" id="barbersGrid">
-    <div class="barber-card fade-up stagger-1" onclick="quickBookBarber('Mwenda')">
-      <div class="barber-img" style="background:linear-gradient(135deg,#2e2518,#1a1510)">
-        🧔
-        <div class="barber-availability available">✓ Available</div>
-      </div>
-      <div class="barber-body">
-        <div class="barber-name">MWENDA</div>
-        <div class="barber-title">✦ Senior Master Barber</div>
-        <div class="barber-specialties">
-          <span class="barber-tag">Fades</span>
-          <span class="barber-tag">Designs</span>
-          <span class="barber-tag">Classic</span>
-        </div>
-        <div class="barber-rating"><span>★★★★★</span> 4.9 (312 reviews)</div>
-        <button class="barber-book-btn">Book Mwenda →</button>
-      </div>
-    </div>
-    <div class="barber-card fade-up stagger-2" onclick="quickBookBarber('Kamau')">
-      <div class="barber-img" style="background:linear-gradient(135deg,#1a1510,#2e2518)">
-        ✂
-        <div class="barber-availability available">✓ Available</div>
-      </div>
-      <div class="barber-body">
-        <div class="barber-name">KAMAU</div>
-        <div class="barber-title">✦ Fade Specialist</div>
-        <div class="barber-specialties">
-          <span class="barber-tag">Skin Fade</span>
-          <span class="barber-tag">Low Fade</span>
-          <span class="barber-tag">Taper</span>
-        </div>
-        <div class="barber-rating"><span>★★★★★</span> 4.8 (245 reviews)</div>
-        <button class="barber-book-btn">Book Kamau →</button>
-      </div>
-    </div>
-    <div class="barber-card fade-up stagger-3" onclick="quickBookBarber('Hassan')">
-      <div class="barber-img" style="background:linear-gradient(135deg,#2e2518,#3d3224)">
-        🪒
-        <div class="barber-availability busy">● Busy</div>
-      </div>
-      <div class="barber-body">
-        <div class="barber-name">HASSAN</div>
-        <div class="barber-title">✦ Shave & Beard Expert</div>
-        <div class="barber-specialties">
-          <span class="barber-tag">Hot Shave</span>
-          <span class="barber-tag">Beard Art</span>
-          <span class="barber-tag">Classic</span>
-        </div>
-        <div class="barber-rating"><span>★★★★★</span> 5.0 (198 reviews)</div>
-        <button class="barber-book-btn">Book Hassan →</button>
-      </div>
-    </div>
-    <div class="barber-card fade-up stagger-4" onclick="quickBookBarber('Wanjiku')">
-      <div class="barber-img" style="background:linear-gradient(135deg,#1a1510,#3d3224)">
-        🪮
-        <div class="barber-availability available">✓ Available</div>
-      </div>
-      <div class="barber-body">
-        <div class="barber-name">WANJIKU</div>
-        <div class="barber-title">✦ Loc & Natural Hair Specialist</div>
-        <div class="barber-specialties">
-          <span class="barber-tag">Locs</span>
-          <span class="barber-tag">Twists</span>
-          <span class="barber-tag">Natural</span>
-        </div>
-        <div class="barber-rating"><span>★★★★★</span> 4.9 (156 reviews)</div>
-        <button class="barber-book-btn">Book Wanjiku →</button>
-      </div>
-    </div>
-  </div>
+  <div class="barbers-grid" id="barbersGrid"></div>
 </section>
 
-<!-- GALLERY -->
 <section id="gallery" class="sec">
   <div class="sec-tag">Our Work</div>
   <h2 class="sec-title">FRESH CUTS GALLERY</h2>
@@ -928,36 +580,24 @@ footer{background:var(--ink);border-top:1px solid var(--dim);padding:4rem 8% 2re
     <div class="gallery-item" style="background:linear-gradient(135deg,var(--mid),var(--ink))"><span class="gallery-icon">🪒</span><div class="gallery-overlay">Clean Shave</div></div>
     <div class="gallery-item" style="background:linear-gradient(135deg,var(--ink),var(--mid))"><span class="gallery-icon">💈</span><div class="gallery-overlay">VIP Session</div></div>
   </div>
-  <div style="text-align:center;margin-top:2rem">
-    <a class="btn-secondary" href="https://www.instagram.com" target="_blank">View Full Gallery on Instagram ↗</a>
-  </div>
+  <div style="text-align:center;margin-top:2rem"><a class="btn-secondary" href="https://www.instagram.com" target="_blank">View Full Gallery on Instagram ↗</a></div>
 </section>
 
-<!-- REVIEWS -->
-<section id="reviews" class="sec" id="reviewsSec">
+<section id="reviews" class="sec">
   <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:0">
-    <div>
-      <div class="sec-tag">What Clients Say</div>
-      <h2 class="sec-title">REVIEWS</h2>
-    </div>
-    <div style="display:flex;gap:0.7rem">
-      <button class="btn-secondary" style="padding:0.6rem 1rem;font-size:0.8rem" onclick="reviewNav(-1)">←</button>
-      <button class="btn-secondary" style="padding:0.6rem 1rem;font-size:0.8rem" onclick="reviewNav(1)">→</button>
-    </div>
+    <div><div class="sec-tag">What Clients Say</div><h2 class="sec-title">REVIEWS</h2></div>
+    <div style="display:flex;gap:0.7rem"><button class="btn-secondary" style="padding:0.6rem 1rem;font-size:0.8rem" onclick="reviewNav(-1)">←</button><button class="btn-secondary" style="padding:0.6rem 1rem;font-size:0.8rem" onclick="reviewNav(1)">→</button></div>
   </div>
-  <div class="reviews-track-wrap">
-    <div class="reviews-track" id="reviewsTrack">
-      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Best cut in Nairobi, full stop. Mwenda did a perfect skin fade — clean lines, no mistakes. Was in and out in 40 minutes. This is my permanent spot."</p><div class="reviewer"><div class="reviewer-avatar">B</div><div><div class="reviewer-name">BRIAN MUTUA</div><div class="reviewer-tier">Gold Member · Westlands</div></div></div></div>
-      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Hassan's hot towel shave is unreal. Closest, smoothest shave I've ever had. The whole experience feels like a proper barbershop from the movies. Worth every shilling."</p><div class="reviewer"><div class="reviewer-avatar">D</div><div><div class="reviewer-name">DAVID ODHIAMBO</div><div class="reviewer-tier">Diamond Member · CBD</div></div></div></div>
-      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Wanjiku handles my locs with care every time. She knows exactly what she's doing. The Diamond membership pays for itself — I get so much value each month."</p><div class="reviewer"><div class="reviewer-avatar">K</div><div><div class="reviewer-name">KEVIN NJOROGE</div><div class="reviewer-tier">Diamond Member · Kilimani</div></div></div></div>
-      <div class="review-card"><div class="review-stars">★★★★☆</div><p class="review-text">"Love the online booking — picked Kamau, chose my time, got a WhatsApp confirmation instantly. No queue drama. The fade was immaculate. Solid 4.5/5."</p><div class="reviewer"><div class="reviewer-avatar">A</div><div><div class="reviewer-name">ALEX KARIUKI</div><div class="reviewer-tier">Classic Member · Ruaka</div></div></div></div>
-      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Took my son for his first proper cut here. The barber was patient and gentle. Kid walked out smiling. We'll be back every two weeks. Great place for family cuts."</p><div class="reviewer"><div class="reviewer-avatar">J</div><div><div class="reviewer-name">JOHN KAMAU</div><div class="reviewer-tier">Walk-in · South B</div></div></div></div>
-    </div>
-  </div>
+  <div class="reviews-track-wrap"><div class="reviews-track" id="reviewsTrack">
+    <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Best cut in Nairobi, full stop. Mwenda did a perfect skin fade — clean lines, no mistakes. Was in and out in 40 minutes. This is my permanent spot."</p><div class="reviewer"><div class="reviewer-avatar">B</div><div><div class="reviewer-name">BRIAN MUTUA</div><div class="reviewer-tier">Gold Member · Westlands</div></div></div></div>
+    <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Hassan's hot towel shave is unreal. Closest, smoothest shave I've ever had. The whole experience feels like a proper barbershop from the movies. Worth every shilling."</p><div class="reviewer"><div class="reviewer-avatar">D</div><div><div class="reviewer-name">DAVID ODHIAMBO</div><div class="reviewer-tier">Diamond Member · CBD</div></div></div></div>
+    <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Wanjiku handles my locs with care every time. She knows exactly what she's doing. The Diamond membership pays for itself — I get so much value each month."</p><div class="reviewer"><div class="reviewer-avatar">K</div><div><div class="reviewer-name">KEVIN NJOROGE</div><div class="reviewer-tier">Diamond Member · Kilimani</div></div></div></div>
+    <div class="review-card"><div class="review-stars">★★★★☆</div><p class="review-text">"Love the online booking — picked Kamau, chose my time, got a WhatsApp confirmation instantly. No queue drama. The fade was immaculate. Solid 4.5/5."</p><div class="reviewer"><div class="reviewer-avatar">A</div><div><div class="reviewer-name">ALEX KARIUKI</div><div class="reviewer-tier">Classic Member · Ruaka</div></div></div></div>
+    <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Took my son for his first proper cut here. The barber was patient and gentle. Kid walked out smiling. We'll be back every two weeks. Great place for family cuts."</p><div class="reviewer"><div class="reviewer-avatar">J</div><div><div class="reviewer-name">JOHN KAMAU</div><div class="reviewer-tier">Walk-in · South B</div></div></div></div>
+  </div></div>
   <div class="reviews-nav" id="reviewsNav"></div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="fade-left">
     <div class="sec-tag">Find Us</div>
@@ -979,54 +619,18 @@ footer{background:var(--ink);border-top:1px solid var(--dim);padding:4rem 8% 2re
       <a class="btn-secondary" href="#booking">📅 Online Booking</a>
     </div>
   </div>
-  <div class="map-box fade-right" id="mapBox" style="padding:0;overflow:hidden">
-    <div id="siteMap" style="width:100%;height:100%;min-height:420px"></div>
-  </div>
+  <div class="map-box fade-right" id="mapBox" style="padding:0;overflow:hidden"><div id="siteMap" style="width:100%;height:100%;min-height:420px"></div></div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-grid">
-    <div class="footer-brand">
-      <div class="footer-logo">✂ KINYOZI ELITE</div>
-      <p>Nairobi's premier barbershop. Precision cuts, hot shaves, membership perks. Serving the city since 2019.</p>
-      <div class="social-links" style="margin-top:1.5rem">
-        <a class="social-link" href="#">f</a>
-        <a class="social-link" href="#">📷</a>
-        <a class="social-link" href="https://wa.me/254700000000">💬</a>
-        <a class="social-link" href="#">♪</a>
-      </div>
-    </div>
-    <div class="footer-col"><h4>Navigate</h4><ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#membership">Membership</a></li>
-      <li><a href="#booking">Book Now</a></li>
-      <li><a href="#barbers">Our Barbers</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul></div>
-    <div class="footer-col"><h4>Services</h4><ul>
-      <li><a href="#booking">Classic Haircut</a></li>
-      <li><a href="#booking">Hot Towel Shave</a></li>
-      <li><a href="#booking">Beard Lineup</a></li>
-      <li><a href="#booking">Fade Designs</a></li>
-      <li><a href="#booking">Loc Services</a></li>
-      <li><a href="#booking">VIP Package</a></li>
-    </ul></div>
-    <div class="footer-col"><h4>Contact</h4><ul>
-      <li><a href="https://wa.me/254700000000">💬 WhatsApp</a></li>
-      <li><a href="tel:+254700000000">📞 +254 700 000 000</a></li>
-      <li><a href="mailto:book@kinyozielite.co.ke">📧 Email Us</a></li>
-      <li><a href="#">📍 Tom Mboya St, CBD</a></li>
-      <li><a href="#">🕐 Open 7 Days</a></li>
-    </ul></div>
+    <div class="footer-brand"><div class="footer-logo">✂ KINYOZI ELITE</div><p>Nairobi's premier barbershop. Precision cuts, hot shaves, membership perks. Serving the city since 2019.</p><div class="social-links" style="margin-top:1.5rem"><a class="social-link" href="#">f</a><a class="social-link" href="#">📷</a><a class="social-link" href="https://wa.me/254700000000">💬</a><a class="social-link" href="#">♪</a></div></div>
+    <div class="footer-col"><h4>Navigate</h4><ul><li><a href="#home">Home</a></li><li><a href="#services">Services</a></li><li><a href="#membership">Membership</a></li><li><a href="#booking">Book Now</a></li><li><a href="#barbers">Our Barbers</a></li><li><a href="#contact">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="#booking">Classic Haircut</a></li><li><a href="#booking">Hot Towel Shave</a></li><li><a href="#booking">Beard Lineup</a></li><li><a href="#booking">Fade Designs</a></li><li><a href="#booking">Loc Services</a></li><li><a href="#booking">VIP Package</a></li></ul></div>
+    <div class="footer-col"><h4>Contact</h4><ul><li><a href="https://wa.me/254700000000">💬 WhatsApp</a></li><li><a href="tel:+254700000000">📞 +254 700 000 000</a></li><li><a href="mailto:book@kinyozielite.co.ke">📧 Email Us</a></li><li><a href="#">📍 Tom Mboya St, CBD</a></li><li><a href="#">🕐 Open 7 Days</a></li></ul></div>
   </div>
-  <div class="footer-bottom">
-    <p>© 2024 Kinyozi Elite. All rights reserved.</p>
-    <p>Sharpest cuts in Nairobi ✂</p>
-  </div>
+  <div class="footer-bottom"><p>© 2024 Kinyozi Elite. All rights reserved.</p><p>Sharpest cuts in Nairobi ✂</p></div>
 </footer>
-
 <a class="wa-float" href="https://wa.me/254700000000?text=Hi!+I'd+like+to+book+a+cut+at+Kinyozi+Elite." target="_blank" id="waFloat">💬</a>
 
 <!-- ADMIN OVERLAY -->
@@ -1035,10 +639,7 @@ footer{background:var(--ink);border-top:1px solid var(--dim);padding:4rem 8% 2re
     <div class="auth-card">
       <div class="auth-logo">✂ KINYOZI ELITE</div>
       <div class="auth-sub">Admin Portal</div>
-      <div class="auth-tabs">
-        <button class="auth-tab active" id="loginTabBtn" onclick="switchAuthTab('login')">Sign In</button>
-        <button class="auth-tab" id="registerTabBtn" onclick="switchAuthTab('register')">Register</button>
-      </div>
+      <div class="auth-tabs"><button class="auth-tab active" id="loginTabBtn" onclick="switchAuthTab('login')">Sign In</button><button class="auth-tab" id="registerTabBtn" onclick="switchAuthTab('register')">Register</button></div>
       <div id="loginForm" class="auth-form">
         <div class="auth-error" id="loginError"></div>
         <div class="auth-field"><label>Username</label><input type="text" id="loginUser" placeholder="Username" autocomplete="username"></div>
@@ -1049,22 +650,15 @@ footer{background:var(--ink);border-top:1px solid var(--dim);padding:4rem 8% 2re
       <div id="registerForm" class="auth-form" style="display:none">
         <div class="auth-error" id="regError"></div>
         <div class="auth-success" id="regSuccess"></div>
-        <div class="form-row" style="margin-bottom:0">
-          <div class="auth-field"><label>Full Name</label><input type="text" id="regName" placeholder="Your name"></div>
-          <div class="auth-field"><label>Username</label><input type="text" id="regUser" placeholder="Choose username"></div>
-        </div>
+        <div class="form-row" style="margin-bottom:0"><div class="auth-field"><label>Full Name</label><input type="text" id="regName" placeholder="Your name"></div><div class="auth-field"><label>Username</label><input type="text" id="regUser" placeholder="Choose username"></div></div>
         <div class="auth-field"><label>Email</label><input type="email" id="regEmail" placeholder="your@email.com"></div>
-        <div class="form-row" style="margin-bottom:0">
-          <div class="auth-field"><label>Password</label><input type="password" id="regPass" placeholder="Min 6 chars"></div>
-          <div class="auth-field"><label>Confirm</label><input type="password" id="regPass2" placeholder="Repeat"></div>
-        </div>
+        <div class="form-row" style="margin-bottom:0"><div class="auth-field"><label>Password</label><input type="password" id="regPass" placeholder="Min 6 chars"></div><div class="auth-field"><label>Confirm</label><input type="password" id="regPass2" placeholder="Repeat"></div></div>
         <div class="auth-field"><label>Admin Code</label><input type="password" id="regCode" placeholder="Admin access code"></div>
         <button class="auth-btn" onclick="doRegister()">Create Account →</button>
         <p style="text-align:center;font-size:0.72rem;color:var(--muted);margin-top:0.5rem;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.08em">Code: <strong style="color:var(--gold)">KINYOZI2024</strong></p>
       </div>
     </div>
   </div>
-
   <div id="adminPanel" style="display:none">
     <div class="admin-header">
       <div style="display:flex;align-items:center;gap:0.6rem;min-width:0">
@@ -1087,7 +681,6 @@ footer{background:var(--ink);border-top:1px solid var(--dim);padding:4rem 8% 2re
       <button class="admin-tab" onclick="switchTab('settings',this)">⚙ Settings</button>
     </div>
     <div class="admin-body">
-
       <!-- DASHBOARD -->
       <div class="admin-section active" id="tab-dashboard">
         <div class="a-stats-grid">
@@ -1096,20 +689,10 @@ footer{background:var(--ink);border-top:1px solid var(--dim);padding:4rem 8% 2re
           <div class="a-stat"><div class="a-stat-lbl">Barbers</div><div class="a-stat-val" id="statBarbers">0</div><div class="a-stat-delta">On roster</div></div>
           <div class="a-stat"><div class="a-stat-lbl">Services</div><div class="a-stat-val" id="statServices">0</div><div class="a-stat-delta">Active</div></div>
         </div>
-        <div class="admin-card">
-          <div class="admin-card-title">Today's Bookings</div>
-          <div id="todayBookingsList" style="display:flex;flex-direction:column;gap:0.5rem"></div>
-        </div>
-        <div class="admin-card">
-          <div class="admin-card-title">Activity Log</div>
-          <div id="activityLog" style="display:flex;flex-direction:column;gap:0.5rem;font-size:0.82rem;color:rgba(240,232,216,0.6)"><div style="color:var(--muted);font-style:italic">No activity yet.</div></div>
-        </div>
-        <div class="admin-card">
-          <div class="admin-card-title">Tier Breakdown</div>
-          <div id="tierBreakdown" style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.8rem"></div>
-        </div>
+        <div class="admin-card"><div class="admin-card-title">Today's Bookings</div><div id="todayBookingsList" style="display:flex;flex-direction:column;gap:0.5rem"></div></div>
+        <div class="admin-card"><div class="admin-card-title">Activity Log</div><div id="activityLog" style="display:flex;flex-direction:column;gap:0.5rem;font-size:0.82rem;color:rgba(240,232,216,0.6)"><div style="color:var(--muted);font-style:italic">No activity yet.</div></div></div>
+        <div class="admin-card"><div class="admin-card-title">Tier Breakdown</div><div id="tierBreakdown" style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.8rem"></div></div>
       </div>
-
       <!-- BOOKINGS -->
       <div class="admin-section" id="tab-bookings">
         <div class="admin-card">
@@ -1117,51 +700,22 @@ footer{background:var(--ink);border-top:1px solid var(--dim);padding:4rem 8% 2re
             <div class="admin-card-title" style="margin:0">All Bookings (<span id="bookingCount">0</span>)</div>
             <div style="display:flex;gap:0.6rem;flex-wrap:wrap">
               <input style="background:var(--carbon);border:1px solid var(--dim);padding:0.5rem 0.8rem;color:var(--cream);font-family:'Barlow',sans-serif;font-size:0.82rem;outline:none;width:150px" placeholder="Search client…" id="bookSearch" oninput="renderAdminBookings()">
-              <select id="bookStatusFilter" style="background:var(--ink);border:1px solid var(--dim);padding:0.5rem 0.8rem;color:var(--cream);font-family:'Barlow',sans-serif;font-size:0.82rem;outline:none" onchange="renderAdminBookings()">
-                <option value="">All</option>
-                <option value="Pending">Pending</option>
-                <option value="Confirmed">Confirmed</option>
-                <option value="Completed">Completed</option>
-                <option value="Cancelled">Cancelled</option>
-              </select>
+              <select id="bookStatusFilter" style="background:var(--ink);border:1px solid var(--dim);padding:0.5rem 0.8rem;color:var(--cream);font-family:'Barlow',sans-serif;font-size:0.82rem;outline:none" onchange="renderAdminBookings()"><option value="">All</option><option value="Pending">Pending</option><option value="Confirmed">Confirmed</option><option value="Completed">Completed</option><option value="Cancelled">Cancelled</option></select>
             </div>
           </div>
-          <div style="overflow-x:auto">
-            <table class="a-table">
-              <thead><tr><th>Client</th><th>Service</th><th>Barber</th><th>Date/Time</th><th>Status</th><th>Actions</th></tr></thead>
-              <tbody id="adminBookingsTbody"></tbody>
-            </table>
-          </div>
+          <div style="overflow-x:auto"><table class="a-table"><thead><tr><th>Client</th><th>Service</th><th>Barber</th><th>Date/Time</th><th>Status</th><th>Actions</th></tr></thead><tbody id="adminBookingsTbody"></tbody></table></div>
         </div>
         <div class="admin-card">
           <div class="admin-card-title">Add Manual Booking</div>
+          <div class="form-row"><div class="form-group"><label>Client Name *</label><input type="text" id="mbName" placeholder="e.g. Brian Mutua"></div><div class="form-group"><label>Phone *</label><input type="text" id="mbPhone" placeholder="e.g. 0712 345 678"></div></div>
           <div class="form-row">
-            <div class="form-group"><label>Client Name *</label><input type="text" id="mbName" placeholder="e.g. Brian Mutua"></div>
-            <div class="form-group"><label>Phone *</label><input type="text" id="mbPhone" placeholder="e.g. 0712 345 678"></div>
+            <div class="form-group"><label>Service *</label><select id="mbService"><option>Classic Haircut</option><option>Hot Towel Shave</option><option>Beard Lineup</option><option>Hair Design & Fade</option><option>Hair Treatment</option><option>Kids Haircut</option><option>VIP Package</option><option>Loc Service</option></select></div>
+            <div class="form-group"><label>Barber *</label><select id="mbBarber"><option>Any Available</option><option>Mwenda</option><option>Kamau</option><option>Odhiambo</option><option>Wanjiku</option><option>Hassan</option><option>Kipchoge</option></select></div>
           </div>
-          <div class="form-row">
-            <div class="form-group"><label>Service *</label>
-              <select id="mbService">
-                <option>Classic Haircut</option><option>Hot Towel Shave</option><option>Beard Lineup</option>
-                <option>Hair Design & Fade</option><option>Hair Treatment</option><option>Kids Haircut</option>
-                <option>VIP Package</option><option>Loc Service</option>
-              </select>
-            </div>
-            <div class="form-group"><label>Barber *</label>
-              <select id="mbBarber">
-                <option>Any Available</option><option>Mwenda</option><option>Kamau</option>
-                <option>Odhiambo</option><option>Wanjiku</option><option>Hassan</option><option>Kipchoge</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label>Date</label><input type="date" id="mbDate"></div>
-            <div class="form-group"><label>Time</label><input type="time" id="mbTime" value="09:00"></div>
-          </div>
+          <div class="form-row"><div class="form-group"><label>Date</label><input type="date" id="mbDate"></div><div class="form-group"><label>Time</label><input type="time" id="mbTime" value="09:00"></div></div>
           <button class="admin-btn" onclick="addManualBooking()">➕ Add Booking</button>
         </div>
       </div>
-
       <!-- MEMBERS -->
       <div class="admin-section" id="tab-members">
         <div class="admin-card">
@@ -1169,136 +723,64 @@ footer{background:var(--ink);border-top:1px solid var(--dim);padding:4rem 8% 2re
             <div class="admin-card-title" style="margin:0">Members (<span id="memberCount">0</span>)</div>
             <input style="background:var(--carbon);border:1px solid var(--dim);padding:0.5rem 0.8rem;color:var(--cream);font-family:'Barlow',sans-serif;font-size:0.82rem;outline:none;width:180px" placeholder="Search member…" id="memberSearch" oninput="renderAdminMembers()">
           </div>
-          <div style="overflow-x:auto">
-            <table class="a-table">
-              <thead><tr><th>Name</th><th>Phone</th><th>Tier</th><th>Member Since</th><th>Points</th><th>Visits</th><th>Actions</th></tr></thead>
-              <tbody id="adminMembersTbody"></tbody>
-            </table>
-          </div>
+          <div style="overflow-x:auto"><table class="a-table"><thead><tr><th>Name</th><th>Phone</th><th>Tier</th><th>Member Since</th><th>Points</th><th>Visits</th><th>Actions</th></tr></thead><tbody id="adminMembersTbody"></tbody></table></div>
         </div>
         <div class="admin-card">
           <div class="admin-card-title">Add / Enrol New Member</div>
-          <div class="form-row">
-            <div class="form-group"><label>Full Name *</label><input type="text" id="nmName" placeholder="e.g. David Njoroge"></div>
-            <div class="form-group"><label>Phone *</label><input type="text" id="nmPhone" placeholder="e.g. 0712 345 678"></div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label>Email</label><input type="email" id="nmEmail" placeholder="optional"></div>
-            <div class="form-group"><label>Membership Tier *</label>
-              <select id="nmTier">
-                <option value="Classic">Classic — KES 1,500/mo</option>
-                <option value="Gold">Gold — KES 3,000/mo</option>
-                <option value="Diamond">Diamond — KES 5,000/mo</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label>Member Code</label><input type="text" id="nmCode" placeholder="Auto-generated if blank"></div>
-            <div class="form-group"><label>Starting Points</label><input type="number" id="nmPoints" placeholder="0" value="0"></div>
-          </div>
+          <div class="form-row"><div class="form-group"><label>Full Name *</label><input type="text" id="nmName" placeholder="e.g. David Njoroge"></div><div class="form-group"><label>Phone *</label><input type="text" id="nmPhone" placeholder="e.g. 0712 345 678"></div></div>
+          <div class="form-row"><div class="form-group"><label>Email</label><input type="email" id="nmEmail" placeholder="optional"></div><div class="form-group"><label>Membership Tier *</label><select id="nmTier"><option value="Classic">Classic — KES 1,500/mo</option><option value="Gold">Gold — KES 3,000/mo</option><option value="Diamond">Diamond — KES 5,000/mo</option></select></div></div>
+          <div class="form-row"><div class="form-group"><label>Member Code</label><input type="text" id="nmCode" placeholder="Auto-generated if blank"></div><div class="form-group"><label>Starting Points</label><input type="number" id="nmPoints" placeholder="0" value="0"></div></div>
           <button class="admin-btn" onclick="addMember()">➕ Enrol Member</button>
         </div>
       </div>
-
       <!-- BARBERS ADMIN -->
       <div class="admin-section" id="tab-barbers">
         <div class="admin-card">
           <div class="admin-card-title">Barber Roster (<span id="barberCount">0</span>)</div>
-          <div style="overflow-x:auto">
-            <table class="a-table">
-              <thead><tr><th>Name</th><th>Title</th><th>Specialties</th><th>Rating</th><th>Status</th><th>Actions</th></tr></thead>
-              <tbody id="adminBarbersTbody"></tbody>
-            </table>
-          </div>
+          <div style="overflow-x:auto"><table class="a-table"><thead><tr><th>Name</th><th>Title</th><th>Specialties</th><th>Rating</th><th>Status</th><th>Actions</th></tr></thead><tbody id="adminBarbersTbody"></tbody></table></div>
         </div>
         <div class="admin-card">
           <div class="admin-card-title" id="barberFormTitle">Add New Barber</div>
           <input type="hidden" id="editBarberId" value="">
-          <div class="form-row">
-            <div class="form-group"><label>Full Name *</label><input type="text" id="baName" placeholder="e.g. Felix Omondi"></div>
-            <div class="form-group"><label>Title / Role *</label><input type="text" id="baTitle" placeholder="e.g. Senior Barber"></div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label>Specialties (comma-separated)</label><input type="text" id="baSpec" placeholder="e.g. Fades, Designs, Classic"></div>
-            <div class="form-group"><label>Status</label>
-              <select id="baStatus"><option value="Available">Available</option><option value="Busy">Busy</option><option value="Off Duty">Off Duty</option></select>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label>Rating (1-5)</label><input type="number" id="baRating" min="1" max="5" step="0.1" value="4.5"></div>
-            <div class="form-group"><label>Phone</label><input type="text" id="baPhone" placeholder="e.g. 0712 345 678"></div>
-          </div>
-          <div class="form-group" style="margin-bottom:1rem">
-            <label>Barber Photo</label>
-            <div style="border:1px dashed var(--dim);padding:1rem;text-align:center;cursor:pointer;position:relative;overflow:hidden">
-              <input type="file" accept="image/*" id="baPhotoInput" onchange="handleBarberPhotoUpload(this.files)" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%">
-              <div id="baPhotoPreview" style="font-size:0.82rem;color:var(--muted)">📷 Click to upload barber photo (replaces emoji on card)</div>
-            </div>
-          </div>
-          <div style="display:flex;gap:0.8rem;flex-wrap:wrap">
-            <button class="admin-btn" onclick="saveBarber()" id="saveBarberBtn">➕ Add Barber</button>
-            <button class="admin-btn secondary" id="cancelBarberBtn" onclick="cancelBarberEdit()" style="display:none">Cancel</button>
-          </div>
+          <div class="form-row"><div class="form-group"><label>Full Name *</label><input type="text" id="baName" placeholder="e.g. Felix Omondi"></div><div class="form-group"><label>Title / Role *</label><input type="text" id="baTitle" placeholder="e.g. Senior Barber"></div></div>
+          <div class="form-row"><div class="form-group"><label>Specialties (comma-separated)</label><input type="text" id="baSpec" placeholder="e.g. Fades, Designs, Classic"></div><div class="form-group"><label>Status</label><select id="baStatus"><option value="Available">Available</option><option value="Busy">Busy</option><option value="Off Duty">Off Duty</option></select></div></div>
+          <div class="form-row"><div class="form-group"><label>Rating (1-5)</label><input type="number" id="baRating" min="1" max="5" step="0.1" value="4.5"></div><div class="form-group"><label>Phone</label><input type="text" id="baPhone" placeholder="e.g. 0712 345 678"></div></div>
+          <div class="form-group" style="margin-bottom:1rem"><label>Barber Photo</label><div style="border:1px dashed var(--dim);padding:1rem;text-align:center;cursor:pointer;position:relative;overflow:hidden"><input type="file" accept="image/*" id="baPhotoInput" onchange="handleBarberPhotoUpload(this.files)" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%"><div id="baPhotoPreview" style="font-size:0.82rem;color:var(--muted)">📷 Click to upload barber photo</div></div></div>
+          <div style="display:flex;gap:0.8rem;flex-wrap:wrap"><button class="admin-btn" onclick="saveBarber()" id="saveBarberBtn">➕ Add Barber</button><button class="admin-btn secondary" id="cancelBarberBtn" onclick="cancelBarberEdit()" style="display:none">Cancel</button></div>
         </div>
       </div>
-
       <!-- SERVICES ADMIN -->
       <div class="admin-section" id="tab-services">
         <div class="admin-card">
           <div class="admin-card-title">Services Menu (<span id="serviceCount">0</span>)</div>
-          <div style="overflow-x:auto">
-            <table class="a-table">
-              <thead><tr><th>Icon</th><th>Service</th><th>Price</th><th>Duration</th><th>Status</th><th>Actions</th></tr></thead>
-              <tbody id="adminServicesTbody"></tbody>
-            </table>
-          </div>
+          <div style="overflow-x:auto"><table class="a-table"><thead><tr><th>Icon</th><th>Service</th><th>Price</th><th>Duration</th><th>Status</th><th>Actions</th></tr></thead><tbody id="adminServicesTbody"></tbody></table></div>
         </div>
         <div class="admin-card">
           <div class="admin-card-title" id="svcFormTitle">Add New Service</div>
           <input type="hidden" id="editSvcId" value="">
-          <div class="form-row">
-            <div class="form-group"><label>Service Name *</label><input type="text" id="svName" placeholder="e.g. Hot Towel Shave"></div>
-            <div class="form-group"><label>Price (KES) *</label><input type="text" id="svPrice" placeholder="e.g. 500"></div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label>Duration</label><input type="text" id="svDuration" placeholder="e.g. 45 min"></div>
-            <div class="form-group"><label>Icon (emoji)</label><input type="text" id="svIcon" placeholder="e.g. 🪒"></div>
-          </div>
+          <div class="form-row"><div class="form-group"><label>Service Name *</label><input type="text" id="svName" placeholder="e.g. Hot Towel Shave"></div><div class="form-group"><label>Price (KES) *</label><input type="text" id="svPrice" placeholder="e.g. 500"></div></div>
+          <div class="form-row"><div class="form-group"><label>Duration</label><input type="text" id="svDuration" placeholder="e.g. 45 min"></div><div class="form-group"><label>Icon (emoji)</label><input type="text" id="svIcon" placeholder="e.g. 🪒"></div></div>
           <div class="form-group" style="margin-bottom:1rem"><label>Description *</label><textarea id="svDesc" rows="2" placeholder="Brief description of the service…"></textarea></div>
-          <div style="display:flex;gap:0.8rem;flex-wrap:wrap">
-            <button class="admin-btn" onclick="saveService()" id="saveSvcBtn">➕ Add Service</button>
-            <button class="admin-btn secondary" id="cancelSvcBtn" onclick="cancelSvcEdit()" style="display:none">Cancel</button>
-          </div>
+          <div style="display:flex;gap:0.8rem;flex-wrap:wrap"><button class="admin-btn" onclick="saveService()" id="saveSvcBtn">➕ Add Service</button><button class="admin-btn secondary" id="cancelSvcBtn" onclick="cancelSvcEdit()" style="display:none">Cancel</button></div>
         </div>
       </div>
-
       <!-- BANNERS -->
       <div class="admin-section" id="tab-banners">
         <div class="admin-msg success" id="bannerMsg"></div>
-        <!-- HERO BG IMAGE -->
         <div class="admin-card">
           <div class="admin-card-title">🖼 Hero Background Image</div>
-          <p style="font-size:0.78rem;color:var(--muted);margin-bottom:1rem">Replaces the default barber chair emoji on the right side of the hero section. Fills the full panel.</p>
-          <div style="border:1px dashed var(--dim);padding:1.5rem;text-align:center;cursor:pointer;position:relative;overflow:hidden">
-            <input type="file" accept="image/*" onchange="handleHeroBgUpload(this.files)" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%">
-            <div style="font-size:0.85rem;color:var(--muted)">📷 Upload hero background photo</div>
-          </div>
+          <p style="font-size:0.78rem;color:var(--muted);margin-bottom:1rem">Replaces the default barber chair emoji on the right side of the hero section.</p>
+          <div style="border:1px dashed var(--dim);padding:1.5rem;text-align:center;cursor:pointer;position:relative;overflow:hidden"><input type="file" accept="image/*" onchange="handleHeroBgUpload(this.files)" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%"><div style="font-size:0.85rem;color:var(--muted)">📷 Upload hero background photo</div></div>
           <div id="heroBgPreview" style="margin-top:0.8rem"></div>
         </div>
-        <!-- GALLERY IMAGES -->
         <div class="admin-card">
           <div class="admin-card-title">📸 Gallery Images (max 9)</div>
-          <p style="font-size:0.78rem;color:var(--muted);margin-bottom:1rem">Upload photos of your fresh cuts, shop interior, or team. They replace the placeholder tiles in the Gallery section.</p>
-          <div style="border:1px dashed var(--dim);padding:1.5rem;text-align:center;cursor:pointer;position:relative;overflow:hidden">
-            <input type="file" accept="image/*" multiple onchange="handleGalleryUpload(this.files)" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%">
-            <div style="font-size:0.85rem;color:var(--muted)">📷 Click to upload gallery photos (multi-select OK)</div>
-          </div>
+          <div style="border:1px dashed var(--dim);padding:1.5rem;text-align:center;cursor:pointer;position:relative;overflow:hidden"><input type="file" accept="image/*" multiple onchange="handleGalleryUpload(this.files)" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%"><div style="font-size:0.85rem;color:var(--muted)">📷 Click to upload gallery photos (multi-select OK)</div></div>
           <div id="galleryPreviews" style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;margin-top:0.8rem"></div>
         </div>
-        <!-- LOCATION PIN -->
         <div class="admin-card">
           <div class="admin-card-title">📍 Store Location Pin</div>
-          <p style="font-size:0.78rem;color:var(--muted);margin-bottom:0.8rem">Search your address or tap on the map to pin your shop. The Contact section map updates live.</p>
+          <p style="font-size:0.78rem;color:var(--muted);margin-bottom:0.8rem">Search your address or tap on the map to pin your shop.</p>
           <div style="display:flex;gap:0.5rem;margin-bottom:0.7rem;flex-wrap:wrap">
             <input style="flex:1;min-width:180px;background:var(--carbon);border:1px solid var(--dim);padding:0.6rem 0.9rem;color:var(--cream);font-family:'Barlow',sans-serif;font-size:0.82rem;outline:none" type="text" id="locationSearchInput" placeholder="e.g. Tom Mboya Street, Nairobi" onkeydown="if(event.key==='Enter')searchLocation()">
             <button class="admin-btn" onclick="searchLocation()" style="padding:0.6rem 1rem">🔍 Search</button>
@@ -1310,16 +792,11 @@ footer{background:var(--ink);border-top:1px solid var(--dim);padding:4rem 8% 2re
             <button class="admin-btn secondary" onclick="clearPinnedLocation()">✕ Clear Pin</button>
           </div>
         </div>
-        <!-- ANNOUNCEMENT BAR -->
         <div class="admin-card">
           <div class="admin-card-title">📢 Announcement Bar</div>
           <div id="announceList" style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.2rem"></div>
-          <div style="display:flex;gap:0.8rem">
-            <input style="flex:1;background:var(--carbon);border:1px solid var(--dim);padding:0.7rem 0.9rem;color:var(--cream);font-family:'Barlow',sans-serif;font-size:0.84rem;outline:none" type="text" id="newAnnounce" placeholder="e.g. ✂ New barber joining Friday!">
-            <button class="admin-btn" onclick="addAnnouncement()">Add</button>
-          </div>
+          <div style="display:flex;gap:0.8rem"><input style="flex:1;background:var(--carbon);border:1px solid var(--dim);padding:0.7rem 0.9rem;color:var(--cream);font-family:'Barlow',sans-serif;font-size:0.84rem;outline:none" type="text" id="newAnnounce" placeholder="e.g. ✂ New barber joining Friday!"><button class="admin-btn" onclick="addAnnouncement()">Add</button></div>
         </div>
-        <!-- FEATURE TOGGLES -->
         <div class="admin-card">
           <div class="admin-card-title">🔧 Feature Visibility</div>
           <div class="toggle-row"><div><div class="toggle-label">WhatsApp Float Button</div><div class="toggle-sub">Floating chat button</div></div><div class="toggle on" id="toggleWA" onclick="toggleFeat(this,'wa')"></div></div>
@@ -1328,61 +805,39 @@ footer{background:var(--ink);border-top:1px solid var(--dim);padding:4rem 8% 2re
           <div class="toggle-row"><div><div class="toggle-label">Reviews Section</div><div class="toggle-sub">Client testimonials</div></div><div class="toggle on" id="toggleReviews" onclick="toggleFeat(this,'reviews')"></div></div>
         </div>
       </div>
-
       <!-- SETTINGS -->
       <div class="admin-section" id="tab-settings">
         <div class="admin-msg success" id="settingsMsg"></div>
         <div class="admin-card">
           <div class="admin-card-title">Business Settings</div>
-          <div class="form-row">
-            <div class="form-group"><label>Shop Name</label><input type="text" id="setBizName" value="Kinyozi Elite"></div>
-            <div class="form-group"><label>WhatsApp Number</label><input type="text" id="setWA" value="+254 700 000 000"></div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label>Email</label><input type="text" id="setEmail" value="book@kinyozielite.co.ke"></div>
-            <div class="form-group"><label>Location</label><input type="text" id="setLocation" value="Tom Mboya St, Nairobi CBD"></div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label>Weekday Hours</label><input type="text" id="setHrsWD" value="7:00am – 9:00pm"></div>
-            <div class="form-group"><label>Weekend Hours</label><input type="text" id="setHrsWE" value="7:00am – 10:00pm"></div>
-          </div>
+          <div class="form-row"><div class="form-group"><label>Shop Name</label><input type="text" id="setBizName" value="Kinyozi Elite"></div><div class="form-group"><label>WhatsApp Number</label><input type="text" id="setWA" value="+254 700 000 000"></div></div>
+          <div class="form-row"><div class="form-group"><label>Email</label><input type="text" id="setEmail" value="book@kinyozielite.co.ke"></div><div class="form-group"><label>Location</label><input type="text" id="setLocation" value="Tom Mboya St, Nairobi CBD"></div></div>
+          <div class="form-row"><div class="form-group"><label>Weekday Hours</label><input type="text" id="setHrsWD" value="7:00am – 9:00pm"></div><div class="form-group"><label>Weekend Hours</label><input type="text" id="setHrsWE" value="7:00am – 10:00pm"></div></div>
           <button class="admin-btn" onclick="saveSettings()">💾 Save Settings</button>
         </div>
-        <div class="admin-card">
-          <div class="admin-card-title">Registered Admin Users</div>
-          <div id="adminUsersList"></div>
-        </div>
+        <div class="admin-card"><div class="admin-card-title">Registered Admin Users</div><div id="adminUsersList"></div></div>
         <div class="admin-card">
           <div class="admin-card-title">Change Password</div>
-          <div class="form-row">
-            <div class="form-group"><label>Current Password</label><input type="password" id="setPwdCur" placeholder="Current password"></div>
-            <div class="form-group"><label>New Password</label><input type="password" id="setPwdNew" placeholder="Min 6 characters"></div>
-          </div>
+          <div class="form-row"><div class="form-group"><label>Current Password</label><input type="password" id="setPwdCur" placeholder="Current password"></div><div class="form-group"><label>New Password</label><input type="password" id="setPwdNew" placeholder="Min 6 characters"></div></div>
           <div class="form-group" style="margin-bottom:1rem"><label>Confirm New Password</label><input type="password" id="setPwdConf" placeholder="Repeat new password"></div>
           <button class="admin-btn secondary" onclick="changePassword()">🔒 Update Password</button>
         </div>
         <div class="admin-card">
           <div class="admin-card-title" style="color:#e74c3c">Danger Zone</div>
-          <div style="display:flex;gap:0.8rem;flex-wrap:wrap">
-            <button class="admin-btn danger sm" onclick="clearAllBookings()">🗑 Clear All Bookings</button>
-            <button class="admin-btn danger sm" onclick="clearAllMembers()">🗑 Clear All Members</button>
-            <button class="admin-btn danger sm" onclick="resetToDefaults()">↩ Reset to Defaults</button>
-          </div>
+          <div style="display:flex;gap:0.8rem;flex-wrap:wrap"><button class="admin-btn danger sm" onclick="clearAllBookings()">🗑 Clear All Bookings</button><button class="admin-btn danger sm" onclick="clearAllMembers()">🗑 Clear All Members</button><button class="admin-btn danger sm" onclick="resetToDefaults()">↩ Reset to Defaults</button></div>
         </div>
       </div>
-
     </div>
   </div>
 </div>
 
 <script>
-// ═══════════════════════ STORAGE ═══════════════════════
+// ═══════════════════ STORAGE ═══════════════════
 const DB={
   get(k,d=null){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch{return d}},
   set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){console.warn('LS full',e)}},
   del(k){localStorage.removeItem(k)}
 };
-// IndexedDB for images (no 5MB limit)
 const IDB=(()=>{
   const NAME='ke_images_db',STORE='images';let _db=null;
   function open(){return new Promise((res,rej)=>{if(_db){res(_db);return}const r=indexedDB.open(NAME,1);r.onupgradeneeded=e=>e.target.result.createObjectStore(STORE);r.onsuccess=e=>{_db=e.target.result;res(_db)};r.onerror=e=>rej(e.target.error)})}
@@ -1393,7 +848,7 @@ const IDB=(()=>{
   };
 })();
 
-// ═══════════════════════ DEFAULTS ═══════════════════════
+// ═══════════════════ DEFAULTS ═══════════════════
 const DEFAULT_BARBERS=[
   {id:1,name:'Mwenda',title:'Senior Master Barber',specialties:'Fades, Designs, Classic',rating:'4.9',status:'Available',phone:'0712000001',reviews:312},
   {id:2,name:'Kamau',title:'Fade Specialist',specialties:'Skin Fade, Low Fade, Taper',rating:'4.8',status:'Available',phone:'0712000002',reviews:245},
@@ -1424,47 +879,47 @@ let allMembers=DB.get('ke_members',[
   {id:2,name:'David Odhiambo',phone:'0722876543',email:'david@email.com',tier:'Diamond',code:'DIA001',since:'Nov 2023',points:680,visits:28},
   {id:3,name:'Faith Wambua',phone:'0733111222',email:'faith@email.com',tier:'Classic',code:'CLS001',since:'Mar 2024',points:60,visits:5},
 ]);
+// Member accounts: {id, phone (normalized), passwordHash, memberId}
+let memberAccounts=DB.get('ke_member_accounts',[
+  {id:1,phone:'0712345678',password:'member123',memberId:1},
+  {id:2,phone:'0722876543',password:'member123',memberId:2},
+  {id:3,phone:'0733111222',password:'member123',memberId:3},
+]);
 let allBarbers=DB.get('ke_barbers',DEFAULT_BARBERS);
 let allServices=DB.get('ke_services',DEFAULT_SERVICES);
 let adminUsers=DB.get('ke_admins',[{username:'admin',password:'kinyozi123',name:'Administrator',email:'admin@kinyozielite.co.ke'}]);
 let bizSettings=DB.get('ke_settings',{bizName:'Kinyozi Elite',wa:'+254 700 000 000',email:'book@kinyozielite.co.ke',location:'Tom Mboya St, Nairobi CBD',hrsWD:'7:00am – 9:00pm',hrsWE:'7:00am – 10:00pm'});
 let currentUser=null;
+let currentMemberSession=DB.get('ke_member_session',null); // {accountId, memberId}
 let activityLog=[];
-// Image state (loaded from IDB on startup)
-let heroBgImage=null;      // Hero right-side background
-let barberImages={};       // {barberId: base64}
-let galleryImages=[];      // [base64, ...] up to 9
+let heroBgImage=null;
+let barberImages={};
+let galleryImages=[];
 let announcements=DB.get('ke_announcements',['✂ Walk-ins Welcome Daily','⭐ Book Online — Secure Your Slot','👑 Members Get 20% Off Every Cut','📍 Nairobi CBD · Open 7 Days','💈 Hot Towel Shave from KES 500','🏆 Best Barbershop — Nairobi 2024']);
 let selectedServices=[];
 let selectedTime='';
+
+function normalizePhone(p){return p.replace(/[\s\-\(\)]/g,'').replace(/^(\+254|254)/,'0')}
 
 function saveAll(){
   DB.set('ke_bookings',allBookings);DB.set('ke_members',allMembers);
   DB.set('ke_barbers',allBarbers);DB.set('ke_services',allServices);
   DB.set('ke_admins',adminUsers);DB.set('ke_settings',bizSettings);
-}
-async function loadImagesFromIDB(){
-  const[hero,bImgs,gImgs]=await Promise.all([
-    IDB.get('ke_hero_bg',null),
-    IDB.get('ke_barber_images',null),
-    IDB.get('ke_gallery_images',null)
-  ]);
-  if(hero) heroBgImage=hero;
-  if(bImgs) barberImages=bImgs;
-  if(gImgs) galleryImages=gImgs;
-  renderHeroBg();
-  updateLiveBarbers();
-  renderGalleryPreviews();
-  updateLiveGallery();
+  DB.set('ke_member_accounts',memberAccounts);
 }
 
-// ═══════════════════════ PRELOADER & CURSOR ═══════════════════════
-// Hide preloader — use DOMContentLoaded + safety timeout so CDN scripts don't block it
-function hidePreloader(){document.getElementById('preloader').classList.add('hide');}
-// Hide after animation completes regardless
-setTimeout(hidePreloader, 2400);
-// Also hide on load if it fires sooner
-window.addEventListener('load', ()=>setTimeout(hidePreloader, 300));
+async function loadImagesFromIDB(){
+  const[hero,bImgs,gImgs]=await Promise.all([IDB.get('ke_hero_bg',null),IDB.get('ke_barber_images',null),IDB.get('ke_gallery_images',null)]);
+  if(hero)heroBgImage=hero;
+  if(bImgs)barberImages=bImgs;
+  if(gImgs)galleryImages=gImgs;
+  renderHeroBg();updateLiveBarbers();renderGalleryPreviews();updateLiveGallery();
+}
+
+// ═══════════════════ PRELOADER & CURSOR ═══════════════════
+function hidePreloader(){document.getElementById('preloader').classList.add('hide')}
+setTimeout(hidePreloader,2400);
+window.addEventListener('load',()=>setTimeout(hidePreloader,300));
 const dot=document.getElementById('cursorDot'),ring=document.getElementById('cursorRing');
 document.addEventListener('mousemove',e=>{dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px';ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px'});
 document.querySelectorAll('a,button,.barber-card,.service-card,.mem-card').forEach(el=>{
@@ -1474,11 +929,11 @@ document.querySelectorAll('a,button,.barber-card,.service-card,.mem-card').forEa
 window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>50));
 function scrollTop(){window.scrollTo({top:0,behavior:'smooth'})}
 
-// ═══════════════════════ MOBILE MENU ═══════════════════════
+// ═══════════════════ MOBILE MENU ═══════════════════
 function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');document.getElementById('hamburger').classList.toggle('open')}
 function closeMenu(){document.getElementById('mobileMenu').classList.remove('open');document.getElementById('hamburger').classList.remove('open')}
 
-// ═══════════════════════ COUNTER ANIMATION ═══════════════════════
+// ═══════════════════ COUNTERS ═══════════════════
 function animateCounters(){
   document.querySelectorAll('[data-count]').forEach(el=>{
     const t=+el.dataset.count;let c=0;const step=Math.ceil(t/60);
@@ -1487,12 +942,11 @@ function animateCounters(){
 }
 setTimeout(animateCounters,2400);
 
-// ═══════════════════════ SCROLL ANIMATIONS ═══════════════════════
+// ═══════════════════ SCROLL ANIMATIONS ═══════════════════
 const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:0.1});
 document.querySelectorAll('.fade-up,.fade-left,.fade-right').forEach(el=>observer.observe(el));
 
-// ═══════════════════════ BOOKING FORM ═══════════════════════
-// Set min date to today
+// ═══════════════════ BOOKING FORM ═══════════════════
 document.getElementById('bookDate').min=new Date().toISOString().slice(0,10);
 document.getElementById('bookDate').value=new Date().toISOString().slice(0,10);
 
@@ -1502,38 +956,30 @@ function toggleSvcPill(el,svc){
   else{selectedServices=selectedServices.filter(s=>s!==svc)}
   updateBookingSteps();
 }
-
 const ALL_SLOTS=['08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30'];
 const BOOKED_DEMO=['09:00','11:30','14:00','16:00'];
-
 function refreshTimeSlots(){
   const container=document.getElementById('bookTimeSlots');
   container.innerHTML=ALL_SLOTS.map(t=>{
     const booked=BOOKED_DEMO.includes(t);
-    return `<div class="time-slot${booked?' booked':''}" onclick="${booked?'':'selectTime(this,\''+t+'\')'}${booked?'return':''}">${t}</div>`;
+    return `<div class="time-slot${booked?' booked':''}" ${booked?'':'onclick="selectTime(this,\''+t+'\')"'}>${t}</div>`;
   }).join('');
   selectedTime='';
 }
 refreshTimeSlots();
-
 function selectTime(el,t){
   document.querySelectorAll('.time-slot').forEach(s=>s.classList.remove('selected'));
-  el.classList.add('selected');
-  selectedTime=t;
-  updateBookingSteps();
+  el.classList.add('selected');selectedTime=t;updateBookingSteps();
 }
-
 function updateBookingSteps(){
-  ['bkStep1','bkStep2','bkStep3','bkStep4'].forEach((id,i)=>{
-    document.getElementById(id).classList.remove('active-step');
-  });
-  if(selectedServices.length>0) document.getElementById('bkStep2').classList.add('active-step');
-  if(selectedTime) document.getElementById('bkStep3').classList.add('active-step');
+  ['bkStep1','bkStep2','bkStep3','bkStep4'].forEach(id=>document.getElementById(id).classList.remove('active-step'));
+  document.getElementById('bkStep1').classList.add('active-step');
+  if(selectedServices.length>0)document.getElementById('bkStep2').classList.add('active-step');
+  if(selectedTime)document.getElementById('bkStep3').classList.add('active-step');
   const name=document.getElementById('bookName').value.trim();
-  if(name&&selectedTime) document.getElementById('bkStep4').classList.add('active-step');
+  if(name&&selectedTime)document.getElementById('bkStep4').classList.add('active-step');
 }
 document.getElementById('bookName').addEventListener('input',updateBookingSteps);
-
 function submitBooking(){
   const name=document.getElementById('bookName').value.trim();
   const phone=document.getElementById('bookPhone').value.trim();
@@ -1546,39 +992,34 @@ function submitBooking(){
   if(!selectedServices.length){alert('Please select at least one service.');return}
   if(!selectedTime){alert('Please select a time slot.');return}
   const booking={id:Date.now(),client:name,phone,service:selectedServices.join(' + '),barber:barber==='any'?'Any Available':barber.charAt(0).toUpperCase()+barber.slice(1),date,time:selectedTime,status:'Pending',notes,memberCode};
-  allBookings.push(booking);
-  saveAll();
+  allBookings.push(booking);saveAll();
   logActivity(`📅 New booking: ${name} — ${selectedServices.join('+')} @ ${selectedTime}`);
-  // Show confirm
+  // If logged in member, increment their visits
+  if(currentMemberSession){
+    const m=allMembers.find(x=>x.id===currentMemberSession.memberId);
+    if(m){m.visits=(m.visits||0)+1;m.points=(m.points||0)+(m.tier==='Diamond'?30:m.tier==='Gold'?20:10);saveAll();}
+  }
   document.getElementById('bookingFormInner').style.display='none';
-  const conf=document.getElementById('bookingConfirm');
-  conf.classList.add('show');
+  const conf=document.getElementById('bookingConfirm');conf.classList.add('show');
   document.getElementById('confirmDetails').textContent=`${selectedServices.join(' + ')} on ${date} at ${selectedTime} with ${booking.barber}`;
-  // WhatsApp confirm message
   const msg=encodeURIComponent(`Hi! Booking confirmed for ${name}. Service: ${selectedServices.join(' + ')}. Date: ${date} at ${selectedTime}. Barber: ${booking.barber}. We'll see you soon! ✂`);
   setTimeout(()=>window.open(`https://wa.me/${phone.replace(/\D/g,'')}?text=${msg}`,'_blank'),1500);
 }
-
 function resetBookingForm(){
   document.getElementById('bookingFormInner').style.display='';
   document.getElementById('bookingConfirm').classList.remove('show');
-  document.getElementById('bookName').value='';
-  document.getElementById('bookPhone').value='';
-  document.getElementById('bookNotes').value='';
-  document.getElementById('bookMemberCode').value='';
-  selectedServices=[];
-  selectedTime='';
+  document.getElementById('bookName').value='';document.getElementById('bookPhone').value='';
+  document.getElementById('bookNotes').value='';document.getElementById('bookMemberCode').value='';
+  selectedServices=[];selectedTime='';
   document.querySelectorAll('.svc-pill').forEach(p=>p.classList.remove('selected'));
   document.querySelectorAll('.time-slot').forEach(t=>t.classList.remove('selected'));
   updateBookingSteps();
 }
-
-function quickBook(svc,price){
-  window.location.hash='#booking';
+function quickBook(svc){
   document.getElementById('booking').scrollIntoView({behavior:'smooth'});
   setTimeout(()=>{
     const pill=Array.from(document.querySelectorAll('.svc-pill')).find(p=>p.textContent.toLowerCase().includes(svc.toLowerCase().substring(0,6)));
-    if(pill&&!pill.classList.contains('selected')){toggleSvcPill(pill,svc)}
+    if(pill&&!pill.classList.contains('selected'))toggleSvcPill(pill,svc);
   },600);
 }
 function quickBookBarber(name){
@@ -1589,15 +1030,12 @@ function quickBookBarber(name){
   },600);
 }
 
-// ═══════════════════════ REVIEWS SLIDER ═══════════════════════
+// ═══════════════════ REVIEWS ═══════════════════
 let revIdx=0;
 const revTrack=document.getElementById('reviewsTrack');
 const revDots=document.getElementById('reviewsNav');
 const revCards=revTrack.children.length;
-for(let i=0;i<revCards;i++){
-  const d=document.createElement('div');d.className='rev-dot'+(i===0?' active':'');
-  d.onclick=()=>{revIdx=i;updateRevTrack();};revDots.appendChild(d);
-}
+for(let i=0;i<revCards;i++){const d=document.createElement('div');d.className='rev-dot'+(i===0?' active':'');d.onclick=()=>{revIdx=i;updateRevTrack()};revDots.appendChild(d)}
 function updateRevTrack(){
   const w=(revTrack.children[0]?.offsetWidth||380)+24;
   revTrack.style.transform=`translateX(-${revIdx*w}px)`;
@@ -1605,14 +1043,95 @@ function updateRevTrack(){
 }
 function reviewNav(dir){revIdx=Math.max(0,Math.min(revIdx+dir,revCards-1));updateRevTrack()}
 
-// ═══════════════════════ MEMBERSHIP ═══════════════════════
+// ═══════════════════ MEMBERSHIP ═══════════════════
 function joinMembership(tier,price){
   const msg=encodeURIComponent(`Hi! I'd like to join the Kinyozi Elite ${tier} Membership (KES ${price}/month). Please help me sign up!`);
   window.open(`https://wa.me/254700000000?text=${msg}`,'_blank');
 }
 
-// MEMBER DASHBOARD
+// ═══════════════════ MEMBER PORTAL AUTH ═══════════════════
+function openMemberPortal(){
+  if(currentMemberSession){openMemberDash();return;}
+  document.getElementById('memberAuthModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeMemberPortal(){
+  document.getElementById('memberAuthModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('memberAuthModal').addEventListener('click',e=>{if(e.target===document.getElementById('memberAuthModal'))closeMemberPortal()});
+function switchMauthTab(tab){
+  document.getElementById('mauthLoginForm').style.display=tab==='login'?'flex':'none';
+  document.getElementById('mauthRegForm').style.display=tab==='register'?'flex':'none';
+  document.getElementById('mauthLoginBtn').classList.toggle('active',tab==='login');
+  document.getElementById('mauthRegBtn').classList.toggle('active',tab==='register');
+  document.getElementById('mauthLoginErr').classList.remove('show');
+  document.getElementById('mauthRegErr').classList.remove('show');
+  document.getElementById('mauthRegSuc').classList.remove('show');
+}
+function doMemberLogin(){
+  const phone=normalizePhone(document.getElementById('mlPhone').value.trim());
+  const pass=document.getElementById('mlPass').value;
+  const err=document.getElementById('mauthLoginErr');
+  err.classList.remove('show');
+  if(!phone||!pass){err.textContent='Enter phone and password.';err.classList.add('show');return}
+  const acct=memberAccounts.find(a=>normalizePhone(a.phone)===phone&&a.password===pass);
+  if(!acct){err.textContent='Phone or password incorrect. Try again.';err.classList.add('show');return}
+  const member=allMembers.find(m=>m.id===acct.memberId);
+  if(!member){err.textContent='Member record not found. Contact reception.';err.classList.add('show');return}
+  currentMemberSession={accountId:acct.id,memberId:acct.memberId};
+  DB.set('ke_member_session',currentMemberSession);
+  closeMemberPortal();
+  openMemberDash();
+  logActivity(`👤 Member signed in: ${member.name}`);
+}
+function doMemberRegister(){
+  const name=document.getElementById('mrName').value.trim();
+  const phone=normalizePhone(document.getElementById('mrPhone').value.trim());
+  const email=document.getElementById('mrEmail').value.trim();
+  const pass=document.getElementById('mrPass').value;
+  const pass2=document.getElementById('mrPass2').value;
+  const tier=document.getElementById('mrTier').value;
+  const code=document.getElementById('mrCode').value.trim();
+  const err=document.getElementById('mauthRegErr');
+  const suc=document.getElementById('mauthRegSuc');
+  err.classList.remove('show');suc.classList.remove('show');
+  if(!name||!phone||!pass){err.textContent='Name, phone, and password are required.';err.classList.add('show');return}
+  if(pass.length<6){err.textContent='Password must be at least 6 characters.';err.classList.add('show');return}
+  if(pass!==pass2){err.textContent='Passwords do not match.';err.classList.add('show');return}
+  if(memberAccounts.find(a=>normalizePhone(a.phone)===phone)){err.textContent='This phone number already has an account. Sign in instead.';err.classList.add('show');return}
+  // Check if member record exists with this phone/code
+  let member=allMembers.find(m=>normalizePhone(m.phone)===phone||(code&&m.code===code));
+  if(!member){
+    // Create new member record
+    const autoCode=code||(tier.substring(0,3).toUpperCase()+(Date.now()%100000));
+    member={id:Date.now(),name,phone,email,tier,code:autoCode,since:new Date().toLocaleDateString('en-GB',{month:'short',year:'numeric'}),points:0,visits:0};
+    allMembers.push(member);
+    logActivity(`👑 New member registered: ${name} (${tier})`);
+  }
+  // Create account
+  const newAcct={id:Date.now()+1,phone,password:pass,memberId:member.id};
+  memberAccounts.push(newAcct);
+  saveAll();
+  suc.textContent=`✅ Account created! Member code: ${member.code}. Signing you in…`;
+  suc.classList.add('show');
+  setTimeout(()=>{
+    currentMemberSession={accountId:newAcct.id,memberId:member.id};
+    DB.set('ke_member_session',currentMemberSession);
+    closeMemberPortal();
+    openMemberDash();
+  },1800);
+}
+function memberLogout(){
+  currentMemberSession=null;
+  DB.del('ke_member_session');
+  closeMemberDash();
+  logActivity('👤 Member signed out');
+}
+
+// ═══════════════════ MEMBER DASHBOARD ═══════════════════
 function openMemberDash(){
+  if(!currentMemberSession){openMemberPortal();return}
   document.getElementById('memberDash').classList.add('open');
   document.body.style.overflow='hidden';
   renderMemberDash();
@@ -1624,19 +1143,22 @@ function closeMemberDash(){
 document.getElementById('memberDash').addEventListener('click',e=>{if(e.target===document.getElementById('memberDash'))closeMemberDash()});
 
 function renderMemberDash(){
-  // For demo, show first member or login prompt
-  const m=allMembers[0];
-  if(!m){document.getElementById('dashBody').innerHTML='<p style="color:var(--muted);text-align:center;padding:2rem">No members yet. Join a membership plan to get started!</p>';return}
-  const visits=allBookings.filter(b=>b.client===m.name||b.memberCode===m.code);
+  if(!currentMemberSession){closeMemberDash();return}
+  const m=allMembers.find(x=>x.id===currentMemberSession.memberId);
+  if(!m){document.getElementById('dashBody').innerHTML='<p style="color:var(--muted);text-align:center;padding:2rem">Member record not found.</p>';return}
+  const visits=allBookings.filter(b=>normalizePhone(b.phone)===normalizePhone(m.phone)||b.memberCode===m.code);
   const nextReward=m.tier==='Classic'?200:m.tier==='Gold'?500:1000;
   const pts=m.points||0;
   const tierColor=m.tier==='Diamond'?'#7eb8e8':m.tier==='Gold'?'var(--gold)':'#aaa';
+  const discountPct=m.tier==='Diamond'?30:m.tier==='Gold'?20:10;
+  const cutsPerMonth=m.tier==='Classic'?'4':'∞';
   document.getElementById('dashBody').innerHTML=`
     <div class="dash-member-card">
       <div>
         <div class="dash-member-tier" style="color:${tierColor}">✦ ${m.tier.toUpperCase()} MEMBER</div>
         <div class="dash-member-name">${m.name.toUpperCase()}</div>
         <div class="dash-member-since">Member since ${m.since} · Code: <strong style="color:var(--gold)">${m.code}</strong></div>
+        <div style="font-size:0.78rem;color:var(--muted);margin-top:0.3rem">📱 ${m.phone}</div>
       </div>
       <div style="text-align:right">
         <div class="loyalty-pts">${pts}</div>
@@ -1645,58 +1167,56 @@ function renderMemberDash(){
     </div>
     <div class="dash-stats">
       <div class="dash-stat"><div class="dash-stat-num">${m.visits}</div><div class="dash-stat-lbl">Total Visits</div></div>
-      <div class="dash-stat"><div class="dash-stat-num">${m.tier==='Classic'?'10':m.tier==='Gold'?'20':'30'}%</div><div class="dash-stat-lbl">Discount</div></div>
+      <div class="dash-stat"><div class="dash-stat-num">${discountPct}%</div><div class="dash-stat-lbl">Discount</div></div>
       <div class="dash-stat"><div class="dash-stat-num">${pts}</div><div class="dash-stat-lbl">Points</div></div>
-      <div class="dash-stat"><div class="dash-stat-num">${m.tier==='Classic'?'4':m.tier==='Gold'?'∞':'∞'}</div><div class="dash-stat-lbl">Cuts / Month</div></div>
+      <div class="dash-stat"><div class="dash-stat-num">${cutsPerMonth}</div><div class="dash-stat-lbl">Cuts / Month</div></div>
     </div>
     <div class="progress-bar-wrap">
       <div class="progress-label">Loyalty Progress — <strong style="color:var(--gold)">${pts} / ${nextReward} points</strong> to next reward</div>
       <div class="progress-track"><div class="progress-fill" style="width:${Math.min(100,Math.round(pts/nextReward*100))}%"></div></div>
-      <div class="progress-sub"><span>${pts} pts earned</span><span>${nextReward-pts} pts to reward</span></div>
+      <div class="progress-sub"><span>${pts} pts earned</span><span>${Math.max(0,nextReward-pts)} pts to reward</span></div>
     </div>
-    <div class="dash-section-title">Visit History</div>
+    <div class="dash-section-title">Your Recent Bookings</div>
     <div class="visits-list">
-      ${visits.length?visits.slice(-5).reverse().map(b=>`
+      ${visits.length?visits.slice(-6).reverse().map(b=>`
         <div class="visit-item">
           <div><div class="visit-svc">${b.service}</div><div class="visit-barber">with ${b.barber}</div></div>
-          <div class="visit-date">${b.date} ${b.time}</div>
-          <div class="visit-amt">✓</div>
-        </div>`).join(''):`<div style="color:var(--muted);font-size:0.85rem;padding:1rem;text-align:center">No visits recorded yet.</div>`}
+          <div class="visit-date">${b.date}<br>${b.time}</div>
+          <div><span class="tbl-badge ${b.status.toLowerCase()}">${b.status}</span></div>
+        </div>`).join(''):`<div style="color:var(--muted);font-size:0.85rem;padding:1rem;text-align:center;border:1px solid var(--dim)">No bookings yet — book your first cut!</div>`}
     </div>
-    <div style="margin-top:1rem">
-      <div class="dash-section-title">Other Members (demo)</div>
-      <div style="display:flex;gap:0.8rem;flex-wrap:wrap">
-        ${allMembers.map(mm=>`<button class="admin-btn secondary" onclick="switchDemoMember(${mm.id})" style="font-size:0.75rem;padding:0.4rem 0.9rem">${mm.name} (${mm.tier})</button>`).join('')}
+    <div class="dash-section-title">Member Benefits</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;margin-bottom:2rem">
+      <div style="background:var(--dark);border:1px solid var(--dim);padding:1rem;border-left:3px solid var(--gold)">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem">Discount</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--gold)">${discountPct}% OFF</div>
+        <div style="font-size:0.72rem;color:var(--muted)">All services</div>
+      </div>
+      <div style="background:var(--dark);border:1px solid var(--dim);padding:1rem;border-left:3px solid var(--brass)">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem">Points Rate</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--gold)">×${m.tier==='Diamond'?3:m.tier==='Gold'?2:1}</div>
+        <div style="font-size:0.72rem;color:var(--muted)">Multiplier per visit</div>
       </div>
     </div>
-    <div style="margin-top:1.5rem;display:flex;gap:1rem;flex-wrap:wrap">
-      <a class="btn-primary" href="#booking" onclick="closeMemberDash()" style="font-size:0.85rem;padding:0.8rem 1.5rem">✂ Book Now</a>
-      <a class="btn-secondary" href="https://wa.me/254700000000?text=Hi!+I+want+to+redeem+my+loyalty+points.+Member+code:+${m.code}" target="_blank" style="font-size:0.85rem;padding:0.8rem 1.5rem">🎁 Redeem Points</a>
+    <div style="margin-top:1rem;display:flex;gap:1rem;flex-wrap:wrap">
+      <button class="btn-primary" onclick="closeMemberDash();document.getElementById('booking').scrollIntoView({behavior:'smooth'})" style="font-size:0.85rem;padding:0.8rem 1.5rem">✂ Book Now</button>
+      <a class="btn-secondary" href="https://wa.me/254700000000?text=Hi!+I+want+to+redeem+my+loyalty+points.+Member+code:+${m.code}+Name:+${encodeURIComponent(m.name)}" target="_blank" style="font-size:0.85rem;padding:0.8rem 1.5rem;display:inline-flex;align-items:center">🎁 Redeem Points</a>
     </div>`;
 }
 
-let dashMemberIdx=0;
-function switchDemoMember(id){
-  const m=allMembers.find(x=>x.id===id);
-  if(!m)return;
-  allMembers[0]=m;
-  renderMemberDash();
-}
-
-// ═══════════════════════ ANNOUNCEMENT BAR ═══════════════════════
+// ═══════════════════ ANNOUNCEMENT BAR ═══════════════════
 function updateAnnouncementBar(){
   const inner=document.querySelector('.announce-inner');
   inner.innerHTML=[...announcements,...announcements].map(a=>`<span>${a}</span>`).join('');
 }
 
-// ═══════════════════════ ADMIN AUTH ═══════════════════════
+// ═══════════════════ ADMIN AUTH ═══════════════════
 function openAdmin(){
   document.getElementById('adminOverlay').classList.add('open');
   document.body.style.overflow='hidden';
   const s=DB.get('ke_session');
   if(s&&adminUsers.find(u=>u.username===s)){
-    currentUser=adminUsers.find(u=>u.username===s);
-    showAdminPanel();
+    currentUser=adminUsers.find(u=>u.username===s);showAdminPanel();
   } else {
     document.getElementById('authScreen').style.display='flex';
     document.getElementById('adminPanel').style.display='none';
@@ -1704,7 +1224,6 @@ function openAdmin(){
 }
 function closeAdmin(){document.getElementById('adminOverlay').classList.remove('open');document.body.style.overflow=''}
 document.getElementById('adminOverlay').addEventListener('click',e=>{if(e.target===document.getElementById('adminOverlay'))closeAdmin()});
-
 function switchAuthTab(tab){
   document.getElementById('loginForm').style.display=tab==='login'?'flex':'none';
   document.getElementById('registerForm').style.display=tab==='register'?'flex':'none';
@@ -1712,15 +1231,13 @@ function switchAuthTab(tab){
   document.getElementById('registerTabBtn').classList.toggle('active',tab==='register');
 }
 function doLogin(){
-  const u=document.getElementById('loginUser').value.trim();
-  const p=document.getElementById('loginPass').value;
+  const u=document.getElementById('loginUser').value.trim(),p=document.getElementById('loginPass').value;
   const err=document.getElementById('loginError');
   if(!u||!p){showAuthErr(err,'Enter username and password.');return}
   const user=adminUsers.find(x=>x.username===u&&x.password===p);
   if(!user){showAuthErr(err,'Invalid credentials.');return}
   currentUser=user;DB.set('ke_session',u);
-  logActivity(`🔐 ${user.name||user.username} signed in`);
-  showAdminPanel();
+  logActivity(`🔐 ${user.name||user.username} signed in`);showAdminPanel();
 }
 function doRegister(){
   const name=document.getElementById('regName').value.trim(),user=document.getElementById('regUser').value.trim();
@@ -1746,48 +1263,37 @@ function showAdminPanel(){
   document.getElementById('adminPanel').style.flexDirection='column';
   document.getElementById('adminUserBadge').textContent='✂ '+(currentUser.name||currentUser.username);
   refreshDash();renderAdminBookings();renderAdminMembers();renderAdminBarbers();renderAdminServices();renderAnnounceList();renderAdminUsers();loadSettings();
-  // Apply biz name in case it was updated
   applyBizName();
 }
 
-// ═══════════════════════ ADMIN TABS ═══════════════════════
+// ═══════════════════ ADMIN TABS ═══════════════════
 const TAB_LABELS={dashboard:'📊 Dashboard',bookings:'📅 Bookings',members:'👑 Members',barbers:'✂ Barbers',services:'💈 Services',banners:'🖼 Banners',settings:'⚙ Settings'};
 function switchTab(id,el){
   document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.admin-section').forEach(s=>s.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('tab-'+id).classList.add('active');
-  if(id==='banners'){renderAnnounceList();setTimeout(initAdminMapPicker,250);}
-  // Mobile back button
+  el.classList.add('active');document.getElementById('tab-'+id).classList.add('active');
+  if(id==='banners'){renderAnnounceList();setTimeout(initAdminMapPicker,250)}
   const isMobile=window.innerWidth<=900;
-  const back=document.getElementById('adminBackBtn');
-  const title=document.getElementById('adminPanelTitle');
+  const back=document.getElementById('adminBackBtn');const title=document.getElementById('adminPanelTitle');
   if(back)back.style.display=(isMobile&&id!=='dashboard')?'flex':'none';
   if(title){const biz=(bizSettings.bizName||'Kinyozi Elite').toUpperCase();title.textContent=isMobile&&id!=='dashboard'?(TAB_LABELS[id]||id):`✂ ${biz} — ADMIN`;}
 }
-function adminGoBack(){
-  const dashBtn=document.querySelector('.admin-tab');
-  switchTab('dashboard',dashBtn);
-  const tabs=document.querySelector('.admin-tabs');
-  if(tabs)tabs.scrollLeft=0;
-}
+function adminGoBack(){const dashBtn=document.querySelector('.admin-tab');switchTab('dashboard',dashBtn);document.querySelector('.admin-tabs').scrollLeft=0}
 
-// ═══════════════════════ DASHBOARD ═══════════════════════
+// ═══════════════════ DASHBOARD ═══════════════════
 function refreshDash(){
   document.getElementById('statBookings').textContent=allBookings.length;
   document.getElementById('statMembers').textContent=allMembers.length;
   document.getElementById('statBarbers').textContent=allBarbers.length;
   document.getElementById('statServices').textContent=allServices.length;
-  // Today's bookings
   const today=new Date().toISOString().slice(0,10);
   const todayBks=allBookings.filter(b=>b.date===today);
   const el=document.getElementById('todayBookingsList');
   el.innerHTML=todayBks.length?todayBks.map(b=>`
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:0.7rem 0.8rem;background:rgba(255,255,255,0.02);border:1px solid var(--dim);margin-bottom:0.3rem">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:0.7rem 0.8rem;background:rgba(255,255,255,0.02);border:1px solid var(--dim)">
       <div><strong style="color:rgba(240,232,216,0.9);font-size:0.85rem">${b.client}</strong><br><span style="font-size:0.72rem;color:var(--muted)">${b.service} · ${b.barber} · ${b.time}</span></div>
       <span class="tbl-badge ${b.status.toLowerCase()}">${b.status}</span>
     </div>`).join(''):'<div style="color:var(--muted);font-size:0.82rem;text-align:center;padding:1rem">No bookings today.</div>';
-  // Tier breakdown
   const tiers={Classic:0,Gold:0,Diamond:0};
   allMembers.forEach(m=>{if(tiers[m.tier]!==undefined)tiers[m.tier]++});
   document.getElementById('tierBreakdown').innerHTML=Object.entries(tiers).map(([k,v])=>`
@@ -1795,13 +1301,12 @@ function refreshDash(){
       <div style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--gold)">${v}</div>
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-top:0.2rem">${k}</div>
     </div>`).join('');
-  // Activity
   const logEl=document.getElementById('activityLog');
   logEl.innerHTML=activityLog.length?activityLog.slice(-8).reverse().map(a=>`<div style="padding:0.4rem;background:rgba(255,255,255,0.02)">${a}</div>`).join(''):'<div style="color:var(--muted);font-style:italic">No activity yet.</div>';
 }
 function logActivity(msg){const t=new Date().toLocaleTimeString();activityLog.push(`<span style="color:var(--muted);font-size:0.7rem;margin-right:0.5rem">${t}</span>${msg}`);if(activityLog.length>20)activityLog.shift()}
 
-// ═══════════════════════ BOOKINGS ADMIN ═══════════════════════
+// ═══════════════════ BOOKINGS ADMIN ═══════════════════
 function renderAdminBookings(){
   const tbody=document.getElementById('adminBookingsTbody');
   const search=(document.getElementById('bookSearch')?.value||'').toLowerCase();
@@ -1816,7 +1321,7 @@ function renderAdminBookings(){
     <td><div style="display:flex;gap:0.3rem;flex-wrap:wrap">
       ${b.status==='Pending'?`<button class="tbl-btn" onclick="updBooking(${b.id},'Confirmed')">Confirm</button>`:''}
       ${b.status==='Confirmed'?`<button class="tbl-btn" onclick="updBooking(${b.id},'Completed')">Complete</button>`:''}
-      <a class="tbl-btn" href="https://wa.me/${b.phone.replace(/\D/g,'')}?text=Hi+${encodeURIComponent(b.client)}!+Your+Kinyozi+booking+for+${encodeURIComponent(b.service)}+on+${b.date}+at+${b.time}+is+confirmed." target="_blank">💬</a>
+      <a class="tbl-btn" href="https://wa.me/${b.phone.replace(/\D/g,'')}?text=Hi+${encodeURIComponent(b.client)}!+Your+booking+for+${encodeURIComponent(b.service)}+is+confirmed." target="_blank">💬</a>
       <button class="tbl-btn del" onclick="delBooking(${b.id})">✕</button>
     </div></td>
   </tr>`).join('');
@@ -1824,19 +1329,14 @@ function renderAdminBookings(){
 function updBooking(id,status){const b=allBookings.find(x=>x.id===id);if(!b)return;b.status=status;saveAll();renderAdminBookings();logActivity(`📅 Booking "${b.client}" → ${status}`);refreshDash()}
 function delBooking(id){if(!confirm('Delete booking?'))return;allBookings=allBookings.filter(x=>x.id!==id);saveAll();renderAdminBookings();refreshDash()}
 function addManualBooking(){
-  const name=document.getElementById('mbName').value.trim();
-  const phone=document.getElementById('mbPhone').value.trim();
-  const svc=document.getElementById('mbService').value;
-  const barber=document.getElementById('mbBarber').value;
-  const date=document.getElementById('mbDate').value||new Date().toISOString().slice(0,10);
-  const time=document.getElementById('mbTime').value||'09:00';
+  const name=document.getElementById('mbName').value.trim(),phone=document.getElementById('mbPhone').value.trim();
   if(!name||!phone){alert('Name and phone required.');return}
-  allBookings.push({id:Date.now(),client:name,phone,service:svc,barber,date,time,status:'Pending',notes:''});
-  saveAll();renderAdminBookings();logActivity(`📅 Manual booking: ${name} — ${svc}`);refreshDash();
+  allBookings.push({id:Date.now(),client:name,phone,service:document.getElementById('mbService').value,barber:document.getElementById('mbBarber').value,date:document.getElementById('mbDate').value||new Date().toISOString().slice(0,10),time:document.getElementById('mbTime').value||'09:00',status:'Pending',notes:''});
+  saveAll();renderAdminBookings();logActivity(`📅 Manual booking: ${name}`);refreshDash();
   ['mbName','mbPhone'].forEach(id=>document.getElementById(id).value='');
 }
 
-// ═══════════════════════ MEMBERS ADMIN ═══════════════════════
+// ═══════════════════ MEMBERS ADMIN ═══════════════════
 function renderAdminMembers(){
   const tbody=document.getElementById('adminMembersTbody');
   const search=(document.getElementById('memberSearch')?.value||'').toLowerCase();
@@ -1849,17 +1349,22 @@ function renderAdminMembers(){
     <td>${m.since}</td><td>${m.points}</td><td>${m.visits}</td>
     <td><div style="display:flex;gap:0.3rem">
       <button class="tbl-btn" onclick="addPoints(${m.id})">+pts</button>
-      <a class="tbl-btn" href="https://wa.me/${m.phone.replace(/\D/g,'')}?text=Hi+${encodeURIComponent(m.name)}!+Your+Kinyozi+Elite+member+code+is+${m.code}.+Enjoy+your+${m.tier}+membership+perks!" target="_blank">💬</a>
+      <a class="tbl-btn" href="https://wa.me/${m.phone.replace(/\D/g,'')}?text=Hi+${encodeURIComponent(m.name)}!+Your+Kinyozi+Elite+member+code+is+${m.code}." target="_blank">💬</a>
       <button class="tbl-btn del" onclick="delMember(${m.id})">✕</button>
     </div></td>
   </tr>`).join('');
 }
 function addPoints(id){const m=allMembers.find(x=>x.id===id);if(!m)return;const pts=parseInt(prompt(`Add points to ${m.name} (current: ${m.points}):`,50));if(!isNaN(pts)){m.points+=pts;saveAll();renderAdminMembers();logActivity(`⭐ Added ${pts} pts to ${m.name}`)}}
-function delMember(id){if(!confirm('Remove member?'))return;allMembers=allMembers.filter(x=>x.id!==id);saveAll();renderAdminMembers();refreshDash()}
+function delMember(id){
+  if(!confirm('Remove member?'))return;
+  allMembers=allMembers.filter(x=>x.id!==id);
+  memberAccounts=memberAccounts.filter(a=>a.memberId!==id);
+  saveAll();renderAdminMembers();refreshDash();
+}
 function addMember(){
   const name=document.getElementById('nmName').value.trim(),phone=document.getElementById('nmPhone').value.trim();
   const email=document.getElementById('nmEmail').value.trim(),tier=document.getElementById('nmTier').value;
-  const code=document.getElementById('nmCode').value.trim()||tier.substring(0,3).toUpperCase()+(Date.now()%10000);
+  const code=document.getElementById('nmCode').value.trim()||(tier.substring(0,3).toUpperCase()+(Date.now()%10000));
   const pts=parseInt(document.getElementById('nmPoints').value)||0;
   if(!name||!phone){alert('Name and phone required.');return}
   allMembers.push({id:Date.now(),name,phone,email,tier,code,since:new Date().toLocaleDateString('en-GB',{month:'short',year:'numeric'}),points:pts,visits:0});
@@ -1869,7 +1374,7 @@ function addMember(){
   showMsg('settingsMsg','✅ Member enrolled!','success');
 }
 
-// ═══════════════════════ BARBERS ADMIN ═══════════════════════
+// ═══════════════════ BARBERS ADMIN ═══════════════════
 function renderAdminBarbers(){
   const tbody=document.getElementById('adminBarbersTbody');
   document.getElementById('barberCount').textContent=allBarbers.length;
@@ -1883,7 +1388,6 @@ function renderAdminBarbers(){
       <button class="tbl-btn del" onclick="delBarber(${b.id})">✕</button>
     </div></td>
   </tr>`).join('');
-  // Update live barbers section
   updateLiveBarbers();
 }
 function editBarber(id){
@@ -1903,13 +1407,28 @@ function cancelBarberEdit(){
   document.getElementById('cancelBarberBtn').style.display='none';
   ['baName','baTitle','baSpec','baPhone'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('baRating').value='4.5';document.getElementById('baStatus').value='Available';
+  _pendingBarberPhoto=null;
+  document.getElementById('baPhotoPreview').innerHTML='📷 Click to upload barber photo';
+}
+let _pendingBarberPhoto=null;
+function handleBarberPhotoUpload(files){
+  if(!files||!files[0])return;
+  const f=files[0];if(!f.type.startsWith('image/'))return;
+  const r=new FileReader();
+  r.onload=e=>{
+    _pendingBarberPhoto=e.target.result;
+    const prev=document.getElementById('baPhotoPreview');
+    if(prev)prev.innerHTML=`<img src="${_pendingBarberPhoto}" style="width:100px;height:80px;object-fit:cover;border:1px solid var(--dim)"> <span style="font-size:0.75rem;color:var(--gold)">Ready to save</span>`;
+  };r.readAsDataURL(f);
 }
 function saveBarber(){
   const eid=document.getElementById('editBarberId').value;
   const obj={name:document.getElementById('baName').value.trim(),title:document.getElementById('baTitle').value.trim(),specialties:document.getElementById('baSpec').value.trim(),status:document.getElementById('baStatus').value,rating:document.getElementById('baRating').value,phone:document.getElementById('baPhone').value.trim()};
   if(!obj.name||!obj.title){alert('Name and title required.');return}
-  if(eid){const idx=allBarbers.findIndex(x=>x.id===parseInt(eid));if(idx>-1){allBarbers[idx]={...allBarbers[idx],...obj};logActivity(`✏ Updated barber: ${obj.name}`)}cancelBarberEdit()}
-  else{allBarbers.push({id:Date.now(),...obj,reviews:0});logActivity(`✂ Added barber: ${obj.name}`);cancelBarberEdit()}
+  let barberId;
+  if(eid){const idx=allBarbers.findIndex(x=>x.id===parseInt(eid));if(idx>-1){allBarbers[idx]={...allBarbers[idx],...obj};barberId=allBarbers[idx].id;logActivity(`✏ Updated barber: ${obj.name}`)}cancelBarberEdit()}
+  else{barberId=Date.now();allBarbers.push({id:barberId,...obj,reviews:0});logActivity(`✂ Added barber: ${obj.name}`);cancelBarberEdit()}
+  if(_pendingBarberPhoto&&barberId){barberImages[barberId]=_pendingBarberPhoto;IDB.set('ke_barber_images',barberImages);_pendingBarberPhoto=null;}
   saveAll();renderAdminBarbers();
 }
 function delBarber(id){const b=allBarbers.find(x=>x.id===id);if(!b||!confirm(`Remove ${b.name}?`))return;allBarbers=allBarbers.filter(x=>x.id!==id);saveAll();renderAdminBarbers();logActivity(`🗑 Removed barber: ${b.name}`)}
@@ -1918,33 +1437,41 @@ function toggleBarberStatus(id){
   const cycle=['Available','Busy','Off Duty'];const idx=(cycle.indexOf(b.status)+1)%cycle.length;
   b.status=cycle[idx];saveAll();renderAdminBarbers();logActivity(`✂ ${b.name} → ${b.status}`)
 }
+
+// ══════════ FIX: updateLiveBarbers — renders #barbersGrid on the main page ══════════
 function updateLiveBarbers(){
   const grid=document.getElementById('barbersGrid');
   if(!grid)return;
+  const EMOJIS=['🧔','✂','🪒','🪮','👤','✨'];
   grid.innerHTML=allBarbers.slice(0,4).map((b,i)=>{
     const specs=b.specialties.split(',').slice(0,3).map(s=>`<span class="barber-tag">${s.trim()}</span>`).join('');
     const avail=b.status==='Available';
     const imgSrc=barberImages&&barberImages[b.id]?barberImages[b.id]:null;
+    const bgColors=['linear-gradient(135deg,#2e2518,#1a1510)','linear-gradient(135deg,#1a1510,#2e2518)','linear-gradient(135deg,#2e2518,#3d3224)','linear-gradient(135deg,#1a1510,#3d3224)'];
     const imgHtml=imgSrc
-      ?`<img src="${imgSrc}" style="width:100%;height:100%;object-fit:cover;display:block">`
-      :`<div style="font-size:5rem;display:flex;align-items:center;justify-content:center;height:100%">${['🧔','✂','🪒','🪮'][i%4]}</div>`;
-    return `<div class="barber-card fade-up stagger-${(i%4)+1}" onclick="quickBookBarber('${b.name}')">
-      <div class="barber-img" style="background:linear-gradient(135deg,var(--${i%2===0?'mid':'dark'}),var(--ink));overflow:hidden;position:relative">
+      ?`<img src="${imgSrc}" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0">`
+      :`<div style="font-size:5.5rem;display:flex;align-items:center;justify-content:center;width:100%;height:100%">${EMOJIS[i%EMOJIS.length]}</div>`;
+    const stars='★'.repeat(Math.min(5,Math.round(+b.rating)))+'☆'.repeat(Math.max(0,5-Math.round(+b.rating)));
+    return `<div class="barber-card fade-up stagger-${(i%4)+1}" onclick="quickBookBarber('${b.name.replace(/'/g,"\\'")}')">
+      <div class="barber-img" style="background:${bgColors[i%4]};position:relative">
         ${imgHtml}
-        <div class="barber-availability ${avail?'available':'busy'}" style="position:absolute;top:0.6rem;right:0.6rem">${avail?'✓ Available':'● Busy'}</div>
+        <div class="barber-availability ${avail?'available':'busy'}" style="position:absolute;top:0.8rem;right:0.8rem;z-index:3">${avail?'✓ Available':'● Busy'}</div>
+        <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(10,8,6,0.85) 0%,transparent 55%);z-index:2"></div>
       </div>
       <div class="barber-body">
         <div class="barber-name">${b.name.toUpperCase()}</div>
         <div class="barber-title">✦ ${b.title}</div>
         <div class="barber-specialties">${specs}</div>
-        <div class="barber-rating"><span>${'★'.repeat(Math.round(+b.rating))}</span> ${b.rating} (${b.reviews} reviews)</div>
-        <button class="barber-book-btn">Book ${b.name} →</button>
+        <div class="barber-rating"><span style="color:var(--gold)">${stars}</span>&nbsp;${b.rating} (${b.reviews} reviews)</div>
+        <button class="barber-book-btn" onclick="event.stopPropagation();quickBookBarber('${b.name.replace(/'/g,"\\'")}')">Book ${b.name} →</button>
       </div>
     </div>`;
   }).join('');
+  // Re-observe fade-up elements
+  grid.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
 }
 
-// ═══════════════════════ SERVICES ADMIN ═══════════════════════
+// ═══════════════════ SERVICES ADMIN ═══════════════════
 function renderAdminServices(){
   const tbody=document.getElementById('adminServicesTbody');
   document.getElementById('serviceCount').textContent=allServices.length;
@@ -1964,17 +1491,11 @@ function editSvc(id){
   const s=allServices.find(x=>x.id===id);if(!s)return;
   document.getElementById('editSvcId').value=id;
   document.getElementById('svName').value=s.name;document.getElementById('svPrice').value=s.price;
-  document.getElementById('svDuration').value=s.duration;document.getElementById('svIcon').value=s.icon;
-  document.getElementById('svDesc').value=s.desc;
-  document.getElementById('svcFormTitle').textContent='Edit Service';
-  document.getElementById('saveSvcBtn').textContent='💾 Save Changes';
-  document.getElementById('cancelSvcBtn').style.display='';
+  document.getElementById('svDuration').value=s.duration;document.getElementById('svIcon').value=s.icon;document.getElementById('svDesc').value=s.desc;
+  document.getElementById('svcFormTitle').textContent='Edit Service';document.getElementById('saveSvcBtn').textContent='💾 Save Changes';document.getElementById('cancelSvcBtn').style.display='';
 }
 function cancelSvcEdit(){
-  document.getElementById('editSvcId').value='';
-  document.getElementById('svcFormTitle').textContent='Add New Service';
-  document.getElementById('saveSvcBtn').textContent='➕ Add Service';
-  document.getElementById('cancelSvcBtn').style.display='none';
+  document.getElementById('editSvcId').value='';document.getElementById('svcFormTitle').textContent='Add New Service';document.getElementById('saveSvcBtn').textContent='➕ Add Service';document.getElementById('cancelSvcBtn').style.display='none';
   ['svName','svPrice','svDuration','svIcon','svDesc'].forEach(id=>document.getElementById(id).value='');
 }
 function saveService(){
@@ -1987,8 +1508,7 @@ function saveService(){
 }
 function delSvc(id){const s=allServices.find(x=>x.id===id);if(!s||!confirm(`Delete "${s.name}"?`))return;allServices=allServices.filter(x=>x.id!==id);saveAll();renderAdminServices()}
 function updateLiveServices(){
-  const grid=document.getElementById('servicesGrid');
-  if(!grid)return;
+  const grid=document.getElementById('servicesGrid');if(!grid)return;
   grid.innerHTML=allServices.map((s,i)=>`
     <div class="service-card fade-up stagger-${(i%3)+1}">
       <span class="svc-icon">${s.icon}</span>
@@ -1996,11 +1516,12 @@ function updateLiveServices(){
       <div class="svc-desc">${s.desc}</div>
       <div class="svc-price">KES ${parseInt(s.price).toLocaleString()}</div>
       <div class="svc-duration">⏱ ${s.duration}</div>
-      <button class="svc-book-btn" onclick="quickBook('${s.name.replace(/'/g,'')}','KES ${s.price}')">Book This →</button>
+      <button class="svc-book-btn" onclick="quickBook('${s.name.replace(/'/g,'')}')">Book This →</button>
     </div>`).join('');
+  grid.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
 }
 
-// ═══════════════════════ ANNOUNCEMENTS ═══════════════════════
+// ═══════════════════ ANNOUNCEMENTS ═══════════════════
 function renderAnnounceList(){
   const el=document.getElementById('announceList');
   el.innerHTML=announcements.map((a,i)=>`
@@ -2010,63 +1531,41 @@ function renderAnnounceList(){
     </div>`).join('');
 }
 function addAnnouncement(){
-  const val=document.getElementById('newAnnounce').value.trim();
-  if(!val)return;
-  announcements.push(val);DB.set('ke_announcements',announcements);
-  updateAnnouncementBar();renderAnnounceList();
-  document.getElementById('newAnnounce').value='';
-  logActivity(`📢 Added announcement`);
+  const val=document.getElementById('newAnnounce').value.trim();if(!val)return;
+  announcements.push(val);DB.set('ke_announcements',announcements);updateAnnouncementBar();renderAnnounceList();document.getElementById('newAnnounce').value='';logActivity('📢 Added announcement');
 }
 function removeAnnounce(i){announcements.splice(i,1);DB.set('ke_announcements',announcements);updateAnnouncementBar();renderAnnounceList()}
 
-// ═══════════════════════ TOGGLES ═══════════════════════
+// ═══════════════════ TOGGLES ═══════════════════
 function toggleFeat(el,f){
   el.classList.toggle('on');const on=el.classList.contains('on');
-  if(f==='wa') document.getElementById('waFloat').style.display=on?'':'none';
-  if(f==='announce') document.querySelector('.announce').style.display=on?'':'none';
-  if(f==='gallery') document.getElementById('gallery').style.display=on?'':'none';
-  if(f==='reviews') document.getElementById('reviews').style.display=on?'':'none';
+  if(f==='wa')document.getElementById('waFloat').style.display=on?'':'none';
+  if(f==='announce')document.querySelector('.announce').style.display=on?'':'none';
+  if(f==='gallery')document.getElementById('gallery').style.display=on?'':'none';
+  if(f==='reviews')document.getElementById('reviews').style.display=on?'':'none';
   logActivity(`🔧 Feature "${f}" ${on?'ON':'OFF'}`);
 }
 
-// ═══════════════════════ SETTINGS ═══════════════════════
+// ═══════════════════ SETTINGS ═══════════════════
 function loadSettings(){
-  document.getElementById('setBizName').value=bizSettings.bizName||'';
-  document.getElementById('setWA').value=bizSettings.wa||'';
-  document.getElementById('setEmail').value=bizSettings.email||'';
-  document.getElementById('setLocation').value=bizSettings.location||'';
-  document.getElementById('setHrsWD').value=bizSettings.hrsWD||'';
-  document.getElementById('setHrsWE').value=bizSettings.hrsWE||'';
+  document.getElementById('setBizName').value=bizSettings.bizName||'';document.getElementById('setWA').value=bizSettings.wa||'';
+  document.getElementById('setEmail').value=bizSettings.email||'';document.getElementById('setLocation').value=bizSettings.location||'';
+  document.getElementById('setHrsWD').value=bizSettings.hrsWD||'';document.getElementById('setHrsWE').value=bizSettings.hrsWE||'';
 }
 function saveSettings(){
   bizSettings={bizName:document.getElementById('setBizName').value,wa:document.getElementById('setWA').value,email:document.getElementById('setEmail').value,location:document.getElementById('setLocation').value,hrsWD:document.getElementById('setHrsWD').value,hrsWE:document.getElementById('setHrsWE').value};
-  DB.set('ke_settings',bizSettings);
-  applyBizName();
-  renderMapPlaceholder();
-  showMsg('settingsMsg','✅ Settings saved!','success');
-  logActivity('⚙ Settings updated');
+  DB.set('ke_settings',bizSettings);applyBizName();renderMapPlaceholder();showMsg('settingsMsg','✅ Settings saved!','success');logActivity('⚙ Settings updated');
 }
 function applyBizName(){
   const name=bizSettings.bizName||'Kinyozi Elite';
-  const parts=name.trim().split(/\s+/);
-  const last=parts.pop();const first=parts.join(' ');
+  const parts=name.trim().split(/\s+/);const last=parts.pop();const first=parts.join(' ');
   const logoHtml=first?`✂ ${first} <span>${last}</span>`:`✂ <span>${name}</span>`;
-  // Nav logo
   const nl=document.querySelector('.nav-logo');if(nl)nl.innerHTML=logoHtml;
-  // Footer logo
   const fl=document.querySelector('.footer-logo');if(fl)fl.innerHTML=logoHtml;
-  // Admin title
   const at=document.getElementById('adminPanelTitle');if(at)at.innerHTML=`✂ ${name.toUpperCase()} — ADMIN`;
-  // Auth logo
   const al=document.querySelector('.auth-logo');if(al)al.textContent=`✂ ${name.toUpperCase()}`;
-  // Preloader
   const pl=document.querySelector('.pre-logo');if(pl)pl.textContent=name.toUpperCase();
-  // Page title
   document.title=`${name} — Premium Barbershop`;
-  // Footer brand text
-  const fb=document.querySelector('.footer-brand p');
-  if(fb)fb.innerHTML=fb.innerHTML.replace(/Kinyozi Elite/g,name).replace(/kinyozi elite/gi,name);
-  // WA float link
   const wa=document.getElementById('waFloat');
   if(wa&&bizSettings.wa){const n=bizSettings.wa.replace(/\D/g,'');wa.href=`https://wa.me/${n}?text=Hi!+I'd+like+to+book+a+cut+at+${encodeURIComponent(name)}.`}
 }
@@ -2081,8 +1580,7 @@ function renderAdminUsers(){
 function removeAdmin(username){
   if(username==='admin'){alert('Cannot remove default admin.');return}
   if(!confirm(`Remove @${username}?`))return;
-  adminUsers=adminUsers.filter(u=>u.username!==username);
-  DB.set('ke_admins',adminUsers);
+  adminUsers=adminUsers.filter(u=>u.username!==username);DB.set('ke_admins',adminUsers);
   if(currentUser?.username===username)doLogout();else renderAdminUsers();
 }
 function changePassword(){
@@ -2096,136 +1594,50 @@ function changePassword(){
   showMsg('settingsMsg','✅ Password updated!','success');logActivity('🔒 Password changed');
 }
 function clearAllBookings(){if(!confirm('Clear ALL bookings?'))return;allBookings=[];saveAll();renderAdminBookings();refreshDash();showMsg('settingsMsg','All bookings cleared.','success')}
-function clearAllMembers(){if(!confirm('Clear ALL members?'))return;allMembers=[];saveAll();renderAdminMembers();refreshDash();showMsg('settingsMsg','All members cleared.','success')}
-function resetToDefaults(){if(!confirm('Reset EVERYTHING to defaults?'))return;allBarbers=[...DEFAULT_BARBERS];allServices=[...DEFAULT_SERVICES];allBookings=[];allMembers=[];saveAll();showAdminPanel();showMsg('settingsMsg','✅ Reset complete.','success');logActivity('↩ Reset to defaults')}
+function clearAllMembers(){if(!confirm('Clear ALL members?'))return;allMembers=[];memberAccounts=[];saveAll();renderAdminMembers();refreshDash();showMsg('settingsMsg','All members cleared.','success')}
+function resetToDefaults(){if(!confirm('Reset EVERYTHING to defaults?'))return;allBarbers=[...DEFAULT_BARBERS];allServices=[...DEFAULT_SERVICES];allBookings=[];allMembers=[];memberAccounts=[];saveAll();showAdminPanel();showMsg('settingsMsg','✅ Reset complete.','success');logActivity('↩ Reset to defaults')}
 function showMsg(id,msg,type){const el=document.getElementById(id);if(!el)return;el.textContent=msg;el.className=`admin-msg ${type} show`;clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),4000)}
 
-// ═══════════════════════ HERO BG IMAGE ═══════════════════════
+// ═══════════════════ HERO BG ═══════════════════
 function renderHeroBg(){
-  const right=document.getElementById('heroRight');
-  const def=document.getElementById('heroBgDefault');
-  const badge=document.getElementById('heroBadgeFloat');
+  const right=document.getElementById('heroRight'),def=document.getElementById('heroBgDefault'),badge=document.getElementById('heroBadgeFloat');
   if(!right)return;
-  if(heroBgImage){
-    right.style.backgroundImage=`url('${heroBgImage}')`;
-    right.style.backgroundSize='cover';
-    right.style.backgroundPosition='center';
-    if(def)def.style.display='none';
-    if(badge)badge.style.display='none';
-  } else {
-    right.style.backgroundImage='';
-    if(def)def.style.display='';
-    if(badge)badge.style.display='';
-  }
+  if(heroBgImage){right.style.backgroundImage=`url('${heroBgImage}')`;right.style.backgroundSize='cover';right.style.backgroundPosition='center';if(def)def.style.display='none';if(badge)badge.style.display='none';}
+  else{right.style.backgroundImage='';if(def)def.style.display='';if(badge)badge.style.display='';}
   const prev=document.getElementById('heroBgPreview');
-  if(prev)prev.innerHTML=heroBgImage
-    ?`<div style="display:flex;gap:0.6rem;align-items:center"><img src="${heroBgImage}" style="width:120px;height:72px;object-fit:cover;border:1px solid var(--dim)"><button class="admin-btn secondary" onclick="removeHeroBg()">Remove</button></div>`
-    :'<div style="font-size:0.78rem;color:var(--muted)">No image — showing default</div>';
+  if(prev)prev.innerHTML=heroBgImage?`<div style="display:flex;gap:0.6rem;align-items:center"><img src="${heroBgImage}" style="width:120px;height:72px;object-fit:cover;border:1px solid var(--dim)"><button class="admin-btn secondary" onclick="removeHeroBg()">Remove</button></div>`:'<div style="font-size:0.78rem;color:var(--muted)">No image — showing default</div>';
 }
 function handleHeroBgUpload(files){
-  if(!files||!files[0])return;
-  const f=files[0];if(!f.type.startsWith('image/'))return;
-  const r=new FileReader();
-  r.onload=async e=>{
-    heroBgImage=e.target.result;
-    renderHeroBg();
-    const ok=await IDB.set('ke_hero_bg',heroBgImage);
-    showMsg('bannerMsg',ok?'✅ Hero image saved!':'⚠️ Could not save image.','success');
-    logActivity('🖼 Uploaded hero background');
-  };r.readAsDataURL(f);
+  if(!files||!files[0])return;const f=files[0];if(!f.type.startsWith('image/'))return;
+  const r=new FileReader();r.onload=async e=>{heroBgImage=e.target.result;renderHeroBg();await IDB.set('ke_hero_bg',heroBgImage);showMsg('bannerMsg','✅ Hero image saved!','success');logActivity('🖼 Uploaded hero background')};r.readAsDataURL(f);
 }
-async function removeHeroBg(){
-  heroBgImage=null;renderHeroBg();
-  await IDB.set('ke_hero_bg',null);
-  showMsg('bannerMsg','✅ Hero image removed.','success');
-}
+async function removeHeroBg(){heroBgImage=null;renderHeroBg();await IDB.set('ke_hero_bg',null);showMsg('bannerMsg','✅ Hero image removed.','success')}
 
-// ═══════════════════════ BARBER PHOTOS ═══════════════════════
-let _pendingBarberPhoto=null;
-function handleBarberPhotoUpload(files){
-  if(!files||!files[0])return;
-  const f=files[0];if(!f.type.startsWith('image/'))return;
-  const r=new FileReader();
-  r.onload=e=>{
-    _pendingBarberPhoto=e.target.result;
-    const prev=document.getElementById('baPhotoPreview');
-    if(prev)prev.innerHTML=`<img src="${_pendingBarberPhoto}" style="width:100px;height:80px;object-fit:cover;border:1px solid var(--dim)"> <span style="font-size:0.75rem;color:var(--gold)">Ready to save with barber</span>`;
-  };r.readAsDataURL(f);
-}
-// Patch saveBarber to also save photo
-const _origSaveBarber=saveBarber;
-function saveBarber(){
-  const eid=document.getElementById('editBarberId').value;
-  const obj={name:document.getElementById('baName').value.trim(),title:document.getElementById('baTitle').value.trim(),specialties:document.getElementById('baSpec').value.trim(),status:document.getElementById('baStatus').value,rating:document.getElementById('baRating').value,phone:document.getElementById('baPhone').value.trim()};
-  if(!obj.name||!obj.title){alert('Name and title required.');return}
-  let barberId;
-  if(eid){const idx=allBarbers.findIndex(x=>x.id===parseInt(eid));if(idx>-1){allBarbers[idx]={...allBarbers[idx],...obj};barberId=allBarbers[idx].id;logActivity(`✏ Updated barber: ${obj.name}`)}cancelBarberEdit()}
-  else{barberId=Date.now();allBarbers.push({id:barberId,...obj,reviews:0});logActivity(`✂ Added barber: ${obj.name}`);cancelBarberEdit()}
-  if(_pendingBarberPhoto&&barberId){
-    barberImages[barberId]=_pendingBarberPhoto;
-    IDB.set('ke_barber_images',barberImages);
-    _pendingBarberPhoto=null;
-    const prev=document.getElementById('baPhotoPreview');
-    if(prev)prev.innerHTML='📷 Click to upload barber photo';
-  }
-  saveAll();renderAdminBarbers();
-}
-
-// ═══════════════════════ GALLERY IMAGES ═══════════════════════
+// ═══════════════════ GALLERY ═══════════════════
 function handleGalleryUpload(files){
   if(!files||!files.length)return;
-  const remaining=9-(galleryImages.length||0);
-  Array.from(files).slice(0,remaining).forEach(f=>{
+  Array.from(files).slice(0,9-galleryImages.length).forEach(f=>{
     if(!f.type.startsWith('image/'))return;
-    const r=new FileReader();
-    r.onload=async e=>{
-      galleryImages.push(e.target.result);
-      renderGalleryPreviews();
-      updateLiveGallery();
-      await IDB.set('ke_gallery_images',galleryImages);
-      showMsg('bannerMsg','✅ Gallery image saved!','success');
-      logActivity('📸 Added gallery image');
-    };r.readAsDataURL(f);
+    const r=new FileReader();r.onload=async e=>{galleryImages.push(e.target.result);renderGalleryPreviews();updateLiveGallery();await IDB.set('ke_gallery_images',galleryImages);showMsg('bannerMsg','✅ Gallery image saved!','success');};r.readAsDataURL(f);
   });
 }
-function removeGalleryImage(i){
-  galleryImages.splice(i,1);
-  renderGalleryPreviews();updateLiveGallery();
-  IDB.set('ke_gallery_images',galleryImages);
-  showMsg('bannerMsg','✅ Gallery image removed.','success');
-}
+function removeGalleryImage(i){galleryImages.splice(i,1);renderGalleryPreviews();updateLiveGallery();IDB.set('ke_gallery_images',galleryImages)}
 function renderGalleryPreviews(){
-  const el=document.getElementById('galleryPreviews');
-  if(!el)return;
-  el.innerHTML=galleryImages.map((src,i)=>`
-    <div style="position:relative;aspect-ratio:1;overflow:hidden;border:1px solid var(--dim)">
-      <img src="${src}" style="width:100%;height:100%;object-fit:cover">
-      <button onclick="removeGalleryImage(${i})" style="position:absolute;top:4px;right:4px;background:rgba(0,0,0,0.7);border:none;color:#fff;width:22px;height:22px;cursor:pointer;font-size:0.75rem;border-radius:50%">✕</button>
-    </div>`).join('');
+  const el=document.getElementById('galleryPreviews');if(!el)return;
+  el.innerHTML=galleryImages.map((src,i)=>`<div style="position:relative;aspect-ratio:1;overflow:hidden;border:1px solid var(--dim)"><img src="${src}" style="width:100%;height:100%;object-fit:cover"><button onclick="removeGalleryImage(${i})" style="position:absolute;top:4px;right:4px;background:rgba(0,0,0,0.7);border:none;color:#fff;width:22px;height:22px;cursor:pointer;font-size:0.75rem;border-radius:50%">✕</button></div>`).join('');
 }
 function updateLiveGallery(){
-  const grid=document.getElementById('galleryGrid');
-  if(!grid)return;
-  if(!galleryImages.length)return;
+  const grid=document.getElementById('galleryGrid');if(!grid||!galleryImages.length)return;
   const items=grid.querySelectorAll('.gallery-item');
-  items.forEach((item,i)=>{
-    if(galleryImages[i]){
-      item.style.backgroundImage=`url('${galleryImages[i]}')`;
-      item.style.backgroundSize='cover';
-      item.style.backgroundPosition='center';
-      const emoji=item.querySelector('.gallery-icon');
-      if(emoji)emoji.style.display='none';
-    }
-  });
+  items.forEach((item,i)=>{if(galleryImages[i]){item.style.backgroundImage=`url('${galleryImages[i]}')`;item.style.backgroundSize='cover';item.style.backgroundPosition='center';const emoji=item.querySelector('.gallery-icon');if(emoji)emoji.style.display='none';}});
 }
 
-// ═══════════════════════ REAL MAP (Leaflet) ═══════════════════════
+// ═══════════════════ MAP ═══════════════════
 let siteMapInstance=null,siteMapMarker=null;
 function renderMapPlaceholder(){
-  const mapEl=document.getElementById('siteMap');
-  if(!mapEl||typeof L==='undefined')return;
+  const mapEl=document.getElementById('siteMap');if(!mapEl||typeof L==='undefined')return;
   const pin=DB.get('ke_pinned_location',null);
-  const lat=pin?pin.lat:-1.2841,lng=pin?pin.lng:36.8272; // CBD default
+  const lat=pin?pin.lat:-1.2841,lng=pin?pin.lng:36.8272;
   const label=pin?(pin.label||(bizSettings.location||'')):(bizSettings.location||'Tom Mboya St, Nairobi CBD');
   if(!siteMapInstance){
     siteMapInstance=L.map(mapEl,{zoomControl:true,scrollWheelZoom:false,tap:false});
@@ -2233,96 +1645,85 @@ function renderMapPlaceholder(){
   }
   siteMapInstance.setView([lat,lng],16);
   if(siteMapMarker)siteMapInstance.removeLayer(siteMapMarker);
-  const icon=L.divIcon({html:`<div style="background:var(--gold,#c9962a);width:16px;height:16px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.4)"></div>`,className:'',iconSize:[16,16],iconAnchor:[8,16],popupAnchor:[0,-18]});
+  const icon=L.divIcon({html:`<div style="background:#c9962a;width:16px;height:16px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.4)"></div>`,className:'',iconSize:[16,16],iconAnchor:[8,16],popupAnchor:[0,-18]});
   siteMapMarker=L.marker([lat,lng],{icon}).addTo(siteMapInstance);
-  siteMapMarker.bindPopup(`<strong style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.06em">${label}</strong><br><a href="https://maps.google.com/?q=${lat},${lng}" target="_blank" style="color:var(--gold,#c9962a);font-size:0.78rem">Open in Google Maps ↗</a>`,{maxWidth:220}).openPopup();
+  siteMapMarker.bindPopup(`<strong style="font-family:sans-serif;font-size:1rem">${label}</strong><br><a href="https://maps.google.com/?q=${lat},${lng}" target="_blank" style="font-size:0.78rem">Open in Google Maps ↗</a>`,{maxWidth:220}).openPopup();
   setTimeout(()=>siteMapInstance.invalidateSize(),200);
 }
-
 let adminMapInstance=null,adminPickedMarker=null,adminPickedLatLng=null;
 function initAdminMapPicker(){
-  const el=document.getElementById('adminMapPicker');
-  if(!el||adminMapInstance||typeof L==='undefined')return;
+  const el=document.getElementById('adminMapPicker');if(!el||adminMapInstance||typeof L==='undefined')return;
   const pin=DB.get('ke_pinned_location',null);
   const lat=pin?pin.lat:-1.2841,lng=pin?pin.lng:36.8272;
   adminMapInstance=L.map(el,{zoomControl:true,scrollWheelZoom:true});
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:19}).addTo(adminMapInstance);
   adminMapInstance.setView([lat,lng],15);
-  if(pin){adminPickedLatLng={lat:pin.lat,lng:pin.lng};adminPickedMarker=L.marker([pin.lat,pin.lng]).addTo(adminMapInstance);showPinInfo(pin.lat,pin.lng,pin.label);}
+  if(pin){adminPickedLatLng={lat:pin.lat,lng:pin.lng};adminPickedMarker=L.marker([pin.lat,pin.lng]).addTo(adminMapInstance);showPinInfo(pin.lat,pin.lng,pin.label)}
   adminMapInstance.on('click',function(e){
     adminPickedLatLng={lat:e.latlng.lat,lng:e.latlng.lng};
     if(adminPickedMarker)adminMapInstance.removeLayer(adminPickedMarker);
     adminPickedMarker=L.marker([e.latlng.lat,e.latlng.lng]).addTo(adminMapInstance);
-    fetch(`https://nominatim.openstreetmap.org/reverse?lat=${e.latlng.lat}&lon=${e.latlng.lng}&format=json`)
-      .then(r=>r.json()).then(d=>showPinInfo(e.latlng.lat,e.latlng.lng,d.display_name||''))
-      .catch(()=>showPinInfo(e.latlng.lat,e.latlng.lng,`${e.latlng.lat.toFixed(5)}, ${e.latlng.lng.toFixed(5)}`));
+    fetch(`https://nominatim.openstreetmap.org/reverse?lat=${e.latlng.lat}&lon=${e.latlng.lng}&format=json`).then(r=>r.json()).then(d=>showPinInfo(e.latlng.lat,e.latlng.lng,d.display_name||'')).catch(()=>showPinInfo(e.latlng.lat,e.latlng.lng,`${e.latlng.lat.toFixed(5)}, ${e.latlng.lng.toFixed(5)}`));
   });
   setTimeout(()=>adminMapInstance.invalidateSize(),300);
 }
 function showPinInfo(lat,lng,label){
-  const el=document.getElementById('pinnedLocationInfo');
-  const btn=document.getElementById('savePinBtn');
+  const el=document.getElementById('pinnedLocationInfo'),btn=document.getElementById('savePinBtn');
   if(el){el.style.display='block';el.innerHTML=`📍 <strong>${label}</strong><br><span style="opacity:0.6;font-size:0.72rem">${lat.toFixed(5)}, ${lng.toFixed(5)}</span>`;}
   if(btn){btn.style.opacity='1';btn.style.pointerEvents='auto';}
 }
 function searchLocation(){
-  const q=document.getElementById('locationSearchInput')?.value?.trim();
-  if(!q||!adminMapInstance)return;
-  fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&limit=1`)
-    .then(r=>r.json()).then(data=>{
-      if(!data.length){showMsg('bannerMsg','⚠️ Location not found.','error');return}
-      const lat=parseFloat(data[0].lat),lng=parseFloat(data[0].lon);
-      adminMapInstance.setView([lat,lng],16);
-      adminPickedLatLng={lat,lng};
-      if(adminPickedMarker)adminMapInstance.removeLayer(adminPickedMarker);
-      adminPickedMarker=L.marker([lat,lng]).addTo(adminMapInstance);
-      showPinInfo(lat,lng,data[0].display_name);
-    }).catch(()=>showMsg('bannerMsg','⚠️ Search failed.','error'));
+  const q=document.getElementById('locationSearchInput')?.value?.trim();if(!q||!adminMapInstance)return;
+  fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&limit=1`).then(r=>r.json()).then(data=>{
+    if(!data.length){showMsg('bannerMsg','⚠️ Location not found.','error');return}
+    const lat=parseFloat(data[0].lat),lng=parseFloat(data[0].lon);
+    adminMapInstance.setView([lat,lng],16);adminPickedLatLng={lat,lng};
+    if(adminPickedMarker)adminMapInstance.removeLayer(adminPickedMarker);
+    adminPickedMarker=L.marker([lat,lng]).addTo(adminMapInstance);showPinInfo(lat,lng,data[0].display_name);
+  }).catch(()=>showMsg('bannerMsg','⚠️ Search failed.','error'));
 }
 function savePinnedLocation(){
   if(!adminPickedLatLng){showMsg('bannerMsg','⚠️ Click map to drop a pin first.','error');return}
   const label=document.getElementById('locationSearchInput')?.value?.trim()||bizSettings.location||'';
-  DB.set('ke_pinned_location',{lat:adminPickedLatLng.lat,lng:adminPickedLatLng.lng,label});
-  renderMapPlaceholder();
-  showMsg('bannerMsg','✅ Location pinned and live on site!','success');
-  logActivity('📍 Pinned store location');
+  DB.set('ke_pinned_location',{lat:adminPickedLatLng.lat,lng:adminPickedLatLng.lng,label});renderMapPlaceholder();
+  showMsg('bannerMsg','✅ Location pinned and live on site!','success');logActivity('📍 Pinned store location');
 }
 function clearPinnedLocation(){
   if(!confirm('Clear pinned location?'))return;
   DB.del('ke_pinned_location');
   if(adminPickedMarker&&adminMapInstance){adminMapInstance.removeLayer(adminPickedMarker);adminPickedMarker=null;}
   adminPickedLatLng=null;
-  const el=document.getElementById('pinnedLocationInfo');const btn=document.getElementById('savePinBtn');
+  const el=document.getElementById('pinnedLocationInfo'),btn=document.getElementById('savePinBtn');
   if(el)el.style.display='none';if(btn){btn.style.opacity='0.5';btn.style.pointerEvents='none';}
-  renderMapPlaceholder();
-  showMsg('bannerMsg','✅ Location pin cleared.','success');
+  renderMapPlaceholder();showMsg('bannerMsg','✅ Location pin cleared.','success');
 }
 
-// Mobile admin button visibility
-function updateMobileAdminBtn(){
-  const btn=document.getElementById('mobileAdminBtn');
-  if(btn)btn.style.display=window.innerWidth<=900?'block':'none';
-}
+// ═══════════════════ MOBILE ADMIN BTN ═══════════════════
+function updateMobileAdminBtn(){const btn=document.getElementById('mobileAdminBtn');if(btn)btn.style.display=window.innerWidth<=900?'block':'none';}
 updateMobileAdminBtn();window.addEventListener('resize',updateMobileAdminBtn);
 
-// ═══════════════════════ INIT ═══════════════════════
-applyBizName();
-updateAnnouncementBar();
-loadImagesFromIDB();
-setTimeout(renderMapPlaceholder,500);
+// ═══════════════════ INIT — runs after DOM ready ═══════════════════
+function initSite(){
+  applyBizName();
+  updateAnnouncementBar();
+  updateLiveServices();   // render services grid
+  updateLiveBarbers();    // render barbers grid — KEY FIX
+  loadImagesFromIDB();
+  setTimeout(renderMapPlaceholder,600);
+  // Restore member session
+  if(currentMemberSession){
+    const acct=memberAccounts.find(a=>a.id===currentMemberSession.accountId);
+    if(!acct){currentMemberSession=null;DB.del('ke_member_session');}
+  }
+}
+
+// Run init after DOM is fully parsed
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',initSite)}
+else{initSite()}
 </script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script>
-// Load Leaflet asynchronously so it never blocks page render
-(function(){
-  var s=document.createElement('script');
-  s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-  s.onload=function(){
-    // Re-run map init after Leaflet loads
-    try{renderMapPlaceholder();}catch(e){}
-  };
-  document.body.appendChild(s);
-})();
+(function(){var s=document.createElement('script');s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';s.onload=function(){try{renderMapPlaceholder()}catch(e){}};document.body.appendChild(s)})();
 </script>
 </body>
 </html>
